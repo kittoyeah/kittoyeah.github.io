@@ -1,0 +1,60 @@
+---
+import type { ContactLink, SiteConfig } from "../data/portfolio";
+
+interface Props {
+  siteConfig: SiteConfig;
+  contacts: ContactLink[];
+  resumeHref: string;
+}
+
+const { siteConfig, contacts, resumeHref } = Astro.props;
+---
+
+<section class="content-section section-shell" id="contact">
+  <div class="contact-card">
+    <div class="contact-card__copy">
+      <p class="eyebrow">Contact</p>
+      <h2>LinkedIn is the fastest way to reach me</h2>
+      <p>
+        If you are hiring for a software role, exploring product-minded
+        engineering talent, or want someone who can move from discovery into
+        delivery, I am open to that conversation.
+      </p>
+      <div class="button-row">
+        <a
+          class="button"
+          href={siteConfig.primaryCta.href}
+          rel="noreferrer"
+          target="_blank"
+        >
+          {siteConfig.primaryCta.label}
+        </a>
+        <a class="button button--secondary" href={resumeHref} download>
+          Download resume
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-list">
+      {
+        contacts
+          .sort((left, right) => left.priority - right.priority)
+          .map((contact) => (
+            <a
+              class="contact-link"
+              href={contact.href}
+              rel="noreferrer"
+              target={contact.label === "Email" ? undefined : "_blank"}
+            >
+              <span class="contact-link__label">{contact.label}</span>
+              <span class="contact-link__value">
+                {contact.label === "LinkedIn" && "LinkedIn profile"}
+                {contact.label === "GitHub" && "github.com/kittoyeah"}
+                {contact.label === "Email" && "chris.kittichod@gmail.com"}
+              </span>
+            </a>
+          ))
+      }
+    </div>
+  </div>
+</section>

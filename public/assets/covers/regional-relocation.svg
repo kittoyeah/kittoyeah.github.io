@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-label="Regional relocation platform cover art">
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F5B6E" />
+      <stop offset="100%" stop-color="#0A3E4A" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg)" rx="32" />
+  <circle cx="84" cy="86" r="68" fill="#FFFFFF" fill-opacity="0.08" />
+  <circle cx="690" cy="346" r="110" fill="#2E7D6B" fill-opacity="0.2" />
+  <text x="56" y="92" fill="#C8E6DF" font-family="'Public Sans', Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4">HACKATHON PROJECT</text>
+  <text x="56" y="184" fill="#FFFFFF" font-family="'Source Serif 4', Georgia, serif" font-size="58" font-weight="700">Regional Relocation</text>
+  <text x="56" y="236" fill="#D8E8EE" font-family="'Public Sans', Arial, sans-serif" font-size="28">
+    Research-led platform concept for migration to regional areas
+  </text>
+  <text x="56" y="280" fill="#D8E8EE" font-family="'Public Sans', Arial, sans-serif" font-size="24">
+    Journey mapping • Requirements framing • Top 50 finish
+  </text>
+  <rect x="492" y="90" width="228" height="220" rx="28" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.16" />
+  <text x="524" y="148" fill="#FFFFFF" font-family="'Public Sans', Arial, sans-serif" font-size="18" font-weight="700">OUTCOME</text>
+  <text x="524" y="220" fill="#FFFFFF" font-family="'Source Serif 4', Georgia, serif" font-size="58" font-weight="700">Top 50</text>
+  <text x="524" y="260" fill="#D8E8EE" font-family="'Public Sans', Arial, sans-serif" font-size="22">IBM watsonx.ai Hackathon</text>
+</svg>

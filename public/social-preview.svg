@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Chris Kittichod portfolio preview">
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#F4F8F7" />
+      <stop offset="60%" stop-color="#E7F1EF" />
+      <stop offset="100%" stop-color="#DDECE7" />
+    </linearGradient>
+    <linearGradient id="card" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F5B6E" />
+      <stop offset="100%" stop-color="#2E7D6B" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="1040" cy="120" r="170" fill="#0F5B6E" fill-opacity="0.08" />
+  <circle cx="170" cy="70" r="180" fill="#2E7D6B" fill-opacity="0.08" />
+  <rect x="80" y="92" width="1040" height="446" rx="36" fill="#FFFFFF" fill-opacity="0.92" stroke="#D4E2DE" />
+  <rect x="120" y="130" width="120" height="120" rx="28" fill="url(#card)" />
+  <text x="180" y="205" fill="#FFFFFF" font-family="'Source Serif 4', Georgia, serif" font-size="54" font-weight="700" text-anchor="middle">CK</text>
+  <text x="290" y="188" fill="#0F5B6E" font-family="'Public Sans', Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="6">SOFTWARE ENGINEER</text>
+  <text x="120" y="320" fill="#18343C" font-family="'Source Serif 4', Georgia, serif" font-size="70" font-weight="700">Chris Kittichod</text>
+  <text x="120" y="400" fill="#18343C" font-family="'Public Sans', Arial, sans-serif" font-size="34" font-weight="600">
+    Software engineer building practical products and
+  </text>
+  <text x="120" y="448" fill="#18343C" font-family="'Public Sans', Arial, sans-serif" font-size="34" font-weight="600">
+    agentic AI workflows that solve real problems.
+  </text>
+  <text x="120" y="516" fill="#5A6B70" font-family="'Public Sans', Arial, sans-serif" font-size="24">
+    Hobart, Tasmania • Product-minded build work • LinkedIn-first portfolio
+  </text>
+</svg>

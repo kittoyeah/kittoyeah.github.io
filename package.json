@@ -1,14 +1,30 @@
 {
-  "name": "users-chaiyeah-desktop-utas-project-personalproject-kittoyeah-github-io",
+  "name": "kittoyeah.github.io",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
+    "test": "playwright test",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.17.1"
+    "@fontsource/public-sans": "^5.2.7",
+    "@fontsource/source-serif-4": "^5.2.9",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^5.17.1",
+    "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.7",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.4.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.9.3"
   }
 }

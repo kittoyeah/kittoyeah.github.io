@@ -1,0 +1,30 @@
+---
+import type { FeaturedWork } from "../data/portfolio";
+import CaseStudyCard from "./CaseStudyCard.astro";
+
+interface Props {
+  works: FeaturedWork[];
+}
+
+const { works } = Astro.props;
+---
+
+<section class="content-section section-shell" id="work">
+  <div class="section-heading">
+    <p class="eyebrow">Selected work</p>
+    <h2>Three pieces of work that show how I think and ship</h2>
+    <p>
+      This mix is intentional: one product in operation, plus two projects that
+      show my ability to frame a problem, make decisions, and turn ambiguity
+      into something tangible.
+    </p>
+  </div>
+
+  <div class="case-study-grid">
+    {
+      works.map((work) => (
+        <CaseStudyCard work={work} />
+      ))
+    }
+  </div>
+</section>

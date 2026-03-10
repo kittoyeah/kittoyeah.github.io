@@ -1,0 +1,82 @@
+---
+import type { HeroSignal, SiteConfig } from "../data/portfolio";
+
+interface Props {
+  siteConfig: SiteConfig;
+  signals: HeroSignal[];
+}
+
+const { siteConfig, signals } = Astro.props;
+---
+
+<section class="hero section-shell" id="summary">
+  <div class="hero__copy">
+    <p class="eyebrow">Summary</p>
+    <h1>{siteConfig.name}</h1>
+    <p class="hero__role">{siteConfig.role}</p>
+    <p class="hero__tagline">{siteConfig.tagline}</p>
+    <p class="hero__summary">{siteConfig.summary}</p>
+
+    <div class="button-row">
+      <a
+        class="button"
+        href={siteConfig.primaryCta.href}
+        rel="noreferrer"
+        target="_blank"
+      >
+        {siteConfig.primaryCta.label}
+      </a>
+      <a class="button button--secondary" href={siteConfig.secondaryCta.href}>
+        {siteConfig.secondaryCta.label}
+      </a>
+    </div>
+
+    <ul class="hero-signals" aria-label="Quick profile signals">
+      {
+        signals.map((signal) => (
+          <li class="signal-card">
+            <span class="signal-card__label">{signal.label}</span>
+            <strong>{signal.value}</strong>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <aside class="identity-card">
+    <div class="identity-card__top">
+      <div class="identity-card__monogram" aria-hidden="true">
+        CK
+      </div>
+      <div>
+        <p class="eyebrow eyebrow--compact">Current direction</p>
+        <h2>From product framing to software delivery</h2>
+      </div>
+    </div>
+
+    <dl class="identity-list">
+      <div>
+        <dt>Base</dt>
+        <dd>Hobart, Tasmania</dd>
+      </div>
+      <div>
+        <dt>Background</dt>
+        <dd>Business analysis, product ownership, service design</dd>
+      </div>
+      <div>
+        <dt>Build focus</dt>
+        <dd>Practical web products, operational tooling, AI-enabled workflows</dd>
+      </div>
+      <div>
+        <dt>Open to</dt>
+        <dd>Internship, graduate, and early-career software roles</dd>
+      </div>
+    </dl>
+
+    <p class="identity-card__note">
+      I work best on problems that need both structure and execution: unclear
+      operations, competing requirements, and the discipline to turn ideas into
+      something people can actually use.
+    </p>
+  </aside>
+</section>

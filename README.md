@@ -1,46 +1,41 @@
-# Astro Starter Kit: Basics
+# kittoyeah.github.io
 
-```sh
-npm create astro@latest -- --template basics
+One-page Astro portfolio site for Chris Kittichod.
+
+## Stack
+
+- Astro
+- TypeScript
+- Tailwind CSS v4
+- Playwright
+
+## Commands
+
+```bash
+npm install
+npm run dev
+npm run check
+npm run lint
+npm run test
+npm run build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Content and asset updates
 
-## 🚀 Project Structure
+Update the following before treating the site as final:
 
-Inside of your Astro project, you'll see the following folders and files:
+- `src/data/portfolio.ts`
+  - Replace the LinkedIn URL with the exact public profile URL if needed.
+  - Swap any summary, role, or evidence copy.
+- `public/assets/docs/`
+  - Replace Markdown notes with final PDFs, slides, images, or downloadable files.
+- `public/assets/covers/`
+  - Replace placeholder SVG cover art with real screenshots or thumbnails when available.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+## Deployment
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+The repo is configured for GitHub Pages as a root site:
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- repo name: `kittoyeah.github.io`
+- site URL: `https://kittoyeah.github.io`
+- workflow: `.github/workflows/deploy.yml`

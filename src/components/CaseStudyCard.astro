@@ -1,0 +1,85 @@
+---
+import type { FeaturedWork } from "../data/portfolio";
+
+interface Props {
+  work: FeaturedWork;
+}
+
+const { work } = Astro.props;
+---
+
+<article class="case-study">
+  <div class="case-study__cover">
+    <img src={work.coverImage} alt={`${work.title} cover art`} loading="lazy" />
+  </div>
+
+  <div class="case-study__body">
+    <div class="case-study__meta">
+      <span class="badge">{work.kind}</span>
+      {work.period && <span class="meta-copy">{work.period}</span>}
+    </div>
+
+    <h3>{work.title}</h3>
+    <p class="case-study__role">{work.role}</p>
+    <p>{work.summary}</p>
+
+    <div class="chip-row" aria-label={`${work.title} tools`}>
+      {
+        work.tools.map((tool) => (
+          <span class="chip">{tool}</span>
+        ))
+      }
+    </div>
+
+    <details class="case-study__details">
+      <summary class="case-study__toggle">
+        <span>Read case study</span>
+        <span class="toggle-mark" aria-hidden="true">
+          +
+        </span>
+      </summary>
+
+      <div class="case-study__expanded">
+        <div class="case-study__section">
+          <p class="case-study__label">Problem</p>
+          <p>{work.problem}</p>
+        </div>
+
+        <div class="case-study__section">
+          <p class="case-study__label">What I did</p>
+          <ul>
+            {
+              work.actions.map((action) => (
+                <li>{action}</li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="case-study__section">
+          <p class="case-study__label">Result and evidence</p>
+          <p class="case-study__result">{work.result}</p>
+          <ul>
+            {
+              work.evidence.map((item) => (
+                <li>{item}</li>
+              ))
+            }
+          </ul>
+        </div>
+
+        {
+          work.links && work.links.length > 0 && (
+            <div class="inline-link-row">
+              {work.links.map((link) => (
+                <a href={link.href} rel="noreferrer" target="_blank">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </details>
+  </div>
+</article>

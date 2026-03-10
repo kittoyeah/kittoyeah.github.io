@@ -1,0 +1,43 @@
+---
+import type { SkillGroup } from "../data/portfolio";
+
+interface Props {
+  groups: SkillGroup[];
+}
+
+const { groups } = Astro.props;
+---
+
+<section class="content-section section-shell" id="skills">
+  <div class="section-heading">
+    <p class="eyebrow">Skills and tools</p>
+    <h2>Practical capability first, tools second</h2>
+    <p>
+      I do not treat tools as identity. What matters is whether the work
+      produces a useful outcome, handles constraints, and can keep improving
+      after the first version ships.
+    </p>
+  </div>
+
+  <div class="skills-grid">
+    {
+      groups.map((group) => (
+        <article class="surface-card skill-card">
+          <h3>{group.title}</h3>
+          <p>{group.summary}</p>
+          <div class="chip-row">
+            {group.items.map((item) => <span class="chip">{item}</span>)}
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="workflow-strip">
+    <span>Discover</span>
+    <span>Scope</span>
+    <span>Build</span>
+    <span>Test</span>
+    <span>Iterate</span>
+  </div>
+</section>

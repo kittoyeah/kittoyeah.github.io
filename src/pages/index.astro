@@ -1,11 +1,41 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import ContactSection from "../components/ContactSection.astro";
+import EvidenceGallery from "../components/EvidenceGallery.astro";
+import FeaturedWorkSection from "../components/FeaturedWorkSection.astro";
+import Header from "../components/Header.astro";
+import HeroSummary from "../components/HeroSummary.astro";
+import SectionNav from "../components/SectionNav.astro";
+import SkillsSection from "../components/SkillsSection.astro";
+import {
+  contactLinks,
+  evidenceAssets,
+  featuredWork,
+  heroSignals,
+  sectionLinks,
+  siteConfig,
+  skillGroups,
+} from "../data/portfolio";
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout
+  title="Chris Kittichod | Software Engineer"
+  description="Software engineer building practical products and agentic AI workflows that solve real problems."
+>
+  <div class="page-shell" id="top">
+    <Header siteConfig={siteConfig} sections={sectionLinks} />
+
+    <main>
+      <HeroSummary siteConfig={siteConfig} signals={heroSignals} />
+      <SectionNav sections={sectionLinks} />
+      <FeaturedWorkSection works={featuredWork} />
+      <SkillsSection groups={skillGroups} />
+      <EvidenceGallery assets={evidenceAssets} />
+      <ContactSection
+        contacts={contactLinks}
+        resumeHref="/assets/docs/chris-kittichod-resume.md"
+        siteConfig={siteConfig}
+      />
+    </main>
+  </div>
+</BaseLayout>
