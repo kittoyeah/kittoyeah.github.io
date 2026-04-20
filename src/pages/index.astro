@@ -26,7 +26,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <Header siteConfig={siteConfig} sections={sectionLinks} />
 
     <main>
-      <HeroSummary siteConfig={siteConfig} signals={heroSignals} />
+      <HeroSummary
+        siteConfig={siteConfig}
+        signals={heroSignals}
+        works={featuredWork}
+      />
       <SectionNav sections={sectionLinks} />
       <FeaturedWorkSection works={featuredWork} />
       <SkillsSection groups={skillGroups} />

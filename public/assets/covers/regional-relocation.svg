@@ -1,23 +1,100 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-label="Regional relocation platform cover art">
-  <defs>
-    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
-      <stop offset="0%" stop-color="#0F5B6E" />
-      <stop offset="100%" stop-color="#0A3E4A" />
-    </linearGradient>
-  </defs>
-  <rect width="800" height="420" fill="url(#bg)" rx="32" />
-  <circle cx="84" cy="86" r="68" fill="#FFFFFF" fill-opacity="0.08" />
-  <circle cx="690" cy="346" r="110" fill="#2E7D6B" fill-opacity="0.2" />
-  <text x="56" y="92" fill="#C8E6DF" font-family="'Public Sans', Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4">HACKATHON PROJECT</text>
-  <text x="56" y="184" fill="#FFFFFF" font-family="'Source Serif 4', Georgia, serif" font-size="58" font-weight="700">Regional Relocation</text>
-  <text x="56" y="236" fill="#D8E8EE" font-family="'Public Sans', Arial, sans-serif" font-size="28">
-    Research-led platform concept for migration to regional areas
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 800 420"
+  role="img"
+  aria-label="Regional relocation platform cover art"
+>
+  <rect width="800" height="420" fill="#F6F8F6" />
+  <rect x="632" y="0" width="168" height="420" fill="#17627C" />
+  <text
+    x="56"
+    y="88"
+    fill="#28583B"
+    font-family="'Public Sans', Arial, sans-serif"
+    font-size="18"
+    font-weight="700"
+    letter-spacing="5"
+  >
+    HACKATHON PROJECT
   </text>
-  <text x="56" y="280" fill="#D8E8EE" font-family="'Public Sans', Arial, sans-serif" font-size="24">
-    Journey mapping • Requirements framing • Top 50 finish
+  <text
+    x="56"
+    y="172"
+    fill="#16261D"
+    font-family="'Source Serif 4', Georgia, serif"
+    font-size="58"
+    font-weight="700"
+  >
+    Regional Relocation
   </text>
-  <rect x="492" y="90" width="228" height="220" rx="28" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.16" />
-  <text x="524" y="148" fill="#FFFFFF" font-family="'Public Sans', Arial, sans-serif" font-size="18" font-weight="700">OUTCOME</text>
-  <text x="524" y="220" fill="#FFFFFF" font-family="'Source Serif 4', Georgia, serif" font-size="58" font-weight="700">Top 50</text>
-  <text x="524" y="260" fill="#D8E8EE" font-family="'Public Sans', Arial, sans-serif" font-size="22">IBM watsonx.ai Hackathon</text>
+  <text
+    x="58"
+    y="224"
+    fill="#54625B"
+    font-family="'Public Sans', Arial, sans-serif"
+    font-size="26"
+  >
+    Research-led platform concept for regional moves
+  </text>
+  <text
+    x="58"
+    y="268"
+    fill="#54625B"
+    font-family="'Public Sans', Arial, sans-serif"
+    font-size="23"
+  >
+    Journey mapping / requirements framing / Top 50 finish
+  </text>
+  <g fill="none" stroke="#C9D7CF" stroke-width="2">
+    <path
+      d="M76 346 C128 310 184 312 228 348 C274 386 340 384 388 350 C438 314 498 316 548 352"
+    />
+    <path
+      d="M76 384 C132 354 178 356 220 386 C270 420 344 420 394 384 C444 350 502 352 548 386"
+    />
+  </g>
+  <g fill="#28583B">
+    <circle cx="146" cy="326" r="8" />
+    <circle cx="388" cy="350" r="8" />
+    <circle cx="520" cy="344" r="8" />
+  </g>
+  <rect
+    x="498"
+    y="82"
+    width="238"
+    height="230"
+    rx="8"
+    fill="#FFFFFF"
+    stroke="#C9D7CF"
+  />
+  <text
+    x="530"
+    y="144"
+    fill="#28583B"
+    font-family="'Public Sans', Arial, sans-serif"
+    font-size="17"
+    font-weight="700"
+  >
+    OUTCOME
+  </text>
+  <text
+    x="530"
+    y="222"
+    fill="#16261D"
+    font-family="'Source Serif 4', Georgia, serif"
+    font-size="62"
+    font-weight="700"
+  >
+    Top 50
+  </text>
+  <text
+    x="530"
+    y="264"
+    fill="#54625B"
+    font-family="'Public Sans', Arial, sans-serif"
+    font-size="22"
+  >
+    IBM watsonx.ai Hackathon
+  </text>
+  <rect x="530" y="286" width="94" height="8" fill="#B88718" />
 </svg>
