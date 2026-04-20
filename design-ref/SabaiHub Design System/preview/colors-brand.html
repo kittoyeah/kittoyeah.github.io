@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body { margin: 0; padding: 16px; background: hsl(var(--background)); font-family: var(--font-sans); }
+.row { display: flex; gap: 8px; margin-bottom: 8px; }
+.swatch { flex: 1; border-radius: 8px; padding: 14px 12px; display: flex; flex-direction: column; justify-content: space-between; min-height: 80px; }
+.swatch-label { font-size: 11px; font-weight: 600; opacity: 0.8; letter-spacing: 0.03em; }
+.swatch-val { font-size: 10px; opacity: 0.65; margin-top: 4px; font-family: var(--font-mono); }
+.swatch-desc { font-size: 10px; opacity: 0.7; margin-top: 2px; }
+</style>
+</head><body>
+<div class="row">
+  <div class="swatch" style="background:hsl(140,35%,35%);color:#fff;">
+    <div class="swatch-label">Primary</div>
+    <div><div class="swatch-val">hsl(140 35% 35%)</div><div class="swatch-desc">Brand green · CTAs · Active nav</div></div>
+  </div>
+  <div class="swatch" style="background:hsl(40,15%,95%);color:hsl(140,35%,35%);border:1px solid hsl(100,10%,82%);">
+    <div class="swatch-label">Primary Foreground</div>
+    <div><div class="swatch-val">hsl(40 15% 95%)</div><div class="swatch-desc">Text on primary bg</div></div>
+  </div>
+</div>
+<div class="row">
+  <div class="swatch" style="background:hsl(140,35%,28%);color:#fff;">
+    <div class="swatch-label">Primary Dark</div>
+    <div><div class="swatch-val">hsl(140 35% 28%)</div><div class="swatch-desc">Hover / pressed state</div></div>
+  </div>
+  <div class="swatch" style="background:hsl(140,35%,45%);color:#fff;">
+    <div class="swatch-label">Primary Dark Mode</div>
+    <div><div class="swatch-val">hsl(140 35% 45%)</div><div class="swatch-desc">Primary on dark backgrounds</div></div>
+  </div>
+</div>
+<div class="row">
+  <div class="swatch" style="background:hsl(100,15%,86%);color:hsl(140,35%,25%);">
+    <div class="swatch-label">Secondary</div>
+    <div><div class="swatch-val">hsl(100 15% 86%)</div><div class="swatch-desc">Soft sage · secondary buttons · chips</div></div>
+  </div>
+  <div class="swatch" style="background:hsl(140,35%,25%);color:#fff;">
+    <div class="swatch-label">Secondary Foreground</div>
+    <div><div class="swatch-val">hsl(140 35% 25%)</div><div class="swatch-desc">Text on secondary bg</div></div>
+  </div>
+</div>
+</body></html>

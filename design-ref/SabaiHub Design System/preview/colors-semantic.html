@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body { margin: 0; padding: 16px; background: hsl(var(--background)); font-family: var(--font-sans); }
+.group { margin-bottom: 10px; }
+.row { display: flex; gap: 6px; }
+.swatch { flex: 1; border-radius: 8px; padding: 10px 10px 8px; min-height: 58px; display: flex; flex-direction: column; justify-content: space-between; }
+.swatch-label { font-size: 10px; font-weight: 600; }
+.swatch-val { font-size: 9px; opacity: 0.6; font-family: var(--font-mono); margin-top: 4px; }
+</style>
+</head><body>
+<div class="group">
+  <div class="row">
+    <div class="swatch" style="background:hsl(148,45%,34%);color:#fff;">
+      <span class="swatch-label">Success</span><span class="swatch-val">hsl(148 45% 34%)</span>
+    </div>
+    <div class="swatch" style="background:hsl(148,40%,92%);color:hsl(152,55%,20%);border:1px solid hsl(148,25%,80%);">
+      <span class="swatch-label">Success Subtle</span><span class="swatch-val">hsl(148 40% 92%)</span>
+    </div>
+  </div>
+</div>
+<div class="group">
+  <div class="row">
+    <div class="swatch" style="background:hsl(34,90%,50%);color:#fff;">
+      <span class="swatch-label">Warning</span><span class="swatch-val">hsl(34 90% 50%)</span>
+    </div>
+    <div class="swatch" style="background:hsl(38,95%,92%);color:hsl(28,85%,24%);border:1px solid hsl(36,55%,82%);">
+      <span class="swatch-label">Warning Subtle</span><span class="swatch-val">hsl(38 95% 92%)</span>
+    </div>
+  </div>
+</div>
+<div class="group">
+  <div class="row">
+    <div class="swatch" style="background:hsl(198,70%,38%);color:#fff;">
+      <span class="swatch-label">Info</span><span class="swatch-val">hsl(198 70% 38%)</span>
+    </div>
+    <div class="swatch" style="background:hsl(198,65%,93%);color:hsl(205,60%,22%);border:1px solid hsl(198,40%,82%);">
+      <span class="swatch-label">Info Subtle</span><span class="swatch-val">hsl(198 65% 93%)</span>
+    </div>
+  </div>
+</div>
+<div class="group">
+  <div class="row">
+    <div class="swatch" style="background:hsl(0,60%,50%);color:#fff;">
+      <span class="swatch-label">Destructive</span><span class="swatch-val">hsl(0 60% 50%)</span>
+    </div>
+    <div class="swatch" style="background:hsl(0,75%,94%);color:hsl(0,60%,25%);border:1px solid hsl(0,40%,83%);">
+      <span class="swatch-label">Destructive Subtle</span><span class="swatch-val">hsl(0 75% 94%)</span>
+    </div>
+  </div>
+</div>
+<div class="group">
+  <div class="row">
+    <div class="swatch" style="background:hsl(78,85%,45%);color:hsl(140,30%,8%);">
+      <span class="swatch-label">Spark ✦</span><span class="swatch-val">hsl(78 85% 45%)</span>
+    </div>
+    <div class="swatch" style="background:hsl(78,60%,92%);color:hsl(78,50%,22%);border:1px solid hsl(78,40%,80%);">
+      <span class="swatch-label">Spark Subtle</span><span class="swatch-val">hsl(78 60% 92%)</span>
+    </div>
+  </div>
+</div>
+</body></html>

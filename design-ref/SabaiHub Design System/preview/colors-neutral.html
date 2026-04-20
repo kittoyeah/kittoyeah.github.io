@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body { margin: 0; padding: 16px; background: hsl(var(--background)); font-family: var(--font-sans); }
+.grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.swatch { border-radius: 8px; padding: 10px 10px 8px; min-height: 64px; display: flex; flex-direction: column; justify-content: space-between; }
+.swatch-label { font-size: 10px; font-weight: 600; letter-spacing: 0.03em; }
+.swatch-val { font-size: 9px; opacity: 0.6; font-family: var(--font-mono); margin-top: 4px; }
+</style>
+</head><body>
+<div class="grid">
+  <div class="swatch" style="background:hsl(60,5%,95%);color:hsl(140,30%,15%);border:1px solid hsl(100,10%,82%);">
+    <span class="swatch-label">Background</span>
+    <span class="swatch-val">hsl(60 5% 95%)</span>
+  </div>
+  <div class="swatch" style="background:hsl(140,30%,15%);color:#fff;">
+    <span class="swatch-label">Foreground</span>
+    <span class="swatch-val">hsl(140 30% 15%)</span>
+  </div>
+  <div class="swatch" style="background:hsl(40,15%,95%);color:hsl(140,30%,15%);border:1px solid hsl(100,10%,82%);">
+    <span class="swatch-label">Card</span>
+    <span class="swatch-val">hsl(40 15% 95%)</span>
+  </div>
+  <div class="swatch" style="background:hsl(100,10%,88%);color:hsl(140,30%,15%);">
+    <span class="swatch-label">Muted</span>
+    <span class="swatch-val">hsl(100 10% 88%)</span>
+  </div>
+  <div class="swatch" style="background:hsl(140,10%,40%);color:#fff;">
+    <span class="swatch-label">Muted FG</span>
+    <span class="swatch-val">hsl(140 10% 40%)</span>
+  </div>
+  <div class="swatch" style="background:hsl(35,35%,80%);color:hsl(140,35%,25%);">
+    <span class="swatch-label">Accent</span>
+    <span class="swatch-val">hsl(35 35% 80%)</span>
+  </div>
+  <div class="swatch" style="background:hsl(100,10%,82%);color:hsl(140,30%,15%);">
+    <span class="swatch-label">Border</span>
+    <span class="swatch-val">hsl(100 10% 82%)</span>
+  </div>
+  <div class="swatch" style="background:hsl(100,10%,94%);color:hsl(140,10%,40%);">
+    <span class="swatch-label">Neutral Subtle</span>
+    <span class="swatch-val">hsl(100 10% 94%)</span>
+  </div>
+  <div class="swatch" style="background:hsl(140,30%,5%);color:#fff;">
+    <span class="swatch-label">Dark BG</span>
+    <span class="swatch-val">hsl(140 30% 5%)</span>
+  </div>
+</div>
+</body></html>

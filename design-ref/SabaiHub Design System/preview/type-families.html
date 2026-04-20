@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body { margin: 0; padding: 16px; background: hsl(var(--background)); }
+.block { margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid hsl(var(--border)); }
+.block:last-child { border-bottom: none; }
+.meta { font-size: 10px; color: hsl(var(--muted-foreground)); font-family: var(--font-mono); margin-bottom: 4px; }
+.sample-sans { font-family: 'Noto Sans', sans-serif; font-size: 22px; font-weight: 600; color: hsl(var(--foreground)); line-height: 1.2; }
+.sample-serif { font-family: 'Noto Serif', serif; font-size: 22px; font-weight: 600; color: hsl(var(--foreground)); line-height: 1.2; }
+.sample-mono { font-family: 'Noto Sans Mono', monospace; font-size: 16px; font-weight: 400; color: hsl(var(--foreground)); line-height: 1.4; }
+.tagline { font-size: 12px; color: hsl(var(--muted-foreground)); margin-top: 2px; font-family: 'Noto Sans', sans-serif; }
+</style>
+</head><body>
+<div class="block">
+  <div class="meta">Noto Sans — Primary · Body, UI, Headings · Multi-language</div>
+  <div class="sample-sans">Aa — Appointment & Client Hub</div>
+  <div class="tagline">Used for all UI text, labels, buttons, navigation</div>
+</div>
+<div class="block">
+  <div class="meta">Noto Serif — Decorative · Marketing, brand moments</div>
+  <div class="sample-serif">Aa — สบาย Relax & Restore</div>
+  <div class="tagline">Used for marketing pages, brand emphasis, display headers</div>
+</div>
+<div class="block">
+  <div class="meta">Noto Sans Mono — Technical · IDs, codes, data</div>
+  <div class="sample-mono">APPT-2024-001 · #5b7359 · 13:30</div>
+  <div class="tagline">Used for appointment IDs, color values, timestamps</div>
+</div>
+</body></html>

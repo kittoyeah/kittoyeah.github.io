@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body { margin: 0; padding: 16px; background: hsl(60,5%,90%); font-family: var(--font-sans); }
+.title { font-size: 10px; font-weight: 600; color: hsl(var(--muted-foreground)); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; }
+.card {
+  background: hsl(40,15%,97%);
+  border-radius: 8px;
+  padding: 16px 20px;
+  min-width: 120px;
+  font-size: 12px;
+  color: hsl(140,30%,15%);
+  font-weight: 500;
+}
+.lbl { font-size: 9px; font-family: var(--font-mono); color: hsl(var(--muted-foreground)); margin-top: 6px; }
+</style>
+</head><body>
+<div class="title">Shadow System</div>
+<div class="row">
+  <div>
+    <div class="card" style="box-shadow: 0px 1px 3px 0px hsla(0,0%,0%,0.09);">shadow-xs</div>
+    <div class="lbl">xs · subtle lift</div>
+  </div>
+  <div>
+    <div class="card" style="box-shadow: 0px 1px 3px 0px hsla(0,0%,0%,0.17),0px 1px 2px -1px hsla(0,0%,0%,0.17);">shadow-sm</div>
+    <div class="lbl">sm · card default</div>
+  </div>
+  <div>
+    <div class="card" style="box-shadow: 0px 1px 3px 0px hsla(0,0%,0%,0.17),0px 2px 4px -1px hsla(0,0%,0%,0.17);">shadow-md</div>
+    <div class="lbl">md · elevated card</div>
+  </div>
+  <div>
+    <div class="card" style="box-shadow: 0px 1px 3px 0px hsla(0,0%,0%,0.17),0px 4px 6px -1px hsla(0,0%,0%,0.17);">shadow-lg</div>
+    <div class="lbl">lg · floating</div>
+  </div>
+  <div>
+    <div class="card" style="box-shadow: 0px 1px 3px 0px hsla(0,0%,0%,0.17),0px 8px 10px -1px hsla(0,0%,0%,0.17);">shadow-xl</div>
+    <div class="lbl">xl · modal</div>
+  </div>
+  <div>
+    <div class="card" style="box-shadow: 0px 1px 3px 0px hsla(0,0%,0%,0.43);">shadow-2xl</div>
+    <div class="lbl">2xl · dialog/drawer</div>
+  </div>
+</div>
+</body></html>

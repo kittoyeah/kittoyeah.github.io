@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body {
+    margin: 0; padding: 20px 22px 40px;
+    background: hsl(40,12%,91%);
+    font-family: var(--font-sans);
+    color: hsl(140,30%,12%);
+  }
+
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: hsl(140,8%,48%);
+    margin: 26px 0 6px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content:''; flex:1; height:1px; background:hsl(40,10%,84%); }
+  .section-label:first-child { margin-top: 0; }
+  .note { font-size: 11px; color: hsl(140,8%,50%); margin-bottom: 10px; font-style: italic; }
+
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+
+  /* ─── Base card ─── */
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid hsl(40,10%,89%);
+    box-shadow: 0 1px 3px hsla(0,0%,0%,0.06), 0 1px 2px -1px hsla(0,0%,0%,0.06);
+    overflow: hidden;
+    transition: box-shadow 0.15s;
+  }
+  .card-p { padding: 16px 18px; }
+
+  /* ─── Link / nav card ─── */
+  .card-link { cursor: pointer; }
+  .card-link:hover {
+    background: hsl(40,20%,97%);
+    box-shadow: 0 6px 18px -2px hsla(0,0%,0%,0.12);
+  }
+  .card-link:hover .link-arrow { transform: translateX(3px); color: hsl(140,35%,32%); }
+  .link-arrow { transition: transform 0.15s, color 0.15s; color: hsl(140,10%,60%); }
+
+  /* ─── Client card hover: left accent bar ─── */
+  .card-client {
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .card-client:hover {
+    border-left-color: hsl(140,35%,38%);
+    box-shadow: 0 6px 18px -2px hsla(0,0%,0%,0.11);
+  }
+
+  /* ─── Skeleton ─── */
+  @keyframes shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position:  600px 0; }
+  }
+  .skel {
+    border-radius: 4px;
+    background: linear-gradient(
+      90deg,
+      hsl(40,10%,92%) 25%,
+      hsl(40,8%,87%)  50%,
+      hsl(40,10%,92%) 75%
+    );
+    background-size: 1200px 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  /* ─── Badges ─── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    border-radius: 9999px; padding: 2px 9px;
+    font-size: 11px; font-weight: 600; border: 1px solid transparent;
+  }
+  .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ─── Avatar ─── */
+  .avatar {
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* ─── Icon badge ─── */
+  .icon-badge {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+
+  /* ─── Alert card pulse ─── */
+  @keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0   hsla(0,80%,50%,0.25); }
+    70%  { box-shadow: 0 0 0 6px hsla(0,80%,50%,0); }
+    100% { box-shadow: 0 0 0 0   hsla(0,80%,50%,0); }
+  }
+  .alert-card {
+    border: 1.5px solid hsl(0,60%,80%);
+    animation: pulse-ring 2.8s ease-out infinite;
+  }
+
+  /* ─── Filter chip ─── */
+  .chip {
+    border: 1px solid hsl(40,10%,85%); border-radius: 6px;
+    padding: 5px 11px; font-size: 12px; color: hsl(140,8%,42%);
+    background: hsl(40,10%,97%); display: inline-flex; align-items: center; gap: 5px;
+    cursor: pointer; font-family: inherit; transition: background 0.1s;
+  }
+  .chip.active { background: hsl(140,35%,32%); color: #fff; border-color: transparent; font-weight: 600; }
+  .chip:hover:not(.active) { background: hsl(40,10%,93%); }
+
+  /* ─── Stat card delta ─── */
+  .delta { font-size: 11.5px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+
+  /* ─── Stats row inside client/appt card ─── */
+  .stats-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    background: hsl(40,10%,95%); border-radius: 8px;
+    overflow: hidden; border: 1px solid hsl(40,10%,90%);
+    margin-bottom: 12px;
+  }
+  .stats-cell { padding: 9px 12px; }
+  .stats-cell + .stats-cell { border-left: 1px solid hsl(40,10%,90%); }
+  .stats-val { font-size: 17px; font-weight: 800; color: hsl(140,30%,12%); }
+  .stats-lbl { font-size: 10px; color: hsl(140,8%,50%); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- ① STAT / KPI — fix: remove orphaned top-right label, cleaner icon integration -->
+<div class="section-label">① Stat / KPI — 4-col dashboard grid</div>
+<div class="note">Fixed: Top-right context label removed — bottom label carries the context clearly. Icon badge anchored bottom-right of value.</div>
+<div class="grid-4">
+
+  <div class="card">
+    <div style="height:3px;background:hsl(140,35%,38%);"></div>
+    <div class="card-p">
+      <div style="margin-bottom:4px;">
+        <div class="icon-badge" style="background:hsl(140,35%,93%);margin-bottom:12px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(140,35%,30%)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div style="font-size:32px;font-weight:800;letter-spacing:-0.04em;color:hsl(140,30%,10%);line-height:1;margin-bottom:5px;">12</div>
+        <div style="font-size:12px;color:hsl(140,8%,46%);font-weight:500;margin-bottom:10px;">Appointments today</div>
+      </div>
+      <div class="delta" style="color:hsl(140,45%,30%);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+        +3 from yesterday
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="height:3px;background:hsl(35,85%,52%);"></div>
+    <div class="card-p">
+      <div class="icon-badge" style="background:hsl(35,90%,93%);margin-bottom:12px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(30,80%,38%)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div style="font-size:32px;font-weight:800;letter-spacing:-0.04em;color:hsl(140,30%,10%);line-height:1;margin-bottom:5px;">฿48.2k</div>
+      <div style="font-size:12px;color:hsl(140,8%,46%);font-weight:500;margin-bottom:10px;">Revenue this month</div>
+      <div class="delta" style="color:hsl(30,75%,35%);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+        +8% from last month
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="height:3px;background:hsl(78,70%,42%);"></div>
+    <div class="card-p">
+      <div class="icon-badge" style="background:hsl(78,70%,93%);margin-bottom:12px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(78,55%,28%)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div style="font-size:32px;font-weight:800;letter-spacing:-0.04em;color:hsl(140,30%,10%);line-height:1;margin-bottom:5px;">284</div>
+      <div style="font-size:12px;color:hsl(140,8%,46%);font-weight:500;margin-bottom:10px;">Active clients</div>
+      <div class="delta" style="color:hsl(78,50%,28%);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+        +12 this week
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="height:3px;background:hsl(0,60%,50%);"></div>
+    <div class="card-p">
+      <div class="icon-badge" style="background:hsl(0,75%,95%);margin-bottom:12px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(0,60%,45%)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div style="font-size:32px;font-weight:800;letter-spacing:-0.04em;color:hsl(140,30%,10%);line-height:1;margin-bottom:5px;">฿3,600</div>
+      <div style="font-size:12px;color:hsl(140,8%,46%);font-weight:500;margin-bottom:10px;">Pending payments</div>
+      <div class="delta" style="color:hsl(0,55%,42%);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        4 invoices outstanding
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② FINANCIAL SUMMARY -->
+<div class="section-label">② Financial Summary — Payouts 3-col grid</div>
+<div class="grid-3">
+  <div class="card">
+    <div class="card-p">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <div class="icon-badge" style="background:hsl(38,95%,92%);width:28px;height:28px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="hsl(28,85%,28%)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <span style="font-size:11.5px;font-weight:600;color:hsl(140,8%,44%);">Unpaid total</span>
+      </div>
+      <div style="font-size:28px;font-weight:800;color:hsl(34,90%,44%);letter-spacing:-0.03em;margin-bottom:4px;">$1,240.00</div>
+      <div style="font-size:11.5px;color:hsl(34,60%,50%);">4 therapists awaiting payment</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-p">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <div class="icon-badge" style="background:hsl(148,40%,92%);width:28px;height:28px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="hsl(148,50%,28%)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <span style="font-size:11.5px;font-weight:600;color:hsl(140,8%,44%);">Paid total</span>
+      </div>
+      <div style="font-size:28px;font-weight:800;color:hsl(148,45%,30%);letter-spacing:-0.03em;margin-bottom:4px;">$8,760.00</div>
+      <div style="font-size:11.5px;color:hsl(148,35%,42%);">↑ +12% vs last period</div>
+    </div>
+  </div>
+  <div class="card" style="background:hsl(140,35%,32%);">
+    <div class="card-p">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <div class="icon-badge" style="background:hsla(40,20%,100%,0.12);width:28px;height:28px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="hsla(40,20%,100%,0.85)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <span style="font-size:11.5px;font-weight:600;color:hsla(40,20%,100%,0.55);">Grand total</span>
+      </div>
+      <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.03em;margin-bottom:4px;">$10,000.00</div>
+      <div style="font-size:11.5px;color:hsla(40,20%,100%,0.50);">Apr 1 – Apr 19, 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ PROFILE / DETAIL -->
+<div class="section-label">③ Profile / Detail — Key-value grid</div>
+<div class="card">
+  <div class="card-p" style="display:flex;align-items:center;gap:14px;border-bottom:1px solid hsl(40,10%,92%);">
+    <div class="avatar" style="width:44px;height:44px;font-size:16px;background:hsla(35,85%,52%,0.15);color:hsl(30,70%,32%);">KY</div>
+    <div>
+      <div style="font-size:15px;font-weight:700;color:hsl(140,30%,12%);margin-bottom:1px;">Kitty Yeah</div>
+      <div style="font-size:12px;color:hsl(140,8%,44%);">owner@sabaihub.com · Shop Owner</div>
+    </div>
+    <div style="margin-left:auto;">
+      <span class="badge" style="background:hsl(140,35%,93%);color:hsl(140,35%,28%);border-color:hsl(140,25%,82%);">Active</span>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;">
+    <div style="padding:12px 18px;border-right:1px solid hsl(40,10%,93%);border-bottom:1px solid hsl(40,10%,93%);">
+      <div style="font-size:10.5px;font-weight:600;color:hsl(140,8%,50%);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;">Name</div>
+      <div style="font-size:13.5px;font-weight:600;color:hsl(140,30%,12%);">Kitty Yeah</div>
+    </div>
+    <div style="padding:12px 18px;border-bottom:1px solid hsl(40,10%,93%);">
+      <div style="font-size:10.5px;font-weight:600;color:hsl(140,8%,50%);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;">Email</div>
+      <div style="font-size:13.5px;font-weight:600;color:hsl(140,30%,12%);">owner@sabaihub.com</div>
+    </div>
+    <div style="padding:12px 18px;border-right:1px solid hsl(40,10%,93%);">
+      <div style="font-size:10.5px;font-weight:600;color:hsl(140,8%,50%);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;">Role</div>
+      <div style="font-size:13.5px;font-weight:600;color:hsl(140,30%,12%);">Shop Owner</div>
+    </div>
+    <div style="padding:12px 18px;">
+      <div style="font-size:10.5px;font-weight:600;color:hsl(140,8%,50%);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;">Last login</div>
+      <div style="font-size:13.5px;font-weight:600;color:hsl(140,30%,12%);">Apr 19, 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ NAVIGATION / LINK -->
+<div class="section-label">④ Navigation / Link — Quick-action cards</div>
+<div class="grid-2">
+  <div class="card card-link">
+    <div class="card-p">
+      <div style="display:flex;align-items:flex-start;gap:14px;">
+        <div class="icon-badge" style="background:hsl(140,35%,93%);width:40px;height:40px;border-radius:10px;flex-shrink:0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="hsl(140,35%,30%)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:hsl(140,30%,12%);margin-bottom:3px;">Manage Appointments</div>
+          <div style="font-size:12.5px;color:hsl(140,8%,44%);line-height:1.5;margin-bottom:14px;">View, filter, and manage all bookings with advanced actions.</div>
+          <div style="display:flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;color:hsl(140,35%,30%);">
+            Open <svg class="link-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-link">
+    <div class="card-p">
+      <div style="display:flex;align-items:flex-start;gap:14px;">
+        <div class="icon-badge" style="background:hsl(35,90%,93%);width:40px;height:40px;border-radius:10px;flex-shrink:0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="hsl(30,80%,35%)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:hsl(140,30%,12%);margin-bottom:3px;">Shop Profile</div>
+          <div style="font-size:12.5px;color:hsl(140,8%,44%);line-height:1.5;margin-bottom:14px;">Update contact info, business hours, and online booking settings.</div>
+          <div style="display:flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;color:hsl(140,35%,30%);">
+            Open <svg class="link-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ APPOINTMENT CARD — fix: amount is now hero element -->
+<div class="section-label">⑤ Appointment — Status + service + amount (amount is now hero)</div>
+<div class="note">Fixed: Amount bumped to 20px bold — most actionable number on the card. Therapist name de-emphasised.</div>
+<div class="grid-2">
+  <div class="card">
+    <div class="card-p">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <div style="font-size:14px;font-weight:700;color:hsl(140,30%,12%);margin-bottom:2px;">Deep Tissue Massage</div>
+          <div style="font-size:12px;color:hsl(140,8%,44%);">Apr 19 · 2:00 PM · 60 min</div>
+        </div>
+        <span class="badge" style="background:hsl(148,40%,92%);color:hsl(152,55%,20%);border-color:hsl(148,25%,80%);">
+          <span class="dot" style="background:hsl(148,45%,34%);"></span>Completed
+        </span>
+      </div>
+      <div style="height:1px;background:hsl(40,10%,92%);margin-bottom:12px;"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="display:flex;align-items:center;gap:7px;">
+          <div class="avatar" style="width:24px;height:24px;font-size:10px;background:hsla(140,35%,35%,0.1);color:hsl(140,35%,30%);">N</div>
+          <span style="font-size:12px;color:hsl(140,8%,50%);">Nong</span>
+        </div>
+        <!-- Amount is the hero -->
+        <div style="text-align:right;">
+          <div style="font-size:20px;font-weight:800;color:hsl(140,30%,10%);letter-spacing:-0.02em;line-height:1;">฿900</div>
+          <div style="font-size:10px;color:hsl(140,8%,52%);margin-top:1px;">collected</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-p">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <div style="font-size:14px;font-weight:700;color:hsl(140,30%,12%);margin-bottom:2px;">Thai Massage</div>
+          <div style="font-size:12px;color:hsl(140,8%,44%);">Apr 19 · 10:30 AM · 90 min</div>
+        </div>
+        <span class="badge" style="background:hsl(38,95%,92%);color:hsl(28,85%,24%);border-color:hsl(36,55%,82%);">
+          <span class="dot" style="background:hsl(35,85%,52%);"></span>Checked in
+        </span>
+      </div>
+      <div style="height:1px;background:hsl(40,10%,92%);margin-bottom:12px;"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="display:flex;align-items:center;gap:7px;">
+          <div class="avatar" style="width:24px;height:24px;font-size:10px;background:hsla(198,70%,38%,0.1);color:hsl(198,70%,30%);">J</div>
+          <span style="font-size:12px;color:hsl(140,8%,50%);">Joy</span>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:20px;font-weight:800;color:hsl(140,30%,10%);letter-spacing:-0.02em;line-height:1;">฿1,200</div>
+          <div style="font-size:10px;color:hsl(140,8%,52%);margin-top:1px;">pending</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ CLIENT CARD — fix: left-border hover accent, alert card unchanged -->
+<div class="section-label">⑥ Client Card — Standard (left-border hover) + Alert variant</div>
+<div class="note">Fixed: Hover adds green left-border accent matching sidebar active state. Alert card unchanged — it should remain urgent.</div>
+<div class="grid-2">
+  <div class="card card-client">
+    <div class="card-p">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div class="avatar" style="width:42px;height:42px;font-size:15px;background:hsla(140,35%,35%,0.1);color:hsl(140,35%,30%);border:1.5px solid hsla(140,35%,35%,0.18);">SW</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:hsl(140,30%,12%);">Somchai Wongsawat</div>
+          <div style="font-size:12px;color:hsl(140,8%,44%);">+66 81 234 5678</div>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stats-cell"><div class="stats-val">14</div><div class="stats-lbl">Sessions</div></div>
+        <div class="stats-cell"><div class="stats-val">฿14.2k</div><div class="stats-lbl">Spent</div></div>
+        <div class="stats-cell"><div class="stats-val" style="font-size:13px;">Apr 19</div><div class="stats-lbl">Last visit</div></div>
+      </div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;">
+        <span class="badge" style="background:hsl(78,60%,92%);color:hsl(78,50%,22%);border-color:hsl(78,40%,80%);">VIP</span>
+        <span class="badge" style="background:hsl(40,10%,93%);color:hsl(140,8%,42%);border-color:hsl(40,10%,88%);">Thai massage</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card alert-card" style="cursor:pointer;">
+    <div style="background:hsl(0,60%,48%);padding:8px 16px;display:flex;align-items:center;gap:8px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span style="font-size:11px;font-weight:800;color:#fff;letter-spacing:0.06em;text-transform:uppercase;">Client Alert — Read Before Treatment</span>
+    </div>
+    <div class="card-p">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div class="avatar" style="width:42px;height:42px;font-size:15px;background:hsl(0,75%,95%);color:hsl(0,60%,40%);border:2px solid hsl(0,60%,75%);">PR</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:hsl(140,30%,12%);">Pranee Siriwan</div>
+          <div style="font-size:12px;color:hsl(140,8%,44%);">+66 84 456 7890</div>
+        </div>
+      </div>
+      <div style="background:hsl(0,80%,97%);border:1.5px solid hsl(0,60%,78%);border-radius:8px;padding:10px 14px;margin-bottom:12px;">
+        <div style="font-size:10.5px;font-weight:800;color:hsl(0,60%,40%);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">⚠ Alert Note</div>
+        <div style="font-size:13px;font-weight:600;color:hsl(0,55%,30%);line-height:1.5;">Allergic to lavender and eucalyptus oil. Thai massage only — no deep tissue.</div>
+      </div>
+      <div class="stats-row">
+        <div class="stats-cell"><div class="stats-val">11</div><div class="stats-lbl">Sessions</div></div>
+        <div class="stats-cell"><div class="stats-val">฿16.5k</div><div class="stats-lbl">Spent</div></div>
+        <div class="stats-cell"><div class="stats-val" style="font-size:13px;">Apr 17</div><div class="stats-lbl">Last visit</div></div>
+      </div>
+      <div style="display:flex;gap:5px;">
+        <span class="badge" style="background:hsl(78,60%,92%);color:hsl(78,50%,22%);border-color:hsl(78,40%,80%);">VIP</span>
+        <span class="badge" style="background:hsl(40,10%,93%);color:hsl(140,8%,42%);border-color:hsl(40,10%,88%);">Hot stone</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑦ FILTER CONTAINER — fix: toned-down apply button -->
+<div class="section-label">⑦ Filter Container — Utility zone; apply action toned down</div>
+<div class="note">Fixed: Apply is now a small outline-style button. Amber reserved for primary CTAs only, not utility actions.</div>
+<div style="background:hsl(40,20%,97%);border:1px solid hsl(40,10%,88%);border-radius:10px;padding:14px 18px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+    <span style="font-size:11px;font-weight:700;color:hsl(140,8%,44%);text-transform:uppercase;letter-spacing:0.06em;">Filters</span>
+    <button style="background:none;border:none;font-size:11.5px;color:hsl(140,35%,32%);cursor:pointer;font-weight:600;font-family:inherit;padding:0;">Reset</button>
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+    <button class="chip">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Apr 1 – Apr 19
+    </button>
+    <button class="chip active">All therapists</button>
+    <button class="chip">Pending</button>
+    <button class="chip">Paid</button>
+    <button class="chip">All</button>
+    <div style="flex:1;"></div>
+    <!-- Toned down: outline style -->
+    <button style="background:transparent;color:hsl(140,35%,32%);border:1.5px solid hsl(140,30%,70%);border-radius:7px;padding:6px 16px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.12s;"
+      onmouseenter="this.style.background='hsl(140,35%,95%)'"
+      onmouseleave="this.style.background='transparent'"
+    >Apply filters</button>
+  </div>
+</div>
+
+<!-- ⑧ SKELETON LOADING -->
+<div class="section-label">⑧ Skeleton Loading — Suspense fallbacks</div>
+<div class="grid-2">
+  <div class="card"><div class="card-p">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+      <div class="skel" style="width:42px;height:42px;border-radius:50%;flex-shrink:0;"></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+        <div class="skel" style="height:14px;width:58%;"></div>
+        <div class="skel" style="height:11px;width:38%;"></div>
+      </div>
+    </div>
+    <div class="skel" style="height:58px;border-radius:8px;margin-bottom:12px;"></div>
+    <div style="display:flex;gap:6px;">
+      <div class="skel" style="width:44px;height:20px;border-radius:9999px;"></div>
+      <div class="skel" style="width:76px;height:20px;border-radius:9999px;"></div>
+    </div>
+  </div></div>
+  <div class="card"><div class="card-p">
+    <div style="display:flex;justify-content:space-between;margin-bottom:14px;">
+      <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+        <div class="skel" style="height:14px;width:55%;"></div>
+        <div class="skel" style="height:11px;width:36%;"></div>
+      </div>
+      <div class="skel" style="width:72px;height:22px;border-radius:9999px;flex-shrink:0;margin-left:12px;"></div>
+    </div>
+    <div style="height:1px;background:hsl(40,10%,92%);margin-bottom:14px;"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="skel" style="width:24px;height:24px;border-radius:50%;flex-shrink:0;"></div>
+        <div class="skel" style="width:50px;height:11px;"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+        <div class="skel" style="width:52px;height:18px;border-radius:4px;"></div>
+        <div class="skel" style="width:38px;height:9px;border-radius:4px;"></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ⑨ EMPTY STATE — NEW: consistent no-data pattern -->
+<div class="section-label">⑨ Empty State — NEW: no-data fallback used throughout the app</div>
+<div class="note">Pattern seen in clients, payments, reports, staff pages. Needs an icon, a clear label, optional description, and a primary CTA where relevant.</div>
+<div class="grid-3">
+
+  <!-- No appointments -->
+  <div class="card">
+    <div class="card-p" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;min-height:180px;">
+      <div style="width:48px;height:48px;border-radius:12px;background:hsl(140,35%,93%);display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(140,30%,52%)" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div style="font-size:14px;font-weight:700;color:hsl(140,30%,15%);margin-bottom:5px;">No appointments today</div>
+      <div style="font-size:12.5px;color:hsl(140,8%,50%);line-height:1.5;margin-bottom:16px;">Your schedule is clear. Add a booking to get started.</div>
+      <button style="background:hsl(35,85%,52%);color:hsl(30,80%,22%);border:none;border-radius:7px;padding:7px 16px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 2px 6px hsla(35,85%,52%,0.28);display:flex;align-items:center;gap:6px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add booking
+      </button>
+    </div>
+  </div>
+
+  <!-- No clients -->
+  <div class="card">
+    <div class="card-p" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;min-height:180px;">
+      <div style="width:48px;height:48px;border-radius:12px;background:hsl(78,70%,93%);display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(78,50%,32%)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div style="font-size:14px;font-weight:700;color:hsl(140,30%,15%);margin-bottom:5px;">No clients yet</div>
+      <div style="font-size:12.5px;color:hsl(140,8%,50%);line-height:1.5;margin-bottom:16px;">Clients appear here once they've visited or been added manually.</div>
+      <button style="background:hsl(35,85%,52%);color:hsl(30,80%,22%);border:none;border-radius:7px;padding:7px 16px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 2px 6px hsla(35,85%,52%,0.28);display:flex;align-items:center;gap:6px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add client
+      </button>
+    </div>
+  </div>
+
+  <!-- No permission (no CTA) -->
+  <div class="card">
+    <div class="card-p" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;min-height:180px;">
+      <div style="width:48px;height:48px;border-radius:12px;background:hsl(0,75%,95%);display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(0,55%,50%)" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div style="font-size:14px;font-weight:700;color:hsl(0,50%,35%);margin-bottom:5px;">Access restricted</div>
+      <div style="font-size:12.5px;color:hsl(140,8%,50%);line-height:1.5;">You don't have permission to view this section. Contact your shop owner.</div>
+    </div>
+  </div>
+
+</div>
+
+</body></html>

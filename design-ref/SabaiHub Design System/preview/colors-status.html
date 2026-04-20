@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body { margin: 0; padding: 16px; background: hsl(var(--background)); font-family: var(--font-sans); }
+.row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 9999px; padding: 3px 10px; font-size: 11px; font-weight: 600; border: 1px solid transparent; }
+.label { font-size: 12px; color: hsl(var(--muted-foreground)); width: 90px; }
+.hex { font-size: 10px; font-family: var(--font-mono); color: hsl(var(--muted-foreground)); }
+</style>
+</head><body>
+<div class="row">
+  <div class="chip" style="background:hsl(198,65%,93%);color:hsl(205,60%,22%);border-color:hsl(198,40%,82%);">
+    <div class="dot" style="background:hsl(198,70%,38%);"></div> Booked
+  </div>
+  <span class="hex">teal · hsl(198 70% 38%)</span>
+</div>
+<div class="row">
+  <div class="chip" style="background:hsl(38,95%,92%);color:hsl(28,85%,24%);border-color:hsl(36,55%,82%);">
+    <div class="dot" style="background:hsl(34,90%,50%);"></div> Checked In
+  </div>
+  <span class="hex">amber · hsl(34 90% 50%)</span>
+</div>
+<div class="row">
+  <div class="chip" style="background:hsl(148,40%,92%);color:hsl(152,55%,20%);border-color:hsl(148,25%,80%);">
+    <div class="dot" style="background:hsl(148,45%,34%);"></div> Completed
+  </div>
+  <span class="hex">green · hsl(148 45% 34%)</span>
+</div>
+<div class="row">
+  <div class="chip" style="background:hsl(0,75%,94%);color:hsl(0,60%,25%);border-color:hsl(0,40%,83%);">
+    <div class="dot" style="background:hsl(0,60%,50%);"></div> Cancelled
+  </div>
+  <span class="hex">red · hsl(0 60% 50%)</span>
+</div>
+<div class="row">
+  <div class="chip" style="background:hsl(0,75%,94%);color:hsl(0,60%,25%);border-color:hsl(0,40%,83%);">
+    <div class="dot" style="background:hsl(0,60%,50%);"></div> No-show
+  </div>
+  <span class="hex">red · hsl(0 60% 50%)</span>
+</div>
+</body></html>

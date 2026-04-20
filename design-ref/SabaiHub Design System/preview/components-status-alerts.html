@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body { margin: 0; padding: 14px; background: hsl(var(--background)); font-family: var(--font-sans); display:flex; flex-direction:column; gap: 8px; }
+.alert {
+  display: flex; align-items: flex-start; gap: 10px;
+  border-radius: 8px; padding: 11px 14px;
+  font-size: 13px; border: 1px solid transparent;
+}
+.alert-icon { margin-top: 1px; flex-shrink: 0; }
+.alert-title { font-weight: 600; font-size: 13px; }
+.alert-desc { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+svg { width: 15px; height: 15px; stroke-width: 2; fill: none; stroke: currentColor; }
+</style>
+</head><body>
+<div class="alert" style="background:hsl(148,40%,92%);color:hsl(152,55%,20%);border-color:hsl(148,25%,80%);">
+  <svg class="alert-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  <div><div class="alert-title">Payment confirmed</div><div class="alert-desc">Your appointment has been booked and paid successfully.</div></div>
+</div>
+<div class="alert" style="background:hsl(38,95%,92%);color:hsl(28,85%,24%);border-color:hsl(36,55%,82%);">
+  <svg class="alert-icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  <div><div class="alert-title">Package expiring soon</div><div class="alert-desc">This client's package expires in 3 days. Remind them to renew.</div></div>
+</div>
+<div class="alert" style="background:hsl(0,75%,94%);color:hsl(0,60%,25%);border-color:hsl(0,40%,83%);">
+  <svg class="alert-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <div><div class="alert-title">Booking failed</div><div class="alert-desc">Unable to process payment. Please try again or contact support.</div></div>
+</div>
+<div class="alert" style="background:hsl(198,65%,93%);color:hsl(205,60%,22%);border-color:hsl(198,40%,82%);">
+  <svg class="alert-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <div><div class="alert-title">SMS reminder sent</div><div class="alert-desc">A reminder was sent 24 hours before the appointment.</div></div>
+</div>
+</body></html>

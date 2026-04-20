@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body { margin: 0; padding: 16px; background: hsl(var(--background)); font-family: var(--font-sans); }
+.section { margin-bottom: 16px; }
+.title { font-size: 10px; font-weight: 600; color: hsl(var(--muted-foreground)); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
+.row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.label { font-size: 11px; color: hsl(var(--muted-foreground)); font-family: var(--font-mono); width: 80px; flex-shrink: 0; }
+.bar { height: 24px; background: hsl(var(--primary)); opacity: 0.85; }
+.size-label { font-size: 11px; color: hsl(var(--foreground)); }
+</style>
+</head><body>
+<div class="section">
+  <div class="title">Spacing Scale</div>
+  <div class="row"><span class="label">1 · 4px</span><div class="bar" style="width:4px;"></div></div>
+  <div class="row"><span class="label">2 · 8px</span><div class="bar" style="width:8px;"></div></div>
+  <div class="row"><span class="label">4 · 16px</span><div class="bar" style="width:16px;"></div></div>
+  <div class="row"><span class="label">6 · 24px</span><div class="bar" style="width:24px;"></div></div>
+  <div class="row"><span class="label">8 · 32px</span><div class="bar" style="width:32px;"></div></div>
+  <div class="row"><span class="label">12 · 48px</span><div class="bar" style="width:48px;"></div></div>
+  <div class="row"><span class="label">16 · 64px</span><div class="bar" style="width:64px;"></div></div>
+  <div class="row"><span class="label">18 · 72px</span><div class="bar" style="width:72px;"></div><span class="size-label" style="font-size:9px;color:hsl(var(--muted-foreground));">custom token</span></div>
+</div>
+<div class="section">
+  <div class="title">Border Radius</div>
+  <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div style="width:44px;height:44px;background:hsl(var(--primary));border-radius:2px;margin-bottom:4px;"></div>
+      <span style="font-size:9px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));">sm·2px</span>
+    </div>
+    <div style="text-align:center;">
+      <div style="width:44px;height:44px;background:hsl(var(--primary));border-radius:6px;margin-bottom:4px;"></div>
+      <span style="font-size:9px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));">md·6px</span>
+    </div>
+    <div style="text-align:center;">
+      <div style="width:44px;height:44px;background:hsl(var(--primary));border-radius:8px;margin-bottom:4px;"></div>
+      <span style="font-size:9px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));">lg·8px</span>
+    </div>
+    <div style="text-align:center;">
+      <div style="width:44px;height:44px;background:hsl(var(--primary));border-radius:12px;margin-bottom:4px;"></div>
+      <span style="font-size:9px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));">xl·12px</span>
+    </div>
+    <div style="text-align:center;">
+      <div style="width:44px;height:44px;background:hsl(var(--primary));border-radius:9999px;margin-bottom:4px;"></div>
+      <span style="font-size:9px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));">full</span>
+    </div>
+  </div>
+</div>
+</body></html>

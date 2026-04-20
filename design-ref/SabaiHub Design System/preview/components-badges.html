@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body { margin: 0; padding: 16px; background: hsl(var(--background)); font-family: var(--font-sans); }
+.row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; align-items: center; }
+.title { font-size: 10px; font-weight: 600; color: hsl(var(--muted-foreground)); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  border-radius: 9999px; padding: 2px 9px;
+  font-size: 11px; font-weight: 600; border: 1px solid transparent;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; }
+</style>
+</head><body>
+<div class="title">Status Badges</div>
+<div class="row">
+  <span class="badge" style="background:hsl(198,65%,93%);color:hsl(205,60%,22%);border-color:hsl(198,40%,82%);">
+    <span class="dot" style="background:hsl(198,70%,38%);"></span> Booked
+  </span>
+  <span class="badge" style="background:hsl(38,95%,92%);color:hsl(28,85%,24%);border-color:hsl(36,55%,82%);">
+    <span class="dot" style="background:hsl(34,90%,50%);"></span> Checked in
+  </span>
+  <span class="badge" style="background:hsl(148,40%,92%);color:hsl(152,55%,20%);border-color:hsl(148,25%,80%);">
+    <span class="dot" style="background:hsl(148,45%,34%);"></span> Completed
+  </span>
+  <span class="badge" style="background:hsl(0,75%,94%);color:hsl(0,60%,25%);border-color:hsl(0,40%,83%);">
+    <span class="dot" style="background:hsl(0,60%,50%);"></span> Cancelled
+  </span>
+  <span class="badge" style="background:hsl(0,75%,94%);color:hsl(0,60%,25%);border-color:hsl(0,40%,83%);">
+    <span class="dot" style="background:hsl(0,60%,50%);"></span> No-show
+  </span>
+</div>
+<div class="title">Semantic Badges</div>
+<div class="row">
+  <span class="badge" style="background:hsl(148,45%,34%);color:#fff;">Confirmed</span>
+  <span class="badge" style="background:hsl(34,90%,50%);color:#fff;">Expiring soon</span>
+  <span class="badge" style="background:hsl(0,60%,50%);color:#fff;">Failed</span>
+  <span class="badge" style="background:hsl(198,70%,38%);color:#fff;">Info</span>
+  <span class="badge" style="background:hsl(78,85%,45%);color:hsl(140,30%,8%);">✦ AI</span>
+</div>
+<div class="title">Outline / Neutral</div>
+<div class="row">
+  <span class="badge" style="background:transparent;color:hsl(140,30%,15%);border-color:hsl(100,10%,82%);">Default</span>
+  <span class="badge" style="background:hsl(100,15%,86%);color:hsl(140,35%,25%);">Secondary</span>
+  <span class="badge" style="background:hsl(100,10%,94%);color:hsl(140,10%,40%);border-color:hsl(100,10%,84%);">Neutral</span>
+  <span class="badge" style="background:hsl(78,60%,92%);color:hsl(78,50%,22%);border-color:hsl(78,40%,80%);">Spark subtle</span>
+</div>
+</body></html>
