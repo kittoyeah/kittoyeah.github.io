@@ -8,36 +8,35 @@ interface Props {
 const { groups } = Astro.props;
 ---
 
-<section class="content-section section-shell" id="skills">
-  <div class="section-heading">
-    <p class="eyebrow">Skills and tools</p>
-    <h2>Practical capability first, tools second</h2>
-    <p>
-      I do not treat tools as identity. What matters is whether the work
-      produces a useful outcome, handles constraints, and can keep improving
-      after the first version ships.
-    </p>
-  </div>
+<section class="section" id="skills">
+  <div class="container">
+    <header class="section__head">
+      <span class="section__num">03 &mdash; Skills</span>
+      <h2 class="section__title">Practical capability first, tools second.</h2>
+      <p class="section__lede">
+        Tools are not identity. What matters is whether the work produces a
+        useful outcome, handles constraints, and keeps improving after the
+        first version ships.
+      </p>
+    </header>
 
-  <div class="skills-grid">
-    {
-      groups.map((group) => (
-        <article class="surface-card skill-card">
-          <h3>{group.title}</h3>
-          <p>{group.summary}</p>
-          <div class="chip-row">
-            {group.items.map((item) => <span class="chip">{item}</span>)}
-          </div>
-        </article>
-      ))
-    }
-  </div>
-
-  <div class="workflow-strip">
-    <span>Discover</span>
-    <span>Scope</span>
-    <span>Build</span>
-    <span>Test</span>
-    <span>Iterate</span>
+    <div class="skills-grid">
+      {
+        groups.map((group, index) => (
+          <article class="skill-card">
+            <span class="skill-card__num">
+              /0{index + 1}
+            </span>
+            <h3>{group.title}</h3>
+            <p>{group.summary}</p>
+            <div class="skill-card__tags">
+              {group.items.map((item) => (
+                <span class="tag">{item}</span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
   </div>
 </section>

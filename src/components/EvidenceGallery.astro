@@ -8,32 +8,30 @@ interface Props {
 const { assets } = Astro.props;
 ---
 
-<section class="content-section section-shell" id="evidence">
-  <div class="section-heading">
-    <p class="eyebrow">Evidence gallery</p>
-    <h2>A clean backup layer for documents, notes, and supporting material</h2>
-    <p>
-      This section is designed like an archive shelf. It keeps proof close by
-      without forcing everything into the main narrative.
-    </p>
-  </div>
+<section class="section" id="evidence">
+  <div class="container">
+    <header class="section__head">
+      <span class="section__num">04 &mdash; Evidence</span>
+      <h2 class="section__title">Documents, notes, and supporting material.</h2>
+      <p class="section__lede">
+        An archive shelf that keeps proof close by without forcing everything
+        into the main narrative.
+      </p>
+    </header>
 
-  <div class="evidence-grid">
-    {
-      assets.map((asset) => (
-        <a class="surface-card evidence-card" href={asset.href} download>
-          <div class="evidence-card__preview">
-            <span>{asset.type}</span>
-          </div>
-          <div class="evidence-card__body">
-            <div class="case-study__meta">
-              <span class="badge badge--soft">{asset.type}</span>
-            </div>
-            <h3>{asset.title}</h3>
-            {asset.note && <p>{asset.note}</p>}
-          </div>
-        </a>
-      ))
-    }
+    <div class="evidence-list">
+      {
+        assets.map((asset) => (
+          <a class="evidence-item" href={asset.href} download>
+            <span class="evidence-item__type">{asset.type}</span>
+            <span class="evidence-item__title">{asset.title}</span>
+            <span class="evidence-item__note">{asset.note}</span>
+            <span class="evidence-item__action" aria-hidden="true">
+              Download ↓
+            </span>
+          </a>
+        ))
+      }
+    </div>
   </div>
 </section>

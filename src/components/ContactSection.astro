@@ -8,38 +8,52 @@ interface Props {
 }
 
 const { siteConfig, contacts, resumeHref } = Astro.props;
+
+const sorted = [...contacts].sort((a, b) => a.priority - b.priority);
+
+const valueFor = (label: ContactLink["label"]) => {
+  if (label === "LinkedIn") return "chris-kittichod";
+  if (label === "GitHub") return "kittoyeah";
+  return "chris.kittichod@gmail.com";
+};
 ---
 
-<section class="content-section section-shell" id="contact">
-  <div class="contact-card">
-    <div class="contact-card__copy">
-      <p class="eyebrow">Contact</p>
-      <h2>LinkedIn is the fastest way to reach me</h2>
-      <p>
-        If you are hiring for a software role, exploring product-minded
-        engineering talent, or want someone who can move from discovery into
-        delivery, I am open to that conversation.
-      </p>
-      <div class="button-row">
-        <a
-          class="button"
-          href={siteConfig.primaryCta.href}
-          rel="noreferrer"
-          target="_blank"
-        >
-          {siteConfig.primaryCta.label}
-        </a>
-        <a class="button button--secondary" href={resumeHref} download>
-          Download resume
-        </a>
-      </div>
-    </div>
+<section class="contact" id="contact">
+  <div class="container">
+    <header class="section__head">
+      <span class="section__num">05 &mdash; Contact</span>
+    </header>
 
-    <div class="contact-list">
-      {
-        contacts
-          .sort((left, right) => left.priority - right.priority)
-          .map((contact) => (
+    <div class="contact__layout">
+      <div>
+        <h2>
+          Let&rsquo;s <em>talk</em>.
+        </h2>
+        <p class="contact__lede">
+          If you are hiring for a software role, exploring product-minded
+          engineering talent, or want someone who can move from discovery into
+          delivery &mdash; I am open to that conversation.
+        </p>
+        <div class="btn-row">
+          <a
+            class="btn btn--primary"
+            href={siteConfig.primaryCta.href}
+            rel="noreferrer"
+            target="_blank"
+          >
+            {siteConfig.primaryCta.label}
+            <span class="btn__arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="btn btn--ghost" href={resumeHref} download>
+            Download resume
+            <span class="btn__arrow" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-list">
+        {
+          sorted.map((contact) => (
             <a
               class="contact-link"
               href={contact.href}
@@ -47,14 +61,14 @@ const { siteConfig, contacts, resumeHref } = Astro.props;
               target={contact.label === "Email" ? undefined : "_blank"}
             >
               <span class="contact-link__label">{contact.label}</span>
-              <span class="contact-link__value">
-                {contact.label === "LinkedIn" && "LinkedIn profile"}
-                {contact.label === "GitHub" && "github.com/kittoyeah"}
-                {contact.label === "Email" && "chris.kittichod@gmail.com"}
+              <span class="contact-link__value">{valueFor(contact.label)}</span>
+              <span class="contact-link__arrow" aria-hidden="true">
+                ↗
               </span>
             </a>
           ))
-      }
+        }
+      </div>
     </div>
   </div>
 </section>

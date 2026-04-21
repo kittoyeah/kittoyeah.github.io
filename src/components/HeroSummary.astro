@@ -7,89 +7,50 @@ interface Props {
   works: FeaturedWork[];
 }
 
-const { siteConfig, signals, works } = Astro.props;
-const previewWorks = works.slice(0, 3);
+const { siteConfig, signals } = Astro.props;
 ---
 
-<section class="hero section-shell" id="summary">
-  <div class="hero__copy">
-    <p class="eyebrow">Summary</p>
-    <h1>{siteConfig.name}</h1>
-    <p class="hero__role">{siteConfig.role}</p>
+<section class="hero" id="summary">
+  <div class="container">
+    <span class="hero__status">
+      <span class="hero__status-dot" aria-hidden="true"></span>
+      Available for early-career software roles
+    </span>
+
+    <h1>
+      Chris <em>Kittichod</em>
+    </h1>
+
+    <p class="hero__role">{siteConfig.role} &mdash; Hobart, Tasmania</p>
+
     <p class="hero__tagline">{siteConfig.tagline}</p>
     <p class="hero__summary">{siteConfig.summary}</p>
 
-    <div class="button-row">
+    <div class="btn-row">
       <a
-        class="button"
+        class="btn btn--primary"
         href={siteConfig.primaryCta.href}
         rel="noreferrer"
         target="_blank"
       >
         {siteConfig.primaryCta.label}
+        <span class="btn__arrow" aria-hidden="true">↗</span>
       </a>
-      <a class="button button--secondary" href={siteConfig.secondaryCta.href}>
+      <a class="btn btn--ghost" href={siteConfig.secondaryCta.href}>
         {siteConfig.secondaryCta.label}
+        <span class="btn__arrow" aria-hidden="true">↓</span>
       </a>
     </div>
 
-    <ul class="hero-signals" aria-label="Quick profile signals">
+    <dl class="hero__meta">
       {
         signals.map((signal) => (
-          <li class="signal-card">
-            <span class="signal-card__label">{signal.label}</span>
-            <strong>{signal.value}</strong>
-          </li>
+          <div class="hero__meta-item">
+            <dt class="hero__meta-label">{signal.label}</dt>
+            <dd class="hero__meta-value">{signal.value}</dd>
+          </div>
         ))
       }
-    </ul>
+    </dl>
   </div>
-
-  <aside class="hero__visual" aria-label="Selected work previews">
-    <div class="identity-card">
-      <div class="identity-card__top">
-        <div class="identity-card__monogram" aria-hidden="true">
-          CK
-        </div>
-        <div>
-          <p class="eyebrow eyebrow--compact">Current direction</p>
-          <h2>From product framing to software delivery</h2>
-        </div>
-      </div>
-
-      <dl class="identity-list">
-        <div>
-          <dt>Base</dt>
-          <dd>Hobart, Tasmania</dd>
-        </div>
-        <div>
-          <dt>Background</dt>
-          <dd>Business analysis, product ownership, service design</dd>
-        </div>
-        <div>
-          <dt>Build focus</dt>
-          <dd>Practical web products, operational tooling, AI-enabled workflows</dd>
-        </div>
-        <div>
-          <dt>Open to</dt>
-          <dd>Internship, graduate, and early-career software roles</dd>
-        </div>
-      </dl>
-    </div>
-
-    <div class="hero-workstack">
-      {
-        previewWorks.map((work) => (
-          <a class="hero-shot" href="#work">
-            <img
-              src={work.coverImage}
-              alt={`${work.title} project preview`}
-              loading="eager"
-            />
-            <span>{work.title}</span>
-          </a>
-        ))
-      }
-    </div>
-  </aside>
 </section>

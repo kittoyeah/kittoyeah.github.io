@@ -3,83 +3,82 @@ import type { FeaturedWork } from "../data/portfolio";
 
 interface Props {
   work: FeaturedWork;
+  index: number;
 }
 
-const { work } = Astro.props;
+const { work, index } = Astro.props;
+const indexLabel = String(index).padStart(2, "0");
 ---
 
-<article class="case-study">
-  <div class="case-study__cover">
-    <img src={work.coverImage} alt={`${work.title} cover art`} loading="lazy" />
-  </div>
+<article class="work-item">
+  <div class="work-item__num">/{indexLabel}</div>
 
-  <div class="case-study__body">
-    <div class="case-study__meta">
-      <span class="badge">{work.kind}</span>
-      {work.period && <span class="meta-copy">{work.period}</span>}
-    </div>
-
-    <h3>{work.title}</h3>
-    <p class="case-study__role">{work.role}</p>
-    <p>{work.summary}</p>
-
-    <div class="chip-row" aria-label={`${work.title} tools`}>
-      {
-        work.tools.map((tool) => (
-          <span class="chip">{tool}</span>
-        ))
-      }
-    </div>
-
-    <details class="case-study__details">
-      <summary class="case-study__toggle">
-        <span>Read case study</span>
-        <span class="toggle-mark" aria-hidden="true">
-          +
-        </span>
-      </summary>
-
-      <div class="case-study__expanded">
-        <div class="case-study__section">
-          <p class="case-study__label">Problem</p>
-          <p>{work.problem}</p>
-        </div>
-
-        <div class="case-study__section">
-          <p class="case-study__label">What I did</p>
-          <ul>
-            {
-              work.actions.map((action) => (
-                <li>{action}</li>
-              ))
-            }
-          </ul>
-        </div>
-
-        <div class="case-study__section">
-          <p class="case-study__label">Result and evidence</p>
-          <p class="case-study__result">{work.result}</p>
-          <ul>
-            {
-              work.evidence.map((item) => (
-                <li>{item}</li>
-              ))
-            }
-          </ul>
-        </div>
-
+  <div class="work-item__body">
+    <div>
+      <div class="work-item__meta">
+        <span class="work-item__kind">{work.kind}</span>
         {
-          work.links && work.links.length > 0 && (
-            <div class="inline-link-row">
-              {work.links.map((link) => (
-                <a href={link.href} rel="noreferrer" target="_blank">
-                  {link.label}
-                </a>
-              ))}
-            </div>
+          work.period && (
+            <>
+              <span class="work-item__sep">/</span>
+              <span>{work.period}</span>
+            </>
           )
         }
       </div>
-    </details>
+
+      <h3>{work.title}</h3>
+      <p class="work-item__role">{work.role}</p>
+      <p class="work-item__summary">{work.summary}</p>
+
+      <div class="work-item__tools" aria-label={`${work.title} tools`}>
+        {work.tools.map((tool) => <span class="tag">{tool}</span>)}
+      </div>
+
+      <details class="work-item__details">
+        <summary class="case-study__toggle">
+          <span class="case-study__toggle-mark" aria-hidden="true">+</span>
+          <span>Read case study</span>
+        </summary>
+
+        <div class="case-study__expanded">
+          <div class="case-study__section">
+            <span class="case-study__label">Problem</span>
+            <p>{work.problem}</p>
+          </div>
+
+          <div class="case-study__section">
+            <span class="case-study__label">What I did</span>
+            <ul>
+              {work.actions.map((action) => <li>{action}</li>)}
+            </ul>
+          </div>
+
+          <div class="case-study__section">
+            <span class="case-study__label">Result</span>
+            <p class="case-study__result">{work.result}</p>
+            <ul>
+              {work.evidence.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+
+          {
+            work.links && work.links.length > 0 && (
+              <div class="case-study__links">
+                {work.links.map((link) => (
+                  <a href={link.href} rel="noreferrer" target="_blank">
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </details>
+    </div>
+
+    <div class="work-item__cover" aria-hidden="true">
+      <img src={work.coverImage} alt="" loading="lazy" />
+    </div>
   </div>
 </article>
