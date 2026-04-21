@@ -8,27 +8,35 @@ interface Props {
 const { assets } = Astro.props;
 ---
 
-<section class="section" id="evidence">
-  <div class="container">
-    <header class="section__head">
-      <span class="section__num">04 &mdash; Evidence</span>
-      <h2 class="section__title">Documents, notes, and supporting material.</h2>
-      <p class="section__lede">
-        An archive shelf that keeps proof close by without forcing everything
-        into the main narrative.
-      </p>
-    </header>
+<section id="evidence">
+  <div class="slab">
+    <div class="slab__row">
+      <span class="slab__key">The paper trail</span>
+      <span class="slab__count">{assets.length} files</span>
+    </div>
+  </div>
 
-    <div class="evidence-list">
+  <div class="heading">
+    <h2 class="heading__title">
+      Documents and <em>proof</em>.
+    </h2>
+    <p class="heading__note">
+      An archive of notes, briefs, and supporting material &mdash; kept
+      close by without stuffing everything into the main narrative.
+    </p>
+  </div>
+
+  <div class="files">
+    <div class="files__list">
       {
-        assets.map((asset) => (
-          <a class="evidence-item" href={asset.href} download>
-            <span class="evidence-item__type">{asset.type}</span>
-            <span class="evidence-item__title">{asset.title}</span>
-            <span class="evidence-item__note">{asset.note}</span>
-            <span class="evidence-item__action" aria-hidden="true">
-              Download ↓
+        assets.map((asset, index) => (
+          <a class="file-row" href={asset.href} download>
+            <span class="file-row__num">
+              /{String(index + 1).padStart(2, "0")}
             </span>
+            <span class="file-row__title">{asset.title}</span>
+            <span class="file-row__note">{asset.note}</span>
+            <span class="file-row__type">{asset.type}</span>
           </a>
         ))
       }

@@ -9,32 +9,23 @@ interface Props {
 const { siteConfig, sections } = Astro.props;
 ---
 
-<header class="site-header">
-  <div class="site-header__inner">
-    <a class="brand" href="#top" aria-label="Back to top">
-      <span class="brand__dot" aria-hidden="true"></span>
-      <span class="brand__name">CK</span>
-      <span class="brand__slash">/</span>
-      <span class="brand__role">{siteConfig.role}</span>
+<header class="banner">
+  <div class="banner__row">
+    <a class="banner__name" href="#top" aria-label="Back to top">
+      Chris Kittichod
     </a>
 
-    <nav class="nav" aria-label="Primary">
-      {
-        sections.map((section) => (
-          <a href={`#${section.id}`} data-num={section.number}>
-            {section.label}
-          </a>
-        ))
-      }
+    <nav class="banner__links" aria-label="Primary">
+      {sections.map((section) => <a href={`#${section.id}`}>{section.label}</a>)}
     </nav>
 
     <a
-      class="nav-cta"
+      class="banner__cta"
       href={siteConfig.primaryCta.href}
       rel="noreferrer"
       target="_blank"
     >
-      Get in touch
+      Say hi →
     </a>
   </div>
 </header>

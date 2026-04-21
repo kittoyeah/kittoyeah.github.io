@@ -7,78 +7,76 @@ interface Props {
 }
 
 const { work, index } = Astro.props;
-const indexLabel = String(index).padStart(2, "0");
+const num = String(index).padStart(2, "0");
 ---
 
-<article class="work-item">
-  <div class="work-item__num">/{indexLabel}</div>
+<article class="piece">
+  <header class="piece__top">
+    <span class="piece__num">No. {num}</span>
+    <span class="piece__kind">{work.kind}</span>
+    {work.period && <span>{work.period}</span>}
+  </header>
 
-  <div class="work-item__body">
+  <div class="piece__body">
     <div>
-      <div class="work-item__meta">
-        <span class="work-item__kind">{work.kind}</span>
-        {
-          work.period && (
-            <>
-              <span class="work-item__sep">/</span>
-              <span>{work.period}</span>
-            </>
-          )
-        }
-      </div>
-
-      <h3>{work.title}</h3>
-      <p class="work-item__role">{work.role}</p>
-      <p class="work-item__summary">{work.summary}</p>
-
-      <div class="work-item__tools" aria-label={`${work.title} tools`}>
-        {work.tools.map((tool) => <span class="tag">{tool}</span>)}
-      </div>
-
-      <details class="work-item__details">
-        <summary class="case-study__toggle">
-          <span class="case-study__toggle-mark" aria-hidden="true">+</span>
-          <span>Read case study</span>
-        </summary>
-
-        <div class="case-study__expanded">
-          <div class="case-study__section">
-            <span class="case-study__label">Problem</span>
-            <p>{work.problem}</p>
-          </div>
-
-          <div class="case-study__section">
-            <span class="case-study__label">What I did</span>
-            <ul>
-              {work.actions.map((action) => <li>{action}</li>)}
-            </ul>
-          </div>
-
-          <div class="case-study__section">
-            <span class="case-study__label">Result</span>
-            <p class="case-study__result">{work.result}</p>
-            <ul>
-              {work.evidence.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
-
-          {
-            work.links && work.links.length > 0 && (
-              <div class="case-study__links">
-                {work.links.map((link) => (
-                  <a href={link.href} rel="noreferrer" target="_blank">
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            )
-          }
-        </div>
-      </details>
+      <h3 class="piece__title">{work.title}</h3>
+      <p class="piece__role">{work.role}</p>
     </div>
 
-    <div class="work-item__cover" aria-hidden="true">
-      <img src={work.coverImage} alt="" loading="lazy" />
+    <div class="piece__right">
+      <p class="piece__summary">{work.summary}</p>
+      <div class="piece__tools" aria-label={`${work.title} tools`}>
+        {work.tools.map((tool) => <span class="pill">{tool}</span>)}
+      </div>
     </div>
   </div>
+
+  <figure class="piece__frame">
+    <img src={work.coverImage} alt={`${work.title} cover art`} loading="lazy" />
+    <figcaption class="piece__frame-tag">{work.title}</figcaption>
+  </figure>
+
+  <details class="piece__details">
+    <summary class="case-study__toggle">
+      <span class="case-study__toggle-ico" aria-hidden="true">+</span>
+      <span>Read the case study</span>
+    </summary>
+
+    <div class="case-study__body">
+      <div class="case-study__block">
+        <span class="case-study__label">The problem</span>
+        <p>{work.problem}</p>
+      </div>
+
+      <div class="case-study__block">
+        <span class="case-study__label">What I did</span>
+        <ul>
+          {work.actions.map((action) => <li>{action}</li>)}
+        </ul>
+      </div>
+
+      <div class="case-study__block case-study__block--wide">
+        <span class="case-study__label">Outcome</span>
+        <p class="case-study__result">{work.result}</p>
+        <ul>
+          {work.evidence.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+
+      {
+        work.links && work.links.length > 0 && (
+          <div class="case-study__block case-study__block--wide">
+            <span class="case-study__label">Related</span>
+            <div class="case-study__links">
+              {work.links.map((link) => (
+                <a href={link.href} rel="noreferrer" target="_blank">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </details>
 </article>

@@ -8,31 +8,39 @@ interface Props {
 const { groups } = Astro.props;
 ---
 
-<section class="section" id="skills">
-  <div class="container">
-    <header class="section__head">
-      <span class="section__num">03 &mdash; Skills</span>
-      <h2 class="section__title">Practical capability first, tools second.</h2>
-      <p class="section__lede">
+<section class="kit" id="skills">
+  <div class="kit__inner">
+    <div class="slab" style="padding: 0;">
+      <div class="slab__row">
+        <span class="slab__key">Toolkit</span>
+        <span class="slab__count">What I bring</span>
+      </div>
+    </div>
+
+    <div class="heading" style="padding-left: 0; padding-right: 0;">
+      <h2 class="heading__title">
+        <em>Capability</em> first, tools second.
+      </h2>
+      <p class="heading__note">
         Tools are not identity. What matters is whether the work produces a
         useful outcome, handles constraints, and keeps improving after the
         first version ships.
       </p>
-    </header>
+    </div>
 
-    <div class="skills-grid">
+    <div class="kit__grid">
       {
         groups.map((group, index) => (
-          <article class="skill-card">
-            <span class="skill-card__num">
-              /0{index + 1}
-            </span>
-            <h3>{group.title}</h3>
-            <p>{group.summary}</p>
-            <div class="skill-card__tags">
-              {group.items.map((item) => (
-                <span class="tag">{item}</span>
-              ))}
+          <article class="kit__card">
+            <span class="kit__num">{String(index + 1).padStart(2, "0")}</span>
+            <div class="kit__body">
+              <h3 class="kit__name">{group.title}</h3>
+              <p>{group.summary}</p>
+              <div class="kit__tags">
+                {group.items.map((item) => (
+                  <span class="pill">{item}</span>
+                ))}
+              </div>
             </div>
           </article>
         ))
