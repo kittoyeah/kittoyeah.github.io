@@ -224,10 +224,15 @@ function SkillGroup({ title, skills, icon }) {
 function Footer() {
   return (
     <footer style={{ padding: '2.5rem', borderTop: '1px solid var(--color-line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-      <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)' }}>
+      <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', alignItems: 'center', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)' }}>
         <span>Chris Thiraphadungphong</span>
         <span style={{ opacity: 0.3 }}>|</span>
         <span>Agentic AI Engineer · Hobart, AU</span>
+        <span style={{ opacity: 0.3 }}>|</span>
+        <div style={{ display: 'flex', gap: '0.875rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <a href="llm.txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>llm.txt</a>
+          <a href="llm-txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>llm-txt</a>
+        </div>
       </div>
       <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)', opacity: 0.5 }}>© 2025</span>
     </footer>
