@@ -1,19 +1,19 @@
 Name: Chris Thiraphadungphong
 Also known as: Chris Kittichod
-Role: Agentic AI Engineer
+Role: Technical Business Analyst
 Location: Hobart, Tasmania, Australia
 Website: https://kittoyeah.github.io/
 LinkedIn: https://linkedin.com/in/chris-kittichod
 Email: chris.kittichod@gmail.com
 
 Summary:
-Chris Kittichod is an aspiring agentic AI engineer with a background in business analysis, product ownership, and Design Thinking. He builds software by understanding the problem first, then designing the system around the people using it.
+Chris Kittichod is a Technical Business Analyst who turns business problems into working software. His background spans business analysis, product ownership, Design Thinking, system design, and early-stage software delivery.
 
 Current focus:
-- Full-stack product engineering
-- Specification-driven development
-- Agentic AI systems inside real products
-- AI-assisted software delivery
+- Requirements engineering and workflow analysis
+- System design and data modelling
+- Full-stack software development
+- AI-assisted and agentic workflow design
 
 Education:
 - Master of Information Technology and Systems, University of Tasmania, 2025 to present
@@ -21,7 +21,7 @@ Education:
 
 Selected work:
 - SabaiHub: production SaaS platform for Thai massage businesses in Australia covering appointments, rostering, customer records, role-based access, and reporting
-- MyBusiness.gov: AI-powered permit and compliance discovery platform, runner-up at GovHack 2025 Red Tape Navigator
+- MyBusiness.gov: GovHack proof-of-concept helping small businesses navigate permits, licences, tax obligations, and support programs; recognised with the Spirit of GovHack award in Tasmania
 - RegionalMate: AI-powered relocation planning platform, selected in IBM watsonx.ai Hackathon 2025 Global Top 50
 
 Skills:
@@ -41,6 +41,6 @@ Skills:
 - Design Thinking
 
 Availability:
-- Open to AI engineering roles
-- Open to product-focused engineering roles
-- Open to agentic AI projects
+- Open to Technical Business Analyst roles
+- Open to product and software delivery internships
+- Open to business-analysis-led software and AI workflow projects

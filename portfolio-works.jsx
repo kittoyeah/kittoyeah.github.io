@@ -155,7 +155,7 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
                 </div>
               )}
             </div>
-            <h1 className="project-hero-title" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(2.25rem, 6vw, 3.75rem)', lineHeight: 1.05, letterSpacing: '-0.03em', color: 'var(--color-ink)', margin: '0 0 1.5rem' }}>{project.title}</h1>
+            <h1 className="project-hero-title" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, lineHeight: 1.05, letterSpacing: '-0.03em', overflowWrap: 'normal', wordBreak: 'normal', color: 'var(--color-ink)', margin: '0 0 1.5rem' }}>{project.title}</h1>
             <p className="project-hero-desc" style={{ fontSize: 'clamp(15px, 2vw, 18px)', color: 'var(--color-muted)', lineHeight: 1.65, maxWidth: '100%', margin: 0 }}>{project.desc}</p>
             {project.prototypeUrl && (
               <div style={{ marginTop: '1.5rem' }}>

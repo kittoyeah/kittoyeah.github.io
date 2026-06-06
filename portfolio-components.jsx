@@ -118,21 +118,57 @@ function IconX({ size = 18, className = '' }) {
 const RouterCtx = React.createContext({ path: '/', navigate: () => {} });
 
 function RouterProvider({ children }) {
-  const getPath = () => { const h = window.location.hash; return h ? h.slice(1) : '/'; };
+  const normalisePath = (value) => {
+    const path = (value || '/').split('?')[0].split('#')[0];
+    if (path === '/') return '/';
+    return `/${path.replace(/^\/+|\/+$/g, '')}`;
+  };
+  const routeHref = (value) => {
+    const path = normalisePath(value);
+    return path === '/' ? '/' : `${path}/`;
+  };
+  const getPath = () => {
+    const fallbackRoute = new URLSearchParams(window.location.search).get('route');
+    if (fallbackRoute) {
+      const path = normalisePath(fallbackRoute);
+      window.history.replaceState({}, '', routeHref(path));
+      return path;
+    }
+    const legacyHash = window.location.hash.startsWith('#/') ? window.location.hash.slice(1) : '';
+    if (legacyHash) {
+      const path = normalisePath(legacyHash);
+      window.history.replaceState({}, '', routeHref(path));
+      return path;
+    }
+    return normalisePath(window.location.pathname);
+  };
   const [path, setPath] = React.useState(getPath);
   React.useEffect(() => {
-    const h = () => { setPath(getPath()); window.scrollTo({ top: 0 }); };
-    window.addEventListener('hashchange', h);
-    return () => window.removeEventListener('hashchange', h);
+    const handlePopState = () => {
+      setPath(getPath());
+      window.scrollTo({ top: 0 });
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
-  const navigate = React.useCallback((to) => { window.location.hash = to; }, []);
-  return React.createElement(RouterCtx.Provider, { value: { path, navigate } }, children);
+  const navigate = React.useCallback((to) => {
+    const nextPath = normalisePath(to);
+    window.history.pushState({}, '', routeHref(nextPath));
+    setPath(nextPath);
+    window.scrollTo({ top: 0 });
+  }, []);
+  return React.createElement(RouterCtx.Provider, { value: { path, navigate, routeHref } }, children);
 }
 function useRouter() { return React.useContext(RouterCtx); }
 function NavTo({ to, children, className, onClick, style, onMouseEnter, onMouseLeave, ariaLabel, ariaCurrent }) {
-  const { navigate } = useRouter();
-  const click = (e) => { e.preventDefault(); navigate(to); if (onClick) onClick(); };
-  return <a href={'#' + to} className={className} style={style} onClick={click} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} aria-label={ariaLabel} aria-current={ariaCurrent}>{children}</a>;
+  const { navigate, routeHref } = useRouter();
+  const click = (e) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigate(to);
+    if (onClick) onClick();
+  };
+  return <a href={routeHref(to)} className={className} style={style} onClick={click} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} aria-label={ariaLabel} aria-current={ariaCurrent}>{children}</a>;
 }
 
 // ── Theme ────────────────────────────────────────────────────
@@ -257,7 +293,7 @@ function Footer() {
           <a href="llm-txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>llm-txt</a>
         </div>
       </div>
-      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)', opacity: 0.5 }}>© 2025</span>
+      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)', opacity: 0.5 }}>© 2026</span>
     </footer>
   );
 }

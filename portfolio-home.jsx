@@ -13,7 +13,7 @@ function HomePage() {
         <div style={{ maxWidth: '64rem', margin: '0 auto', width: '100%' }}>
           <FadeIn delay={0.1}>
             {/* Tagline */}
-            <h2 className="home-hero-title" style={{
+            <h1 className="home-hero-title" style={{
               fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600,
               fontSize: 'clamp(2.25rem, 7.5vw, 6rem)', lineHeight: 1.08,
               letterSpacing: '-0.025em', color: 'var(--color-ink)',
@@ -21,7 +21,7 @@ function HomePage() {
             }}>
               Turning business problems into{' '}
               <span style={{ fontWeight: 300, color: 'var(--color-muted)' }}>working software</span>
-            </h2>
+            </h1>
 
             <div className="hero-layout">
               {/* ── Left: photo ── */}
