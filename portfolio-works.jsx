@@ -7,7 +7,7 @@ function WorksPage() {
         <FadeIn>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '3rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '2rem' }}>
             <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: 0 }}>Works</h1>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', color: 'var(--color-label)' }}>Click to open case study</span>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', color: 'var(--color-label)' }}>Click to open work</span>
           </div>
         </FadeIn>
 
@@ -44,7 +44,7 @@ function WorksCard({ project, featured }) {
         )}
         <div style={{ position: 'absolute', bottom: '0.75rem', right: '0.75rem', opacity: hov ? 1 : 0, transition: 'opacity 0.3s' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', padding: '0.25rem 0.625rem', background: 'var(--brand-90)', border: '1px solid var(--color-line)', backdropFilter: 'blur(4px)' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-muted)' }}>Open Case Study</span>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-muted)' }}>{project.type === 'article' ? 'Open Article' : 'Open Case Study'}</span>
             <IconArrowUpRight size={9} style={{ color: 'var(--color-muted)' }} />
           </div>
         </div>
@@ -66,20 +66,21 @@ function WorksCard({ project, featured }) {
 // ── Project Detail ────────────────────────────────────────────
 const SECTIONS = [
   { key: 'summary', label: 'TL;DR', field: 'summary' },
+  { key: 'tools', label: 'Tech Stack', field: 'tools' },
   { key: 'overview', label: 'Overview', field: 'overview' },
   { key: 'metrics', label: 'Metrics', field: 'metrics' },
   { key: 'problemStatement', label: 'Problem', field: 'problemStatement' },
-  { key: 'beforeAfter', label: 'Before / After', field: 'beforeAfter' },
   { key: 'solution', label: 'Solution', field: 'solution' },
+  { key: 'beforeAfter', label: 'Before / After', field: 'beforeAfter' },
   { key: 'keyDeliverables', label: 'Key Features', field: 'keyDeliverables' },
   { key: 'myContribution', label: 'My Contribution', field: 'myContribution' },
   { key: 'skillsDemonstrated', label: 'Skills Demonstrated', field: 'skillsDemonstrated' },
-  { key: 'tools', label: 'Tech Stack', field: 'tools' },
   { key: 'engineeringDecisions', label: 'Engineering Decisions', field: 'engineeringDecisions' },
   { key: 'challengeApproachPairs', label: 'Challenges + Approaches', field: 'challengeApproachPairs' },
   { key: 'challenges', label: 'Challenges', field: 'challenges' },
   { key: 'approaches', label: 'Approaches', field: 'approaches' },
   { key: 'outcomes', label: 'Outcomes', field: 'outcomes' },
+  { key: 'buildNotes', label: 'Build Notes', field: 'buildNotes' },
   { key: 'nextStage', label: "What's Next", field: 'nextStage' },
 ];
 
@@ -94,25 +95,29 @@ const TECH_STACK_ICONS = {
   'Tailwind CSS': { url: 'https://svgl.app/library/tailwindcss.svg' },
 };
 
-function ProjectDetailPage({ id }) {
+function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works", backLabel = "Back to Works", disablePrevNext = false }) {
   const { navigate } = useRouter();
-  const project = window.PROJECTS.find(p => p.id === id);
+  const project = collection.find(p => p.id === id);
 
   React.useEffect(() => {
-    if (!project) navigate('/works');
+    if (!project) navigate(backTo);
   }, [project]);
 
   if (!project) return null;
 
-  const idx = window.PROJECTS.findIndex(p => p.id === id);
-  const prev = window.PROJECTS[idx - 1] || null;
-  const next = window.PROJECTS[idx + 1] || null;
+  const idx = collection.findIndex(p => p.id === id);
+  const prev = disablePrevNext ? null : (collection[idx - 1] || null);
+  const next = disablePrevNext ? null : (collection[idx + 1] || null);
+  const buildNotes = project.id === 'sabaihub' ? (window.BUILD_NOTES || []).filter(note => note.parentId === 'sabaihub') : [];
   const visibleSections = SECTIONS.filter(({ field }) => {
+    if (field === 'buildNotes') return buildNotes.length > 0;
+    if (field === 'nextStage' && project.id === 'sabaihub') return false;
     const value = project[field];
     if (field === 'challenges' && project.challengeApproachPairs) return false;
     if (field === 'approaches' && project.challengeApproachPairs) return false;
     return Array.isArray(value) ? value.length > 0 : Boolean(value);
   });
+  const sectionLabel = (key, fallback) => project.sectionLabels?.[key] || fallback;
 
   const scrollTo = (sectionId) => {
     const el = document.getElementById(sectionId);
@@ -129,10 +134,10 @@ function ProjectDetailPage({ id }) {
         {/* Back */}
         <FadeIn>
           <div style={{ marginBottom: '3rem' }}>
-            <NavTo to="/works" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-muted)', textDecoration: 'none', transition: 'color 0.2s' }}
+            <NavTo to={backTo} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-muted)', textDecoration: 'none', transition: 'color 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
-              <IconArrowLeft size={12} /> Back to Works
+              <IconArrowLeft size={12} /> {backLabel}
             </NavTo>
           </div>
         </FadeIn>
@@ -169,10 +174,16 @@ function ProjectDetailPage({ id }) {
             <div style={{ position: 'sticky', top: '7rem' }}>
               <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-label)', margin: '0 0 1rem' }}>Contents</p>
               {visibleSections.map(({ key, label }) => (
-                <TocLink key={key} label={label} onClick={() => scrollTo(key)} />
+                <TocLink key={key} label={sectionLabel(key, label)} onClick={() => scrollTo(key)} />
               ))}
             </div>
           </aside>
+
+          <MobileToc
+            sections={visibleSections}
+            getLabel={sectionLabel}
+            onSelect={scrollTo}
+          />
 
           {/* Main content */}
           <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '5rem' }}>
@@ -182,9 +193,17 @@ function ProjectDetailPage({ id }) {
               </CaseSection>
             )}
 
-            <CaseSection id="overview" label="Overview">
-              <TextBlock content={project.overview} />
-            </CaseSection>
+            {project.tools && (
+              <CaseSection id="tools" label={sectionLabel('tools', project.toolsLabel || "Tech Stack")}>
+                <TechStackList tools={project.tools} />
+              </CaseSection>
+            )}
+
+            {project.overview && (
+              <CaseSection id="overview" label={sectionLabel('overview', 'Overview')}>
+                <TextBlock content={project.overview} />
+              </CaseSection>
+            )}
 
             {project.metrics && (
               <CaseSection id="metrics" label="Metrics" compact>
@@ -194,13 +213,36 @@ function ProjectDetailPage({ id }) {
 
             <SectionDivider />
 
-            <CaseSection id="problemStatement" label="Problem" emphasis>
-              {project.problemQuote ? (
-                <PullQuote quote={project.problemQuote} supporting={project.problemStatement} />
-              ) : (
-                <TextBlock content={project.problemStatement} variant="quote" />
-              )}
-            </CaseSection>
+            {project.problemStatement && (
+              <CaseSection id="problemStatement" label={sectionLabel('problemStatement', 'Problem')} emphasis>
+                {project.problemQuote ? (
+                  <PullQuote quote={project.problemQuote} supporting={project.problemStatement} supportingOutside={project.quoteSupportingOutside} />
+                ) : (
+                  <TextBlock content={project.problemStatement} variant="quote" />
+                )}
+              </CaseSection>
+            )}
+
+            {project.solution && (
+              <CaseSection id="solution" label={sectionLabel('solution', 'Solution')}>
+                <TextBlock content={project.solution} />
+                {project.conceptTranslations && (
+                  <div style={{ marginTop: '1.25rem' }}>
+                    <ConceptTranslationTable items={project.conceptTranslations} />
+                  </div>
+                )}
+                {project.stakeholderNeeds && (
+                  <div style={{ marginTop: '1.25rem' }}>
+                    <StakeholderNeedTable items={project.stakeholderNeeds} />
+                  </div>
+                )}
+                {project.solutionFollowup && (
+                  <div style={{ marginTop: '1.25rem' }}>
+                    <TextBlock content={project.solutionFollowup} />
+                  </div>
+                )}
+              </CaseSection>
+            )}
 
             {project.beforeAfter && (
               <CaseSection id="beforeAfter" label="Before / After" compact>
@@ -208,19 +250,20 @@ function ProjectDetailPage({ id }) {
               </CaseSection>
             )}
 
-            <SectionDivider />
-
-            <CaseSection id="solution" label="Solution">
-              <TextBlock content={project.solution} />
-            </CaseSection>
-
-            <CaseSection id="keyDeliverables" label="Key Features">
-              <CardGrid items={project.keyDeliverables} />
-            </CaseSection>
+            {project.keyDeliverables && (
+              <CaseSection id="keyDeliverables" label={sectionLabel('keyDeliverables', 'Key Features')}>
+                <CardGrid items={project.keyDeliverables} />
+              </CaseSection>
+            )}
 
             {project.myContribution && (
-              <CaseSection id="myContribution" label="My Contribution">
+              <CaseSection id="myContribution" label={sectionLabel('myContribution', 'My Contribution')}>
                 <TextBlock content={project.myContribution} />
+                {project.workPhases && (
+                  <div style={{ marginTop: '1.5rem' }}>
+                    <WorkPhaseList phases={project.workPhases} />
+                  </div>
+                )}
               </CaseSection>
             )}
 
@@ -230,28 +273,26 @@ function ProjectDetailPage({ id }) {
               </CaseSection>
             )}
 
-            <CaseSection id="tools" label="Tech Stack">
-              <TechStackList tools={project.tools} />
-            </CaseSection>
-
             {project.engineeringDecisions && (
-              <CaseSection id="engineeringDecisions" label="Engineering Decisions">
+              <CaseSection id="engineeringDecisions" label={sectionLabel('engineeringDecisions', 'Engineering Decisions')}>
                 <LineList items={project.engineeringDecisions} />
               </CaseSection>
             )}
 
             {project.challengeApproachPairs ? (
-              <CaseSection id="challengeApproachPairs" label="Challenges + Approaches">
+              <CaseSection id="challengeApproachPairs" label={sectionLabel('challengeApproachPairs', 'Challenges + Approaches')}>
                 <ChallengeApproachGrid pairs={project.challengeApproachPairs} />
               </CaseSection>
             ) : (
               <>
-                <CaseSection id="challenges" label="Challenges">
-                  <NumberedList items={project.challenges} />
-                </CaseSection>
+                {project.challenges && (
+                  <CaseSection id="challenges" label={sectionLabel('challenges', 'Challenges')}>
+                    <NumberedList items={project.challenges} />
+                  </CaseSection>
+                )}
 
                 {project.approaches && (
-                  <CaseSection id="approaches" label="Approaches">
+                  <CaseSection id="approaches" label={sectionLabel('approaches', 'Approaches')}>
                     <LineList items={project.approaches} />
                   </CaseSection>
                 )}
@@ -260,12 +301,20 @@ function ProjectDetailPage({ id }) {
 
             <SectionDivider />
 
-            <CaseSection id="outcomes" label="Outcomes" emphasis>
-              <OutcomeList items={project.outcomes} />
-            </CaseSection>
+            {project.outcomes && (
+              <CaseSection id="outcomes" label={sectionLabel('outcomes', 'Outcomes')} emphasis>
+                <OutcomeList items={project.outcomes} layout={project.outcomeLayout} />
+              </CaseSection>
+            )}
 
-            {project.nextStage && (
-              <CaseSection id="nextStage" label="What's Next">
+            {buildNotes.length > 0 && (
+              <CaseSection id="buildNotes" label="Build Notes">
+                <BuildNotesList notes={buildNotes} />
+              </CaseSection>
+            )}
+
+            {project.nextStage && project.id !== 'sabaihub' && (
+              <CaseSection id="nextStage" label={sectionLabel('nextStage', "What's Next")}>
                 <TextBlock content={project.nextStage} />
                 {project.plannedImprovements && (
                   <div style={{ marginTop: '1.5rem' }}>
@@ -278,10 +327,12 @@ function ProjectDetailPage({ id }) {
         </div>
 
         {/* Prev / Next */}
-        <div style={{ marginTop: '5rem', paddingTop: '2.5rem', borderTop: '1px solid var(--color-line)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-          {prev ? <PrevNextCard project={prev} dir="prev" /> : <div />}
-          {next ? <PrevNextCard project={next} dir="next" /> : <div />}
-        </div>
+        {!disablePrevNext && (
+          <div style={{ marginTop: '5rem', paddingTop: '2.5rem', borderTop: '1px solid var(--color-line)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+            {prev ? <PrevNextCard project={prev} dir="prev" /> : <div />}
+            {next ? <PrevNextCard project={next} dir="next" /> : <div />}
+          </div>
+        )}
 
       </div>
     </div>
@@ -296,6 +347,71 @@ function TocLink({ label, onClick }) {
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       {label}
     </button>
+  );
+}
+
+function MobileToc({ sections, getLabel, onSelect }) {
+  const [open, setOpen] = React.useState(false);
+
+  const selectSection = (key) => {
+    setOpen(false);
+    window.setTimeout(() => onSelect(key), 0);
+  };
+
+  return (
+    <nav className="mobile-toc" aria-label="Page contents">
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen(value => !value)}
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '1rem',
+          padding: '0.9rem 1rem',
+          border: '1px solid var(--color-line)',
+          background: 'var(--color-surface)',
+          color: 'var(--color-ink)',
+          cursor: 'pointer',
+        }}
+      >
+        <span style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+          <IconMenu size={15} />
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Contents</span>
+        </span>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-accent)' }}>{open ? '−' : '+'}</span>
+      </button>
+
+      {open && (
+        <div style={{ border: '1px solid var(--color-line)', borderTop: 'none', background: 'var(--color-brand)' }}>
+          {sections.map(({ key, label }, index) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => selectSection(key)}
+              style={{
+                width: '100%',
+                display: 'grid',
+                gridTemplateColumns: '2rem 1fr',
+                gap: '0.5rem',
+                padding: '0.75rem 1rem',
+                border: 'none',
+                borderTop: index === 0 ? 'none' : '1px solid var(--color-line)',
+                background: 'transparent',
+                color: 'var(--color-muted)',
+                textAlign: 'left',
+                cursor: 'pointer',
+              }}
+            >
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'var(--color-accent)' }}>{String(index + 1).padStart(2, '0')}</span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', lineHeight: 1.45 }}>{getLabel(key, label)}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </nav>
   );
 }
 
@@ -408,17 +524,28 @@ function MetricStrip({ metrics }) {
   );
 }
 
-function PullQuote({ quote, supporting }) {
+function PullQuote({ quote, supporting, supportingOutside = false }) {
   const supportItems = Array.isArray(supporting) ? supporting : [supporting];
   return (
-    <div style={{ position: 'relative', border: '1px solid var(--accent-40)', borderLeft: '6px solid var(--color-accent)', background: 'linear-gradient(135deg, var(--color-surface), var(--gold-5))', padding: 'clamp(1.5rem, 4vw, 2.4rem)', overflow: 'hidden' }}>
-      <span aria-hidden="true" style={{ position: 'absolute', top: '-1rem', right: '1rem', fontFamily: 'Space Grotesk, sans-serif', fontSize: '7.5rem', lineHeight: 1, color: 'var(--color-accent)', opacity: 0.18 }}>“</span>
-      <p style={{ position: 'relative', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 500, fontSize: 'clamp(1.2rem, 2.6vw, 1.6rem)', lineHeight: 1.42, color: 'var(--color-ink)', margin: 0, maxWidth: '44rem' }}>{quote}</p>
-      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.85rem', marginTop: '1.5rem', maxWidth: '44rem' }}>
-        {supportItems.map((item, i) => (
-          <p key={i} style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{item}</p>
-        ))}
+    <div>
+      <div style={{ position: 'relative', border: '1px solid var(--accent-40)', borderLeft: '6px solid var(--color-accent)', background: 'linear-gradient(135deg, var(--color-surface), var(--gold-5))', padding: 'clamp(1.5rem, 4vw, 2.4rem)', overflow: 'hidden' }}>
+        <span aria-hidden="true" style={{ position: 'absolute', top: '-1rem', right: '1rem', fontFamily: 'Space Grotesk, sans-serif', fontSize: '7.5rem', lineHeight: 1, color: 'var(--color-accent)', opacity: 0.18 }}>“</span>
+        <p style={{ position: 'relative', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 500, fontSize: 'clamp(1.2rem, 2.6vw, 1.6rem)', lineHeight: 1.42, color: 'var(--color-ink)', margin: 0, maxWidth: '44rem' }}>{quote}</p>
+        {!supportingOutside && (
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.85rem', marginTop: '1.5rem', maxWidth: '44rem' }}>
+            {supportItems.map((item, i) => (
+              <p key={i} style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{item}</p>
+            ))}
+          </div>
+        )}
       </div>
+      {supportingOutside && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', maxWidth: '44rem' }}>
+          {supportItems.map((item, i) => (
+            <p key={i} style={{ fontSize: '16px', color: 'var(--color-muted)', lineHeight: 1.75, margin: 0 }}>{item}</p>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -432,6 +559,108 @@ function CardGrid({ items }) {
           <p style={{ position: 'relative', fontSize: '15px', color: 'var(--color-ink)', lineHeight: 1.6, margin: '2rem 0 0' }}>{item}</p>
         </div>
       ))}
+    </div>
+  );
+}
+
+function StakeholderNeedTable({ items }) {
+  return (
+    <div style={{ borderTop: '1px solid var(--color-line)', borderBottom: '1px solid var(--color-line)' }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'minmax(8rem, 0.28fr) 1fr',
+        gap: '1.25rem',
+        padding: '0 0 0.65rem',
+        borderBottom: '1px solid var(--color-line)',
+      }}>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>Stakeholder</span>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>What they need</span>
+      </div>
+      {items.map((item, i) => (
+        <div key={item.role} style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(8rem, 0.28fr) 1fr',
+          gap: '1.25rem',
+          padding: '0.95rem 0',
+          borderTop: i === 0 ? 'none' : '1px solid var(--color-line)',
+          alignItems: 'baseline',
+        }}>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-accent)' }}>{item.role}</span>
+          <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>{item.need}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function WorkPhaseList({ phases }) {
+  return (
+    <div style={{ borderTop: '1px solid var(--color-line)', borderBottom: '1px solid var(--color-line)' }}>
+      {phases.map((item, i) => (
+        <div key={item.phase} className="work-phase-row" style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(9rem, 0.3fr) 1fr',
+          gap: '1.25rem',
+          padding: '1rem 0',
+          borderTop: i === 0 ? 'none' : '1px solid var(--color-line)',
+          alignItems: 'baseline',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.65rem' }}>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)' }}>0{i + 1}</span>
+            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', lineHeight: 1.35 }}>{item.phase}</span>
+          </div>
+          <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{item.detail}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ConceptTranslationTable({ items }) {
+  return (
+    <div style={{ borderTop: '1px solid var(--color-line)', borderBottom: '1px solid var(--color-line)' }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'minmax(12rem, 0.38fr) 1fr',
+        gap: '1.25rem',
+        padding: '0 0 0.65rem',
+        borderBottom: '1px solid var(--color-line)',
+      }}>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>Workflow concept</span>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>Architecture shape</span>
+      </div>
+      {items.map((item, i) => (
+        <div key={item.concept} style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(12rem, 0.38fr) 1fr',
+          gap: '1.25rem',
+          padding: '1rem 0',
+          borderTop: i === 0 ? 'none' : '1px solid var(--color-line)',
+          alignItems: 'baseline',
+        }}>
+          <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', lineHeight: 1.45, margin: 0 }}>{item.concept}</p>
+          <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>{item.architecture}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function BuildNotesList({ notes }) {
+  return (
+    <div>
+      <p style={{ fontSize: '16px', color: 'var(--color-muted)', lineHeight: 1.75, margin: '0 0 1.25rem' }}>
+        Deeper notes on the product decisions, architecture, and delivery workflow behind SabaiHub.
+      </p>
+      <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
+        {notes.map((note, i) => (
+          <NavTo key={note.id} to={`/works/sabaihub/build-notes/${note.id}`}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '1rem 1.1rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', textDecoration: 'none' }}>
+            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.4 }}>{note.title}</span>
+            <IconArrowUpRight size={13} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
+          </NavTo>
+        ))}
+      </div>
     </div>
   );
 }
@@ -513,7 +742,20 @@ function LineList({ items }) {
   );
 }
 
-function OutcomeList({ items }) {
+function OutcomeList({ items, layout = 'grid' }) {
+  if (layout === 'horizontal') {
+    return (
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        {items.map((item, i) => (
+          <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', padding: '1rem 1.1rem', border: '1px solid var(--accent-30)', background: 'var(--color-surface)' }}>
+            <span style={{ color: i === 0 ? 'var(--color-gold)' : 'var(--color-accent)', marginTop: '2px', flexShrink: 0, fontSize: '15px' }}>✦</span>
+            <p style={{ fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.65, margin: 0 }}>{item}</p>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
   return (
     <ul style={{ listStyle: 'none', padding: '1.4rem', margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem', border: '1px solid var(--gold-30)', background: 'linear-gradient(135deg, var(--color-surface), var(--gold-5))' }}>
       {items.map((item, i) => (

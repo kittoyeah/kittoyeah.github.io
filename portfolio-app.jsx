@@ -19,6 +19,15 @@ function AppInner() {
     page = <AboutPage />;
   } else if (path === '/works' || path === '/works/') {
     page = <WorksPage />;
+  } else if (path.startsWith('/works/sabaihub/build-notes/')) {
+    const id = path.slice('/works/sabaihub/build-notes/'.length);
+    page = <ProjectDetailPage
+      id={id}
+      collection={window.BUILD_NOTES || []}
+      backTo="/works/sabaihub"
+      backLabel="Back to SabaiHub"
+      disablePrevNext
+    />;
   } else if (path.startsWith('/works/')) {
     const id = path.slice('/works/'.length);
     page = <ProjectDetailPage id={id} />;

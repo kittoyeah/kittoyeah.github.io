@@ -1,5 +1,51 @@
 // ── About Page ────────────────────────────────────────────────
 function AboutPage() {
+  const workSteps = [
+    {
+      title: 'Discover',
+      desc: 'Find the right problem through business context, user personas, workflow research, success metrics, risks, assumptions, and MVP scope.',
+    },
+    {
+      title: 'Define',
+      desc: 'Turn ambiguity into PRDs, epics, user stories, acceptance criteria, flow diagrams, wireframes, prototypes, and non-functional requirements.',
+    },
+    {
+      title: 'Design',
+      desc: 'Shape the system through architecture, system boundaries, data models, API design, UX flows, design system decisions, and testing strategy.',
+    },
+    {
+      title: 'Prepare',
+      desc: 'Set up the delivery environment with project instructions, AI-agent context, rules, tools, guardrails, and review workflows.',
+    },
+    {
+      title: 'Build, Test, Deploy',
+      desc: 'Implement features, verify behaviour, run tests, deploy safely, gather feedback, and iterate.',
+    },
+  ];
+
+  const evidenceItems = [
+    {
+      title: 'SabaiHub',
+      desc: 'Production SaaS for Thai massage businesses in Australia, proving workflow decomposition, requirements, system design, and full-stack development.',
+    },
+    {
+      title: 'Allianz',
+      desc: 'Insurance agent tablet platform work across requirements, functional specifications, stakeholder alignment, user stories, and UAT.',
+    },
+    {
+      title: 'Ever Medical',
+      desc: 'Hospital information system work using healthcare workflow analysis, as-is/to-be mapping, journey maps, and MVP scoping.',
+    },
+    {
+      title: 'Seekster',
+      desc: 'Marketplace product work shaping workflows, roadmap direction, MVP scope, and technically feasible feature definitions.',
+    },
+    {
+      title: 'Hackathons',
+      desc: 'AI and product prototypes recognised by GovHack and IBM watsonx.ai, showing public-sector problem framing and AI workflow thinking.',
+    },
+  ];
+
   return (
     <section style={{ padding: 'clamp(5rem, 9vw, 9rem) 1.5rem 6rem', minHeight: '100vh' }}>
       <div style={{ maxWidth: '64rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '5rem' }}>
@@ -8,49 +54,36 @@ function AboutPage() {
         <FadeIn>
           <div style={{ borderBottom: '1px solid var(--color-line)', paddingBottom: '2rem' }}>
             <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 0.75rem' }}>About</h1>
-            <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', maxWidth: '40rem', lineHeight: 1.7, margin: 0 }}>
-              IT professional turned agentic AI engineer — blending product thinking, business analysis, and hands-on software delivery.
+            <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', maxWidth: '44rem', lineHeight: 1.7, margin: 0 }}>
+              I am a Technical Business Analyst who turns business problems into working software.
+            </p>
+            <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', maxWidth: '48rem', lineHeight: 1.7, margin: '0.75rem 0 0' }}>
+              My strength is working between business discovery and software delivery: understanding messy workflows, defining clear requirements, shaping system designs, and helping ideas become testable products.
             </p>
           </div>
         </FadeIn>
 
-        {/* Technical Arsenal */}
+        {/* How I Work */}
         <FadeInView>
-          <div>
-            <span className="mono-label" style={{ display: 'block', marginBottom: '3rem' }}>
-              <span style={{ color: 'var(--color-accent)' }}>// </span>Technical Arsenal
-            </span>
-            <div className="skills-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2.5rem 3rem' }}>
-              <SkillGroup
-                icon={<IconBrainCircuit size={14} style={{ color: 'var(--color-accent)' }} />}
-                title="AI & Agentic"
-                skills={[
-                  { name: 'AWS Bedrock', iconUrl: 'https://svgl.app/library/aws_dark.svg' },
-                  { name: 'Claude / Codex', iconUrl: 'https://svgl.app/library/claude-ai-icon.svg' },
-                  { name: 'IBM watsonx.ai', iconUrl: 'https://svgl.app/library/ibm.svg' },
-                  { name: 'Microsoft Foundry', iconUrl: 'https://svgl.app/library/microsoft.svg' },
-                ]}
-              />
-              <SkillGroup
-                icon={<IconCpu size={14} style={{ color: 'var(--color-accent)' }} />}
-                title="Engineering"
-                skills={[
-                  { name: 'Next.js / React', iconUrl: 'https://svgl.app/library/nextjs_icon_dark.svg' },
-                  { name: 'TypeScript', iconUrl: 'https://svgl.app/library/typescript.svg' },
-                  { name: 'PostgreSQL', iconUrl: 'https://svgl.app/library/postgresql.svg' },
-                  { name: 'Supabase / Prisma', iconUrl: 'https://svgl.app/library/supabase.svg' },
-                ]}
-              />
-              <SkillGroup
-                icon={<IconLayers size={14} style={{ color: 'var(--color-accent)' }} />}
-                title="Product & Design"
-                skills={[
-                  { name: 'Figma', iconUrl: 'https://svgl.app/library/figma.svg' },
-                  { name: 'Jira / Linear', iconUrl: 'https://cdn.simpleicons.org/jira/0052CC' },
-                  { name: 'Confluence', iconUrl: 'https://cdn.simpleicons.org/confluence/172B4D' },
-                  { name: 'Design Thinking', iconUrl: 'https://svgl.app/library/google.svg' },
-                ]}
-              />
+          <div className="two-col-section" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <div className="two-col-left">
+              <span className="mono-label" style={{ display: 'block', marginBottom: '1.5rem' }}>
+                <span style={{ color: 'var(--color-accent)' }}>// </span>How I Work
+              </span>
+              <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 1.875rem)', color: 'var(--color-muted)', lineHeight: 1.35, margin: 0 }}>
+                An end-to-end process for turning ambiguity into tested software.
+              </h2>
+            </div>
+            <div className="two-col-right" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.85rem' }}>
+              {workSteps.map((step, index) => (
+                <div key={step.title} style={{ display: 'grid', gridTemplateColumns: '3.25rem 1fr', gap: '1rem', padding: '1rem 0', borderTop: index === 0 ? '1px solid var(--color-line)' : 'none', borderBottom: '1px solid var(--color-line)' }}>
+                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-accent)', paddingTop: '0.2rem' }}>{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 500, fontSize: '1rem', color: 'var(--color-ink)', margin: '0 0 0.35rem' }}>{step.title}</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>{step.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </FadeInView>
@@ -65,12 +98,12 @@ function AboutPage() {
                 <span style={{ color: 'var(--color-accent)' }}>// </span>Career Path
               </span>
               <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 1.875rem)', color: 'var(--color-muted)', lineHeight: 1.35, margin: 0 }}>
-                From business analysis to agentic engineering.
+                From business analysis to software systems that people can actually use.
               </h2>
             </div>
             <div className="two-col-right" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-              <ExperienceRow company="SabaiHub" role="Founder & AI/Product Engineer" period="Dec 2025 – Present"
-                desc="Designed and shipped a production SaaS platform for Thai massage shops in Australia, owning product direction, data model decisions, implementation workflow, deployment, and production iteration." />
+              <ExperienceRow company="SabaiHub" role="Founder & Software Engineer" period="Dec 2025 – Present"
+                desc="Designed and shipped a production SaaS platform for Thai massage shops in Australia, owning discovery, workflow analysis, requirements, data model decisions, implementation workflow, deployment, and production iteration." />
               <ExperienceRow company="Allianz (Thailand)" role="IT Business Analyst" period="Feb 2023 – Dec 2023"
                 desc="Translated business requirements into functional specs for a tablet application used by insurance agents. Led Design Thinking workshops and stakeholder alignment across business units." />
               <ExperienceRow company="Ever Medical Technologies" role="Product Owner" period="Apr 2022 – Nov 2022"
@@ -79,6 +112,30 @@ function AboutPage() {
                 desc="Shaped workflows, feature scope, and MVP roadmap inputs for Thailand's leading home services marketplace, working closely with the CTO and product/engineering teams." />
               <ExperienceRow company="Freelance" role="Design Thinking Facilitator" period="May 2019 – Dec 2023"
                 desc="Led 20+ Design Thinking workshops for SCG, PTT EP, Central Group, and government agencies. Used journey mapping, empathy mapping, and structured facilitation." />
+            </div>
+          </div>
+        </FadeInView>
+
+        <hr style={{ border: 'none', borderTop: '1px solid var(--color-line)', opacity: 0.4, margin: 0 }} />
+
+        {/* Selected Evidence */}
+        <FadeInView>
+          <div className="two-col-section" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <div className="two-col-left">
+              <span className="mono-label" style={{ display: 'block', marginBottom: '1.5rem' }}>
+                <span style={{ color: 'var(--color-accent)' }}>// </span>Selected Evidence
+              </span>
+              <div style={{ display: 'inline-flex', alignItems: 'center', border: '1px solid var(--color-line)', padding: '0.25rem 0.55rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)' }}>
+                In Progress
+              </div>
+            </div>
+            <div className="two-col-right" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 15rem), 1fr))', gap: '0.85rem' }}>
+              {evidenceItems.map(item => (
+                <div key={item.title} style={{ minHeight: '10rem', border: '1px solid var(--color-line)', background: 'var(--color-surface)', padding: '1rem' }}>
+                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 500, fontSize: '1rem', color: 'var(--color-ink)', margin: '0 0 0.55rem' }}>{item.title}</h3>
+                  <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </FadeInView>
@@ -124,7 +181,7 @@ function AboutPage() {
               </div>
               <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'var(--color-label)', lineHeight: 1.7, marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid var(--color-line)' }}>
                 Currently completing a Master of IT at the University of Tasmania.<br />
-                Open to AI engineering roles, product-focused engineering, and agentic AI projects.
+                Open to technical BA, product systems, software delivery, and AI workflow roles.
               </p>
             </div>
             <div className="contact-form-wrap" style={{ background: 'var(--color-surface)', padding: '2.5rem', border: '1px solid var(--color-line)' }}>

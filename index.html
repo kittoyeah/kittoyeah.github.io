@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chris Thiraphadungphong — Agentic AI Engineer</title>
+  <title>Chris Kittichod — Technical Business Analyst</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111111'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' font-size='28' font-family='Arial, sans-serif' fill='%23EFEFEF'%3ECK%3C/text%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -146,6 +146,10 @@
       max-width: 100%;
     }
 
+    .mobile-toc {
+      display: none;
+    }
+
     @media (min-width: 768px) {
       h1, h2, h3 {
         text-wrap: balance;
@@ -209,6 +213,7 @@
       .span-2 { grid-column: span 1 !important; }
       .detail-layout { display: flex; flex-direction: column; gap: 2.5rem; }
       .toc-sidebar { display: none !important; }
+      .mobile-toc { display: block; }
       .desktop-nav   { display: none !important; }
       .desktop-icons { display: none !important; }
       .mobile-menu-btn { display: flex !important; }
@@ -266,6 +271,10 @@
         letter-spacing: 0 !important;
       }
       .summary-row {
+        grid-template-columns: 1fr !important;
+        gap: 0.55rem !important;
+      }
+      .work-phase-row {
         grid-template-columns: 1fr !important;
         gap: 0.55rem !important;
       }
@@ -334,13 +343,13 @@
   <div id="root"></div>
 
   <!-- Data (plain JS, loads sync) -->
-  <script src="portfolio-data.js"></script>
+  <script src="portfolio-data.js?v=20260606-mobile-toc-2"></script>
 
   <!-- Components in dependency order (Babel processes sequentially) -->
-  <script type="text/babel" src="portfolio-components.jsx"></script>
-  <script type="text/babel" src="portfolio-home.jsx"></script>
-  <script type="text/babel" src="portfolio-about.jsx"></script>
-  <script type="text/babel" src="portfolio-works.jsx"></script>
-  <script type="text/babel" src="portfolio-app.jsx"></script>
+  <script type="text/babel" src="portfolio-components.jsx?v=20260606-mobile-toc-2"></script>
+  <script type="text/babel" src="portfolio-home.jsx?v=20260606-mobile-toc-2"></script>
+  <script type="text/babel" src="portfolio-about.jsx?v=20260606-mobile-toc-2"></script>
+  <script type="text/babel" src="portfolio-works.jsx?v=20260606-mobile-toc-2"></script>
+  <script type="text/babel" src="portfolio-app.jsx?v=20260606-mobile-toc-2"></script>
 </body>
 </html>

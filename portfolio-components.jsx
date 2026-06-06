@@ -201,18 +201,18 @@ function ExperienceRow({ company, role, period, desc }) {
 // ── SkillGroup ─────────────────────────────────────────────────
 function SkillGroup({ title, skills, icon }) {
   return (
-    <div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem', paddingBottom: '0.75rem', borderBottom: '1px solid var(--color-line)' }}>
+    <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem 1.1rem 0.9rem', borderBottom: '1px solid var(--color-line)' }}>
         {icon}
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{title}</span>
       </div>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <ul style={{ listStyle: 'none', padding: '1rem 1.1rem 1.1rem', margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))', gap: '0.75rem 1rem' }}>
         {skills.map(s => (
-          <li key={s.name} style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '14px', color: 'var(--color-ink)' }}>
-            <div style={{ padding: '0.5rem', border: '1px solid var(--color-line)', background: 'var(--color-brand)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <li key={s.name} style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', minWidth: 0, padding: '0.7rem 0.75rem', border: '1px solid var(--color-line)', background: 'var(--color-brand)', fontSize: '14px', color: 'var(--color-ink)' }}>
+            <div style={{ width: '2rem', height: '2rem', border: '1px solid var(--color-line)', background: 'var(--color-surface)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <img src={s.iconUrl} alt={s.name} width="16" height="16" style={{ objectFit: 'contain', opacity: 0.8 }} className="icon-dark-invert" referrerPolicy="no-referrer" />
             </div>
-            <span>{s.name}</span>
+            <span style={{ minWidth: 0 }}>{s.name}</span>
           </li>
         ))}
       </ul>
@@ -227,7 +227,14 @@ function Footer() {
       <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', alignItems: 'center', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)' }}>
         <span>Chris Thiraphadungphong</span>
         <span style={{ opacity: 0.3 }}>|</span>
-        <span>Agentic AI Engineer · Hobart, AU</span>
+        <span>Technical Business Analyst · Hobart, AU</span>
+        <span style={{ opacity: 0.3 }}>|</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+          <span style={{ width: '6px', height: '6px', background: '#22c55e', borderRadius: '50%', animation: 'pulse 2s infinite', flexShrink: 0 }} />
+          <span>Open to Opportunities</span>
+        </span>
+        <span style={{ opacity: 0.3 }}>|</span>
+        <span>Hobart, Tasmania · Remote</span>
         <span style={{ opacity: 0.3 }}>|</span>
         <div style={{ display: 'flex', gap: '0.875rem', flexWrap: 'wrap', alignItems: 'center' }}>
           <a href="llm.txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>llm.txt</a>
@@ -260,7 +267,7 @@ function Nav() {
         <NavTo to="/" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1rem', color: 'var(--color-ink)', lineHeight: 1.2 }}>Chris Thiraphadungphong</span>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--color-label)' }}>Agentic AI Engineer</span>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--color-label)' }}>Technical Business Analyst</span>
           </div>
         </NavTo>
 
