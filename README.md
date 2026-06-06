@@ -10,6 +10,8 @@ The repository is the GitHub Pages user site:
 - URL: `https://kittoyeah.github.io/`
 - deploy mode: GitHub Actions workflow in `.github/workflows/deploy.yml`
 
-Any push to `main` runs `node scripts/build-site.mjs` and publishes `_site`.
+Any push to `main` installs the locked npm dependencies, runs `npm run build`,
+and publishes `_site`. Vite creates the production React bundle; the custom
+build script also creates the crawlable route entry points.
 The build creates crawlable HTML entry points for the homepage, About, Works,
 project case studies, and SabaiHub Build Notes.

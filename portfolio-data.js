@@ -397,7 +397,12 @@ window.PROJECTS = [
     desc: "Proof-of-concept GovHack service concept helping small businesses navigate licences, permits, tax obligations, and support programs across government tiers.",
     tags: ["AI", "React", "UX Design", "Gov Tech"],
     tools: ["React", "AI-assisted guidance", "Service Design", "Figma", "Miro"],
-    image: "assets/MyBusinessDotGov.gif",
+    image: "assets/mybusiness-gov-poster.jpg",
+    video: {
+      webm: "assets/mybusiness-gov-demo.webm",
+      mp4: "assets/mybusiness-gov-demo.mp4",
+      poster: "assets/mybusiness-gov-poster.jpg"
+    },
     prototypeUrl: "https://v0-my-biz.vercel.app/",
     prototypeWalkthrough: {
       youtubeId: "LU496cP-FnY",

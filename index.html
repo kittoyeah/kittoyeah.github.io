@@ -402,25 +402,10 @@
 
   </style>
 
-  <script src="/image-slot.js"></script>
-
-  <!-- React 18 + Babel -->
-  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script defer src="/assets/portfolio.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <div id="root"></div>
-
-  <!-- Data (plain JS, loads sync) -->
-  <script src="/portfolio-data.js?v=20260606-seo-routes-4"></script>
-
-  <!-- Components in dependency order (Babel processes sequentially) -->
-  <script type="text/babel" src="/portfolio-components.jsx?v=20260606-seo-routes-4"></script>
-  <script type="text/babel" src="/portfolio-home.jsx?v=20260606-seo-routes-4"></script>
-  <script type="text/babel" src="/portfolio-about.jsx?v=20260606-seo-routes-4"></script>
-  <script type="text/babel" src="/portfolio-works.jsx?v=20260606-seo-routes-4"></script>
-  <script type="text/babel" src="/portfolio-app.jsx?v=20260606-seo-routes-4"></script>
 </body>
 </html>

@@ -2,25 +2,29 @@ import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import { build as viteBuild } from 'vite';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUTPUT = path.join(ROOT, '_site');
+const TEMP = path.join(ROOT, '.build');
 const SITE_URL = 'https://kittoyeah.github.io';
-const LAST_MODIFIED = '2026-06-06';
+const LAST_MODIFIED = '2026-06-07';
 const SOCIAL_IMAGE = `${SITE_URL}/assets/og-portfolio.jpg`;
 
 const sourceFiles = [
-  'image-slot.js',
   'index.html',
   'llm.txt',
   'llm-txt',
-  'portfolio-about.jsx',
-  'portfolio-app.jsx',
-  'portfolio-components.jsx',
-  'portfolio-data.js',
-  'portfolio-home.jsx',
-  'portfolio-works.jsx',
   'profile.jpg',
+];
+
+const appFiles = [
+  'portfolio-data.js',
+  'portfolio-components.jsx',
+  'portfolio-home.jsx',
+  'portfolio-about.jsx',
+  'portfolio-works.jsx',
+  'portfolio-app.jsx',
 ];
 
 const escapeHtml = (value) => String(value)
@@ -112,6 +116,43 @@ async function copySourceFiles() {
   await cp(path.join(ROOT, 'assets'), path.join(OUTPUT, 'assets'), { recursive: true });
 }
 
+async function buildApplicationBundle() {
+  await mkdir(TEMP, { recursive: true });
+  const sources = await Promise.all(
+    appFiles.map(file => readFile(path.join(ROOT, file), 'utf8')),
+  );
+  const entryPath = path.join(TEMP, 'portfolio-entry.jsx');
+  const entry = [
+    "import React from 'react';",
+    "import { createRoot } from 'react-dom/client';",
+    'const ReactDOM = { createRoot };',
+    ...sources,
+  ].join('\n\n');
+
+  await writeFile(entryPath, entry);
+  await viteBuild({
+    configFile: false,
+    root: ROOT,
+    publicDir: false,
+    logLevel: 'warn',
+    define: {
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    },
+    build: {
+      outDir: OUTPUT,
+      emptyOutDir: false,
+      minify: 'oxc',
+      sourcemap: false,
+      lib: {
+        entry: entryPath,
+        formats: ['iife'],
+        name: 'PortfolioApp',
+        fileName: () => 'assets/portfolio.js',
+      },
+    },
+  });
+}
+
 async function writeRoute(template, route) {
   const outputPath = route.path === '/'
     ? path.join(OUTPUT, 'index.html')
@@ -168,8 +209,10 @@ async function writeDiscoveryFiles(indexableRoutes) {
 
 async function build() {
   await rm(OUTPUT, { recursive: true, force: true });
+  await rm(TEMP, { recursive: true, force: true });
   await mkdir(OUTPUT, { recursive: true });
   await copySourceFiles();
+  await buildApplicationBundle();
 
   const template = await readFile(path.join(ROOT, 'index.html'), 'utf8');
   const { projects, buildNotes } = await loadPortfolioData();
@@ -250,6 +293,7 @@ async function build() {
     await writeRoute(template, route);
   }
   await writeDiscoveryFiles(routes.filter(route => route.robots.startsWith('index')));
+  await rm(TEMP, { recursive: true, force: true });
 
   console.log(`Built ${routes.length} routes in ${OUTPUT}`);
   console.log(`Social image: ${SOCIAL_IMAGE}`);

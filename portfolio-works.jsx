@@ -63,6 +63,35 @@ function WorksCard({ project, featured }) {
   );
 }
 
+function ProjectCoverMedia({ project }) {
+  if (project.video) {
+    return (
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={project.video.poster}
+        aria-label={`${project.title} product demonstration`}
+        style={{ width: '100%', height: 'auto', display: 'block' }}
+      >
+        <source src={project.video.webm} type="video/webm" />
+        <source src={project.video.mp4} type="video/mp4" />
+      </video>
+    );
+  }
+
+  return (
+    <img
+      src={project.image}
+      alt={project.title}
+      referrerPolicy="no-referrer"
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
+  );
+}
+
 // ── Project Detail ────────────────────────────────────────────
 const SECTIONS = [
   { key: 'summary', label: 'TL;DR', field: 'summary' },
@@ -168,8 +197,7 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
         {/* Cover image */}
         <FadeIn delay={0.1}>
           <div style={{ border: '1px solid var(--color-line)', overflow: 'hidden', marginBottom: 'clamp(3rem, 8vw, 6rem)', background: 'var(--color-surface)' }}>
-            <img src={project.image} alt={project.title} referrerPolicy="no-referrer"
-              style={{ width: '100%', height: 'auto', display: 'block' }} />
+            <ProjectCoverMedia project={project} />
           </div>
         </FadeIn>
 
