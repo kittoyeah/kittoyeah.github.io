@@ -31,6 +31,14 @@ function IconExternalLink({ size = 16, className = '', style }) {
     </svg>
   );
 }
+function IconGithub({ size = 16, className = '', style }) {
+  return (
+    <svg aria-hidden="true" focusable="false" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+      <path d="M9 18c-4.51 2-5-2-7-2"/>
+    </svg>
+  );
+}
 function IconBrainCircuit({ size = 16, className = '', style }) {
   return (
     <svg aria-hidden="true" focusable="false" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
@@ -130,7 +138,15 @@ function NavTo({ to, children, className, onClick, style, onMouseEnter, onMouseL
 // ── Theme ────────────────────────────────────────────────────
 const ThemeCtx = React.createContext({ isDark: true, toggle: () => {} });
 function ThemeProvider({ children }) {
-  const [isDark, setIsDark] = React.useState(true);
+  const getSystemIsDark = () => {
+    if (typeof window === 'undefined' || !window.matchMedia) return true;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  };
+  const [isDark, setIsDark] = React.useState(() => {
+    const next = getSystemIsDark();
+    document.documentElement.setAttribute('data-theme', next ? 'dark' : 'light');
+    return next;
+  });
   const toggle = () => {
     setIsDark(d => {
       const next = !d;
@@ -289,6 +305,11 @@ function Nav() {
               onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
               <IconLinkedin size={14} />
             </a>
+            <a href="https://github.com/kittoyeah" target="_blank" rel="noreferrer" aria-label="Open GitHub profile" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
+              onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
+              <IconGithub size={14} />
+            </a>
             <a href="mailto:chris.kittichod@gmail.com" aria-label="Email Chris" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
@@ -329,5 +350,5 @@ Object.assign(window, {
   ExperienceRow, SkillGroup, Footer, Nav,
   IconTrophy, IconArrowUpRight, IconArrowLeft, IconExternalLink,
   IconBrainCircuit, IconCpu, IconLayers,
-  IconLinkedin, IconMail, IconSun, IconMoon,
+  IconLinkedin, IconGithub, IconMail, IconSun, IconMoon,
 });

@@ -9,6 +9,11 @@ window.PROJECTS = [
     image: "https://picsum.photos/seed/sabaihub/1200/800",
     year: "2025",
     badge: "Live in Production",
+    prototypeWalkthrough: {
+      youtubeId: "EmhIAHmPn38",
+      description: "A short walkthrough of the SabaiHub product flow, showing how shop operations move from fragmented tools into one working SaaS interface.",
+      linkLabel: "Watch walkthrough"
+    },
     summary: {
       what: "Production-grade SaaS for Thai massage businesses in Australia — appointments, rosters, customer records, and reporting in one platform.",
       did: "Solo end-to-end delivery — discovery, requirements, system design, full-stack build, deployment, and live iteration with the operator.",
@@ -389,36 +394,47 @@ window.PROJECTS = [
   {
     id: "mybusiness-gov",
     title: "MyBusiness.gov",
-    desc: "AI-powered platform that gives small businesses a single ABN-based entry point to identify relevant permits, licences, and support programs — replacing fragmented government websites.",
+    desc: "Proof-of-concept GovHack service concept helping small businesses navigate licences, permits, tax obligations, and support programs across government tiers.",
     tags: ["AI", "React", "UX Design", "Gov Tech"],
-    tools: ["React", "LLM APIs", "ABN Lookup API", "Figma", "Miro"],
-    image: "https://picsum.photos/seed/govtech/1200/800",
+    tools: ["React", "AI-assisted guidance", "Service Design", "Figma", "Miro"],
+    image: "assets/MyBusinessDotGov.gif",
+    prototypeUrl: "https://v0-my-biz.vercel.app/",
+    prototypeWalkthrough: {
+      youtubeId: "LU496cP-FnY",
+      description: "A short walkthrough of the prototype flow: ABN entry, business assessment, jurisdiction questions, and the compliance roadmap concept.",
+      linkLabel: "Open live prototype"
+    },
     year: "2025",
-    badge: "GovHack Runner-up",
-    overview: "MyBusiness.gov is an AI-powered civic platform that simplifies the regulatory landscape for Australian small business owners. By entering just an ABN, business owners receive a personalised view of the licences, permits, and government support programs that apply to their specific business type.",
-    problemStatement: "Starting or running a small business in Australia means navigating over 10 separate government websites across federal, state, and local levels to understand what licences, permits, and obligations apply to you. Most business owners either miss compliance requirements or spend hours on bureaucratic research that should take minutes.",
-    solution: "A unified AI-powered dashboard that takes an ABN as input, identifies the business type and industry, and surfaces the exact government requirements, support programs, and next steps relevant to that specific business — presented in plain English.",
+    badge: "Spirit of GovHack TAS",
+    summary: {
+      what: "Proof-of-concept GovHack prototype helping small-business owners navigate licences, permits, tax obligations, and support across government tiers.",
+      did: "Framed the user problem, shaped the service journey, designed the prototype flow, and delivered a working public-service concept under hackathon constraints.",
+      result: "A clickable prototype and walkthrough that show how fragmented government requirements can become a clearer step-by-step business roadmap."
+    },
+    overview: "MyBusiness.gov is a GovHack proof-of-concept for simplifying the regulatory journey for Australian small-business owners. The prototype explores how one guided entry point could help users understand licences, permits, tax obligations, and support programs without starting from agency structure.",
+    problemStatement: "Starting or running a small business in Australia often means moving across federal, state, and local government processes without a clear sequence. Owners can struggle to understand what applies to them, which agency owns each step, and what must be completed before they can operate confidently.",
+    solution: "A guided AI-assisted service concept that starts with a business profile, asks a small set of requirement questions, and turns fragmented government obligations into a clearer step-by-step compliance roadmap in plain English.",
     keyDeliverables: [
-      "ABN lookup and business profile identification",
-      "AI-driven permit and licence recommendation engine",
-      "Plain-language regulatory summary tailored to business type",
-      "Government support program discovery module",
+      "Business profile and guided requirements assessment",
+      "Federal, state, and local obligation journey structure",
+      "Plain-language compliance roadmap concept",
+      "Prototype flow for licence, permit, tax, and support-program guidance",
       "Responsive web interface optimised for low-digital-literacy users"
     ],
     challenges: [
-      "Aggregating and normalising fragmented data across federal, state, and local government sources",
-      "Translating complex regulatory language into plain English without losing accuracy",
-      "Building a full working prototype as a solo entry within a 48-hour hackathon"
+      "Simplifying fragmented government processes across federal, state, and local levels",
+      "Translating complex regulatory language into a user-centred journey without presenting the prototype as official advice",
+      "Building a coherent proof-of-concept within the 46-hour GovHack weekend"
     ],
     approaches: [
-      "Used LLM-based intent classification to map business type (from ABN) to relevant regulatory categories",
-      "Prioritised the most common business types in Tasmania to scope the prototype feasibly within 48 hours",
+      "Structured the concept around a guided assessment that maps business context to likely obligation categories",
+      "Used a Hobart restaurant scenario to keep the prototype specific, testable, and feasible within 46 hours",
       "Applied a UX-first approach — wireframed the user journey before writing any code to validate the core flow"
     ],
     outcomes: [
-      "Runner-up at GovHack 2025 in the Red Tape Navigator challenge",
-      "Only selected Tasmanian project in the national competition",
-      "Built and submitted as a solo entry within the 48-hour hackathon window"
+      "Recognised with the Spirit of GovHack award in Tasmania",
+      "Built a public-sector process simplification story grounded in small-business user needs",
+      "Submitted a clickable proof-of-concept within the 46-hour GovHack window"
     ]
   },
   {
@@ -427,9 +443,19 @@ window.PROJECTS = [
     desc: "AI-powered relocation planning platform helping users evaluate moves from metropolitan to regional Australia — turning fragmented decisions across jobs, housing, schools, and lifestyle into a structured path.",
     tags: ["IBM watsonx", "AI", "UX Research", "React"],
     tools: ["IBM watsonx.ai", "React", "ABS Data APIs", "Figma", "Miro"],
-    image: "https://picsum.photos/seed/regional/1200/800",
+    image: "assets/regionalmate-thumbnail.png",
     year: "2025",
     badge: "IBM Global Top 50",
+    prototypeWalkthrough: {
+      youtubeId: "fVqGKExg2Ds",
+      description: "A short walkthrough of the RegionalMate prototype flow: user profiling, relocation priorities, location comparison, and AI-assisted regional planning.",
+      linkLabel: "Watch walkthrough"
+    },
+    summary: {
+      what: "AI-assisted relocation planning concept helping people evaluate regional moves across work, housing, education, lifestyle, and community needs.",
+      did: "Used research synthesis, journey thinking, and product framing to turn a scattered relocation decision into a structured prototype experience.",
+      result: "Selected as IBM Global Top 50, with a complete end-to-end prototype journey from profiling to personalised relocation plan."
+    },
     overview: "RegionalMate is an AI-powered decision support platform designed to help Australians confidently evaluate a move from major cities to regional areas. It aggregates information across five life domains — employment, housing, education, lifestyle, and community — and uses IBM watsonx.ai to generate personalised relocation plans.",
     problemStatement: "The Australian government has incentives and programs to encourage metropolitan-to-regional migration, but the decision to relocate is overwhelming for most people. Information about regional jobs, schools, housing, and lifestyle is scattered across dozens of sources, making it nearly impossible to make a confident, informed decision.",
     solution: "A structured AI-assisted platform that guides users through a profiling process across five life domains, then generates a personalised regional location comparison and action plan — powered by IBM watsonx.ai and real government data sources.",
@@ -459,6 +485,7 @@ window.PROJECTS = [
   {
     id: "allianz-tablet",
     title: "Insurance Agent Platform",
+    hidden: true,
     desc: "UX overhaul and feature expansion of a tablet application for insurance agents and support teams at Allianz Thailand, driven by Design Thinking workshops and cross-functional stakeholder alignment.",
     tags: ["Product Analysis", "UX Research", "Design Thinking", "Agile"],
     tools: ["Figma", "Miro", "Jira", "Confluence", "Design Thinking methods"],
@@ -512,6 +539,6 @@ window.BUILD_NOTES = window.PROJECTS
 window.PROJECTS = window.PROJECTS.filter(project => project.type !== "article");
 
 window.ACHIEVEMENTS = [
-  { title: "GovHack 2025", award: "Runner-up — Red Tape Navigator", date: "Nov 2025" },
+  { title: "GovHack 2025", award: "Spirit of GovHack — Tasmania", date: "Nov 2025" },
   { title: "IBM watsonx.ai Hackathon 2025", award: "Global Top 50 — RegionalMate", date: "Sep 2025" }
 ];

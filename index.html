@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chris Kittichod — Technical Business Analyst</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111111'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' font-size='28' font-family='Arial, sans-serif' fill='%23EFEFEF'%3ECK%3C/text%3E%3C/svg%3E" />
+  <script>
+    (function () {
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    }());
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -343,13 +349,13 @@
   <div id="root"></div>
 
   <!-- Data (plain JS, loads sync) -->
-  <script src="portfolio-data.js?v=20260606-mobile-toc-2"></script>
+  <script src="portfolio-data.js?v=20260606-final-polish"></script>
 
   <!-- Components in dependency order (Babel processes sequentially) -->
-  <script type="text/babel" src="portfolio-components.jsx?v=20260606-mobile-toc-2"></script>
-  <script type="text/babel" src="portfolio-home.jsx?v=20260606-mobile-toc-2"></script>
-  <script type="text/babel" src="portfolio-about.jsx?v=20260606-mobile-toc-2"></script>
-  <script type="text/babel" src="portfolio-works.jsx?v=20260606-mobile-toc-2"></script>
-  <script type="text/babel" src="portfolio-app.jsx?v=20260606-mobile-toc-2"></script>
+  <script type="text/babel" src="portfolio-components.jsx?v=20260606-final-polish"></script>
+  <script type="text/babel" src="portfolio-home.jsx?v=20260606-final-polish"></script>
+  <script type="text/babel" src="portfolio-about.jsx?v=20260606-final-polish"></script>
+  <script type="text/babel" src="portfolio-works.jsx?v=20260606-final-polish"></script>
+  <script type="text/babel" src="portfolio-app.jsx?v=20260606-final-polish"></script>
 </body>
 </html>

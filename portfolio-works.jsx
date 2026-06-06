@@ -1,6 +1,6 @@
 // ── Works Page ────────────────────────────────────────────────
 function WorksPage() {
-  const projects = window.PROJECTS;
+  const projects = window.PROJECTS.filter(project => !project.hidden);
   return (
     <section style={{ padding: 'clamp(5rem, 9vw, 9rem) 1.5rem 6rem', minHeight: '100vh' }}>
       <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
@@ -66,6 +66,7 @@ function WorksCard({ project, featured }) {
 // ── Project Detail ────────────────────────────────────────────
 const SECTIONS = [
   { key: 'summary', label: 'TL;DR', field: 'summary' },
+  { key: 'prototypeWalkthrough', label: 'Prototype Walkthrough', field: 'prototypeWalkthrough' },
   { key: 'tools', label: 'Tech Stack', field: 'tools' },
   { key: 'overview', label: 'Overview', field: 'overview' },
   { key: 'metrics', label: 'Metrics', field: 'metrics' },
@@ -155,15 +156,20 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
               )}
             </div>
             <h1 className="project-hero-title" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(2.25rem, 6vw, 3.75rem)', lineHeight: 1.05, letterSpacing: '-0.03em', color: 'var(--color-ink)', margin: '0 0 1.5rem' }}>{project.title}</h1>
-            <p className="project-hero-desc" style={{ fontSize: 'clamp(15px, 2vw, 18px)', color: 'var(--color-muted)', lineHeight: 1.65, maxWidth: '38rem', margin: 0 }}>{project.desc}</p>
+            <p className="project-hero-desc" style={{ fontSize: 'clamp(15px, 2vw, 18px)', color: 'var(--color-muted)', lineHeight: 1.65, maxWidth: '100%', margin: 0 }}>{project.desc}</p>
+            {project.prototypeUrl && (
+              <div style={{ marginTop: '1.5rem' }}>
+                <ExternalProjectLink href={project.prototypeUrl} label="Try the prototype" />
+              </div>
+            )}
           </div>
         </FadeIn>
 
         {/* Cover image */}
         <FadeIn delay={0.1}>
-          <div style={{ aspectRatio: '16 / 7', border: '1px solid var(--color-line)', overflow: 'hidden', marginBottom: 'clamp(3rem, 8vw, 6rem)' }}>
+          <div style={{ border: '1px solid var(--color-line)', overflow: 'hidden', marginBottom: 'clamp(3rem, 8vw, 6rem)', background: 'var(--color-surface)' }}>
             <img src={project.image} alt={project.title} referrerPolicy="no-referrer"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              style={{ width: '100%', height: 'auto', display: 'block' }} />
           </div>
         </FadeIn>
 
@@ -190,6 +196,12 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
             {project.summary && (
               <CaseSection id="summary" label="TL;DR" compact>
                 <Summary summary={project.summary} />
+              </CaseSection>
+            )}
+
+            {project.prototypeWalkthrough && (
+              <CaseSection id="prototypeWalkthrough" label="Prototype Walkthrough">
+                <PrototypeWalkthrough walkthrough={project.prototypeWalkthrough} prototypeUrl={project.prototypeUrl} projectTitle={project.title} />
               </CaseSection>
             )}
 
@@ -432,6 +444,65 @@ function TextBlock({ content, variant }) {
       {items.map((item, i) => (
         <p key={i} style={{ ...baseStyle, ...quoteStyle }}>{item}</p>
       ))}
+    </div>
+  );
+}
+
+function ExternalProjectLink({ href, label }) {
+  const [hov, setHov] = React.useState(false);
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '0.55rem',
+        padding: '0.72rem 1rem',
+        border: `1px solid ${hov ? 'var(--accent-50)' : 'var(--color-line)'}`,
+        background: hov ? 'var(--accent-10)' : 'var(--color-surface)',
+        color: hov ? 'var(--color-accent)' : 'var(--color-ink)',
+        textDecoration: 'none',
+        fontFamily: 'JetBrains Mono, monospace',
+        fontSize: '10.5px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.13em',
+        transition: 'background 0.2s, border-color 0.2s, color 0.2s',
+      }}
+    >
+      {label}
+      <IconExternalLink size={12} />
+    </a>
+  );
+}
+
+function PrototypeWalkthrough({ walkthrough, prototypeUrl, projectTitle }) {
+  const embedUrl = `https://www.youtube.com/embed/${walkthrough.youtubeId}`;
+  return (
+    <div>
+      <div style={{ aspectRatio: '16 / 9', border: '1px solid var(--color-line)', background: 'var(--color-surface)', overflow: 'hidden' }}>
+        <iframe
+          title={`${projectTitle} prototype walkthrough`}
+          src={embedUrl}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="lazy"
+          style={{ width: '100%', height: '100%', border: 0, display: 'block' }}
+        />
+      </div>
+      {walkthrough.description && (
+        <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: '1rem 0 0', maxWidth: '42rem' }}>
+          {walkthrough.description}
+        </p>
+      )}
+      {prototypeUrl && (
+        <div style={{ marginTop: '1rem' }}>
+          <ExternalProjectLink href={prototypeUrl} label={walkthrough.linkLabel || 'Open prototype'} />
+        </div>
+      )}
     </div>
   );
 }
