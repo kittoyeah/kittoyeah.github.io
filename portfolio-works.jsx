@@ -789,9 +789,9 @@ function TechStackList({ tools }) {
         const icon = TECH_STACK_ICONS[tool];
         return (
           <div key={tool} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 0.875rem', border: '1px solid var(--accent-30)', background: 'var(--color-surface)' }}>
-            <div style={{ width: '28px', height: '28px', border: '1px solid var(--color-line)', background: 'var(--color-brand)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <div style={{ width: '28px', height: '28px', border: '1px solid var(--color-line)', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               {icon ? (
-                <img src={icon.url} alt="" width="17" height="17" style={{ objectFit: 'contain', display: 'block' }} className={icon.darkLogo ? 'icon-dark-invert' : ''} referrerPolicy="no-referrer" />
+                <img src={icon.url} alt="" width="17" height="17" style={{ objectFit: 'contain', display: 'block' }} referrerPolicy="no-referrer" />
               ) : (
                 <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-label)' }}>{tool.slice(0, 2).toUpperCase()}</span>
               )}
