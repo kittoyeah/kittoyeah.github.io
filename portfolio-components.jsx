@@ -316,10 +316,10 @@ function Nav() {
     <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', backgroundColor: 'var(--brand-85)', borderBottom: '1px solid var(--color-line)' }}>
       <div style={{ maxWidth: '64rem', margin: '0 auto', padding: '0 1.5rem', height: '4rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Logo */}
-        <NavTo to="/" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none' }}>
+        <NavTo to="/" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none', minWidth: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1rem', color: 'var(--color-ink)', lineHeight: 1.2 }}>Chris Thiraphadungphong</span>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--color-label)' }}>Technical Business Analyst</span>
+            <span className="nav-name" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1rem', color: 'var(--color-ink)', lineHeight: 1.2 }}>Chris Thiraphadungphong</span>
+            <span className="nav-title" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--color-label)' }}>Technical Business Analyst</span>
           </div>
         </NavTo>
 
@@ -335,18 +335,18 @@ function Nav() {
 
         {/* Right icons */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-muted)' }}>
-          <div className="desktop-icons" style={{ display: 'none', alignItems: 'center', gap: '0.25rem' }}>
-            <a href="https://linkedin.com/in/chris-kittichod" target="_blank" rel="noreferrer" aria-label="Open LinkedIn profile" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
+          <div className="social-icons" style={{ display: 'none', alignItems: 'center', gap: '0.25rem' }}>
+            <a className="social-icon-link" href="https://linkedin.com/in/chris-kittichod" target="_blank" rel="noreferrer" aria-label="Open LinkedIn profile" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
               <IconLinkedin size={14} />
             </a>
-            <a href="https://github.com/kittoyeah" target="_blank" rel="noreferrer" aria-label="Open GitHub profile" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
+            <a className="social-icon-link" href="https://github.com/kittoyeah" target="_blank" rel="noreferrer" aria-label="Open GitHub profile" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
               <IconGithub size={14} />
             </a>
-            <a href="mailto:chris.kittichod@gmail.com" aria-label="Email Chris" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
+            <a className="social-icon-link" href="mailto:chris.kittichod@gmail.com" aria-label="Email Chris" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
               <IconMail size={14} />

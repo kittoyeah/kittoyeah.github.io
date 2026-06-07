@@ -214,7 +214,7 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
           {/* TOC sidebar */}
           <aside className="toc-sidebar" style={{ display: 'none' }}>
             <div style={{ position: 'sticky', top: '7rem' }}>
-              <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-label)', margin: '0 0 1rem' }}>Contents</p>
+              <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)', margin: '0 0 1rem' }}>Contents</p>
               {visibleSections.map(({ key, label }) => (
                 <TocLink key={key} label={sectionLabel(key, label)} onClick={() => scrollTo(key)} />
               ))}
@@ -391,7 +391,7 @@ function TocLink({ label, onClick }) {
   const [hov, setHov] = React.useState(false);
   return (
     <button type="button" onClick={onClick}
-      style={{ display: 'block', width: '100%', textAlign: 'left', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: hov ? 'var(--color-ink)' : 'var(--color-muted)', background: 'none', border: 'none', borderLeft: `2px solid ${hov ? 'var(--color-accent)' : 'transparent'}`, paddingLeft: '0.75rem', paddingTop: '0.25rem', paddingBottom: '0.25rem', cursor: 'pointer', transition: 'color 0.2s, border-color 0.2s', marginBottom: '0.25rem' }}
+      style={{ display: 'block', width: '100%', textAlign: 'left', fontFamily: 'JetBrains Mono, monospace', fontSize: '12.5px', lineHeight: 1.45, color: hov ? 'var(--color-ink)' : 'var(--color-muted)', background: 'none', border: 'none', borderLeft: `2px solid ${hov ? 'var(--color-accent)' : 'transparent'}`, paddingLeft: '0.75rem', paddingTop: '0.3rem', paddingBottom: '0.3rem', cursor: 'pointer', transition: 'color 0.2s, border-color 0.2s', marginBottom: '0.28rem' }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       {label}
     </button>
@@ -427,9 +427,9 @@ function MobileToc({ sections, getLabel, onSelect }) {
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
           <IconMenu size={15} />
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Contents</span>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Contents</span>
         </span>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-accent)' }}>{open ? '−' : '+'}</span>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '14px', color: 'var(--color-accent)' }}>{open ? '−' : '+'}</span>
       </button>
 
       {open && (
@@ -453,8 +453,8 @@ function MobileToc({ sections, getLabel, onSelect }) {
                 cursor: 'pointer',
               }}
             >
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: 'var(--color-accent)' }}>{String(index + 1).padStart(2, '0')}</span>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', lineHeight: 1.45 }}>{getLabel(key, label)}</span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)' }}>{String(index + 1).padStart(2, '0')}</span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12.5px', lineHeight: 1.5 }}>{getLabel(key, label)}</span>
             </button>
           ))}
         </div>

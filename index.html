@@ -264,7 +264,7 @@
       .toc-sidebar { display: block !important; width: 13rem !important; flex-shrink: 0 !important; }
 
       .desktop-nav   { display: flex !important; }
-      .desktop-icons { display: flex !important; }
+      .social-icons { display: flex !important; }
       .mobile-menu-btn { display: none !important; }
     }
 
@@ -286,8 +286,31 @@
       .toc-sidebar { display: none !important; }
       .mobile-toc { display: block; }
       .desktop-nav   { display: none !important; }
-      .desktop-icons { display: none !important; }
+      .social-icons {
+        display: flex !important;
+        gap: 0.1rem !important;
+      }
+      .social-icon-link {
+        padding: 0.32rem !important;
+      }
       .mobile-menu-btn { display: flex !important; }
+      .nav-name {
+        display: block !important;
+        max-width: 12.6rem !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        font-size: 0.95rem !important;
+      }
+      .nav-title {
+        display: block !important;
+        max-width: 12.6rem !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        font-size: 9px !important;
+        letter-spacing: 0.13em !important;
+      }
 
       .hero-photo-col {
         display: block !important;
