@@ -3,7 +3,7 @@ window.PROJECTS = [
   {
     id: "sabaihub",
     title: "SabaiHub",
-    desc: "Production SaaS platform for Thai massage businesses in Australia, bringing appointment scheduling, staff rostering, customer records, role-based access, and business reporting into one system.",
+    desc: "A live operations platform for Thai massage businesses in Australia, bringing bookings, staff, customer records, and reporting into one place.",
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Prisma"],
     tools: ["Next.js", "React", "TypeScript", "Prisma", "Supabase", "PostgreSQL", "Vercel", "Tailwind CSS"],
     image: "https://picsum.photos/seed/sabaihub/1200/800",
@@ -15,9 +15,9 @@ window.PROJECTS = [
       linkLabel: "Watch walkthrough"
     },
     summary: {
-      what: "Production-grade SaaS for Thai massage businesses in Australia — appointments, rosters, customer records, and reporting in one platform.",
-      did: "Solo end-to-end delivery — discovery, requirements, system design, full-stack build, deployment, and live iteration with the operator.",
-      result: "Live in 3 months instead of 6+; one platform now replaces four disconnected tools (WhatsApp, paper, spreadsheets, generic bookers)."
+      what: "A live operations platform designed around the day-to-day work of Thai massage businesses in Australia.",
+      did: "I took the product from user research and workflow mapping through requirements, design, development, deployment, and operator feedback.",
+      result: "One place to manage bookings, staff, customers, and reporting, shaped around how the shop actually works."
     },
     sectionLabels: {
       myContribution: "How I Worked"
@@ -31,56 +31,59 @@ window.PROJECTS = [
         "No visibility into business performance"
       ],
       after: [
-        "Unified booking dashboard",
-        "Digital rostering with staff availability",
-        "Real-time revenue analytics",
-        "Single source of truth for customer records",
-        "Live KPIs for owners across the business"
+        "Bookings managed in one calendar",
+        "Staff availability and rosters kept together",
+        "Revenue information available in one view",
+        "Customer records stored in one place",
+        "Business dashboard for owners"
       ]
     },
-    overview: "SabaiHub is a production SaaS platform built for Thai massage businesses in Australia. It brings appointment scheduling, staff rostering, customer records, role-based access, and business reporting into one system, replacing fragmented workflows across messaging apps, paper rosters, spreadsheets, and generic booking tools.",
-    problemQuote: "Disconnected tools create missed appointments, roster confusion, duplicated work, poor visibility into business performance, and extra admin work for owners and staff.",
+    overview: [
+      "SabaiHub helps Thai massage businesses manage the connected work behind each appointment: customer details, staff availability, services, rosters, payments, and business reporting.",
+      "It was designed for a specific operating environment rather than treating the shop as a generic booking calendar. Owners need visibility across the business, while staff need clear access to the information required for their role."
+    ],
+    problemQuote: "Running the shop should not depend on checking several tools, pieces of paper, and someone’s memory.",
     quoteSupportingOutside: true,
     problemStatement: [
-      "Many Thai massage businesses manage daily operations through disconnected tools. Bookings may happen through messaging apps, rosters may be kept on paper, revenue may be tracked in spreadsheets, and customer information may sit across multiple places.",
-      "This creates operational problems such as missed appointments, roster confusion, duplicated work, poor visibility into business performance, and extra admin work for owners and staff."
+      "Daily operations can be spread across phone calls, paper rosters, spreadsheets, booking tools, and informal messages. Each tool holds only part of the picture.",
+      "That fragmentation creates extra checking and repeated data entry. Appointment changes can be missed, staff information can become unclear, and owners have to assemble business information manually."
     ],
     solution: [
-      "SabaiHub consolidates core shop operations into a single platform. Instead of switching between separate tools for booking, staff management, and reporting, business owners can manage daily workflows in one place.",
-      "The product was built and launched to production within 3 months and is used in a live shop environment."
+      "SabaiHub gives owners and staff one place to coordinate the work around an appointment, from booking and staff availability to customer records and reporting.",
+      "Behind that simpler experience is a role-based system that connects each shop, user, staff member, service, appointment, and permission while limiting what each person can access."
     ],
     keyDeliverables: [
-      "Appointment scheduling and booking management",
-      "Staff rostering with shift assignment and availability tracking",
-      "Customer and business records",
-      "Role-based access for owners and staff",
-      "Business dashboard with revenue and performance metrics",
-      "Production deployment with environment management"
+      "Manage appointments and changes from one calendar",
+      "Coordinate staff rosters, shifts, and availability",
+      "Keep customer and business records together",
+      "Give owners and staff access appropriate to their responsibilities",
+      "Review revenue and business activity from one dashboard",
+      "Run the application in a live production environment"
     ],
     myContribution: [
-      "I adapted my five-phase delivery framework to SabaiHub: discover, define, design, prepare, then build, test, and deploy with feedback from real shop usage.",
-      "The work combined Technical BA practice with software delivery: real user conversations, workflow analysis, MVP scoping, system design, data modelling, specification-driven development, and AI-assisted implementation."
+      "I worked across the whole delivery journey: understanding the shop, deciding what the first version needed, designing how the parts connected, building the application, and improving it through operator feedback.",
+      "The work combined Technical BA practice with software development: stakeholder conversations, workflow analysis, MVP scoping, requirements engineering, system design, data modelling, specification-driven development, testing, and deployment."
     ],
     workPhases: [
       {
         phase: "Discover",
-        detail: "Talked with real users and industry-adjacent stakeholders by role: owner, manager, receptionist, and therapist. Mapped pain around phone bookings, paper rosters, spreadsheets, staff coordination, payment models, and visibility gaps."
+        detail: "Spoke with people who understand the work of owners, managers, receptionists, and therapists. Mapped how phone bookings, paper rosters, spreadsheets, staff coordination, and payment processes fit together."
       },
       {
         phase: "Define",
-        detail: "Turned messy shop operations into MVP scope: appointments, calendar, staff, services, shop setup, roles, permissions, and foundations for payments and reporting. Wrote user stories, acceptance criteria, and release boundaries so future ideas did not overload version one."
+        detail: "Separated essential daily operations from future ideas. Defined the MVP around appointments, staff, services, shop setup, roles, permissions, payments, and reporting, supported by user stories and acceptance criteria."
       },
       {
         phase: "Design",
-        detail: "Researched technical options and tradeoffs: generic booking tools versus custom workflow fit, delivery speed versus data-model complexity, and how tenant, shop, user, staff assignment, role, appointment, service, and payment entities should relate."
+        detail: "Designed how the business concepts should connect in software. Compared generic tools with a shop-specific workflow and modelled relationships between shops, users, staff, roles, services, appointments, and payments."
       },
       {
         phase: "Prepare",
-        detail: "Set up the delivery harness: repo instructions, AI-agent context, specification-driven tasks, auth and permission guardrails, validation patterns, and review loops so AI-assisted development stayed tied to the product model."
+        detail: "Prepared clear specifications, implementation tasks, authentication and permission rules, validation patterns, and review checks so AI-assisted development stayed tied to the agreed product model."
       },
       {
         phase: "Build, Test, Deploy",
-        detail: "Built and iterated the Next.js, TypeScript, Supabase, PostgreSQL, Prisma, and Vercel product with schema changes, Server Actions, UI flows, targeted testing, deployment, and live feedback from shop usage."
+        detail: "Built and deployed the application with Next.js, TypeScript, Supabase, PostgreSQL, Prisma, and Vercel. Tested key workflows and refined the product using feedback from real operational use."
       }
     ],
     skillsDemonstrated: [
@@ -104,28 +107,28 @@ window.PROJECTS = [
     ],
     challengeApproachPairs: [
       {
-        challenge: "Compressing product discovery, design, implementation, testing, and deployment into a 3-month delivery window.",
-        approach: "Used a specification-driven workflow to clarify requirements, data models, acceptance criteria, and implementation tasks before build work."
+        challenge: "The shop has many connected needs, but the first release could not solve everything.",
+        approach: "Used MVP scoping, release boundaries, and acceptance criteria to focus first on the operations that needed to work together."
       },
       {
-        challenge: "Translating non-technical shop workflows into structured software requirements and usable product features.",
-        approach: "Mapped daily shop operations into product flows, feature requirements, and data structures that matched how owners and staff actually work."
+        challenge: "People describe their work as daily tasks, not software requirements.",
+        approach: "Mapped those tasks into user journeys, business rules, feature requirements, and data relationships without losing the original operating context."
       },
       {
-        challenge: "Designing for users with varying levels of digital literacy while keeping the system practical for daily business operations.",
-        approach: "Kept workflows operationally direct, consolidated related tasks, and iterated against feedback from real shop usage."
+        challenge: "The product must remain practical for people with different levels of digital confidence.",
+        approach: "Kept common workflows direct, grouped related information, and refined the interface using operator feedback."
       },
       {
-        challenge: "Maintaining quality while using AI-assisted development heavily across implementation, debugging, and iteration.",
-        approach: "Used AI to accelerate implementation while keeping ownership of requirements, release decisions, testing, deployment, and production iteration."
+        challenge: "AI could accelerate development, but incorrect assumptions could spread quickly through the product.",
+        approach: "Used specifications, guardrails, testing, and human review while retaining ownership of requirements, technical decisions, and releases."
       }
     ],
     outcomes: [
-      "Launched SabaiHub to production within 3 months.",
-      "Onboarded Thai massage shops as active production users.",
-      "Consolidated appointments, staff operations, and business management into one platform.",
-      "Reduced reliance on multiple disconnected tools.",
-      "Created a real production case study for AI-assisted software delivery."
+      "Delivered a live application rather than stopping at research, requirements, or a prototype.",
+      "Connected bookings, staff coordination, customer records, and reporting through one product model.",
+      "Created a foundation that can be tested and improved through real operator feedback.",
+      "Demonstrated an end-to-end delivery approach spanning business analysis, product decisions, and software development.",
+      "Learned how disciplined specifications and review controls make AI-assisted development more reliable."
     ],
     nextStage: [
       "The next stage is to evolve SabaiHub from an operational SaaS platform into a smarter business assistant for Thai massage shops.",
@@ -544,6 +547,6 @@ window.BUILD_NOTES = window.PROJECTS
 window.PROJECTS = window.PROJECTS.filter(project => project.type !== "article");
 
 window.ACHIEVEMENTS = [
-  { title: "GovHack 2025", award: "Spirit of GovHack — Tasmania", date: "Nov 2025" },
+  { title: "Australia GovHack 2025", award: "Runner-up — Tasmania’s sole nominee", date: "Nov 2025" },
   { title: "IBM watsonx.ai Hackathon 2025", award: "Global Top 50 — RegionalMate", date: "Sep 2025" }
 ];

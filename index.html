@@ -368,6 +368,41 @@
       }
     }
 
+    /* ── Reading scale ── */
+    main p:not([style*="JetBrains Mono"]),
+    main li:not([style*="JetBrains Mono"]) {
+      font-size: clamp(16px, 1.2vw, 17.5px) !important;
+      line-height: 1.75 !important;
+    }
+
+    main p.project-hero-desc {
+      font-size: clamp(16.5px, 1.5vw, 19px) !important;
+      line-height: 1.7 !important;
+    }
+
+    main .summary-row p {
+      font-size: clamp(17px, 1.45vw, 19px) !important;
+      line-height: 1.6 !important;
+    }
+
+    main .hero-bio-copy p {
+      font-size: clamp(15.5px, 1.05vw, 16.5px) !important;
+      line-height: 1.7 !important;
+    }
+
+    @media (max-width: 640px) {
+      main p:not([style*="JetBrains Mono"]),
+      main li:not([style*="JetBrains Mono"]) {
+        font-size: 16px !important;
+        line-height: 1.72 !important;
+      }
+
+      main .summary-row p {
+        font-size: 16.75px !important;
+        line-height: 1.6 !important;
+      }
+    }
+
     /* ── Hero two-column layout ── */
     .hero-layout {
       display: flex;

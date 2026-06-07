@@ -115,14 +115,14 @@ const SECTIONS = [
 ];
 
 const TECH_STACK_ICONS = {
-  'Next.js': { url: 'https://svgl.app/library/nextjs_icon_dark.svg', darkLogo: true },
-  React: { url: 'https://svgl.app/library/react_dark.svg', darkLogo: true },
-  TypeScript: { url: 'https://svgl.app/library/typescript.svg' },
-  Prisma: { url: 'https://svgl.app/library/prisma.svg' },
-  Supabase: { url: 'https://svgl.app/library/supabase.svg' },
-  PostgreSQL: { url: 'https://svgl.app/library/postgresql.svg' },
-  Vercel: { url: 'https://svgl.app/library/vercel_dark.svg', darkLogo: true },
-  'Tailwind CSS': { url: 'https://svgl.app/library/tailwindcss.svg' },
+  'Next.js': { url: 'assets/tool-icons/nextjs.svg' },
+  React: { url: 'assets/tool-icons/react.svg' },
+  TypeScript: { url: 'assets/tool-icons/typescript.svg' },
+  Prisma: { url: 'assets/tool-icons/prisma.svg' },
+  Supabase: { url: 'assets/tool-icons/supabase.svg' },
+  PostgreSQL: { url: 'assets/tool-icons/postgresql.svg' },
+  Vercel: { url: 'assets/tool-icons/vercel.svg' },
+  'Tailwind CSS': { url: 'assets/tool-icons/tailwindcss.svg' },
 };
 
 function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works", backLabel = "Back to Works", disablePrevNext = false }) {
