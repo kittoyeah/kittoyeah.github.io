@@ -13,6 +13,7 @@ const SOCIAL_IMAGE = `${SITE_URL}/assets/og-portfolio.jpg`;
 
 const sourceFiles = [
   'index.html',
+  'google859fbd4b5c9041b1.html',
   'llm.txt',
   'llm-txt',
   'profile.jpg',
