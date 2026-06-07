@@ -413,7 +413,7 @@ window.PROJECTS = [
       linkLabel: "Open live prototype"
     },
     year: "2025",
-    badge: "Spirit of GovHack TAS",
+    badge: "National Runner-up",
     summary: {
       what: "Proof-of-concept GovHack prototype helping small-business owners navigate licences, permits, tax obligations, and support across government tiers.",
       did: "Framed the user problem, shaped the service journey, designed the prototype flow, and delivered a working public-service concept under hackathon constraints.",
@@ -440,7 +440,7 @@ window.PROJECTS = [
       "Applied a UX-first approach — wireframed the user journey before writing any code to validate the core flow"
     ],
     outcomes: [
-      "Recognised with the Spirit of GovHack award in Tasmania",
+      "Recognised as a national runner-up at Australia GovHack 2025",
       "Built a public-sector process simplification story grounded in small-business user needs",
       "Submitted a clickable proof-of-concept within the 46-hour GovHack window"
     ]

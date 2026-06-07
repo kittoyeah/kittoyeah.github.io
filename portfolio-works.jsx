@@ -123,6 +123,14 @@ const TECH_STACK_ICONS = {
   PostgreSQL: { url: 'assets/tool-icons/postgresql.svg' },
   Vercel: { url: 'assets/tool-icons/vercel.svg' },
   'Tailwind CSS': { url: 'assets/tool-icons/tailwindcss.svg' },
+  Figma: { url: 'assets/tool-icons/figma.svg' },
+  Miro: { url: 'assets/tool-icons/miro.svg' },
+  Jira: { url: 'assets/tool-icons/jira.svg' },
+  Confluence: { url: 'assets/tool-icons/confluence.svg' },
+  'IBM watsonx.ai': { url: 'assets/tool-icons/ibm-watsonx.svg' },
+  'AI-assisted guidance': { url: 'assets/tool-icons/codex.svg' },
+  'Service Design': { url: 'assets/tool-icons/figjam.svg' },
+  'Design Thinking methods': { url: 'assets/tool-icons/figjam.svg' },
 };
 
 function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works", backLabel = "Back to Works", disablePrevNext = false }) {
