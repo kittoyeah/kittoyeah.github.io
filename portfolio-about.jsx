@@ -58,7 +58,7 @@ function AboutPage() {
               I am a software engineer who turns business problems into working software.
             </p>
             <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', maxWidth: '100%', lineHeight: 1.7, margin: '0.75rem 0 0' }}>
-              My strength is working between business discovery and software delivery: understanding messy workflows, defining clear requirements, shaping system designs, and helping ideas become testable products.
+              My strength is shipping software end-to-end: turning a messy real-world workflow into a clean data model, a working system, and a deployed product. The business-analysis instinct means I build the right thing, not just a working thing.
             </p>
           </div>
         </FadeIn>
@@ -98,7 +98,7 @@ function AboutPage() {
                 <span style={{ color: 'var(--color-accent)' }}>// </span>Career Path
               </span>
               <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 1.875rem)', color: 'var(--color-muted)', lineHeight: 1.35, margin: 0 }}>
-                From business analysis to software systems that people can actually use.
+                Building software people can actually use, sharpened by years in business analysis getting the problem right first.
               </h2>
             </div>
             <div className="two-col-right" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
@@ -181,7 +181,7 @@ function AboutPage() {
               </div>
               <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'var(--color-label)', lineHeight: 1.7, marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid var(--color-line)' }}>
                 Currently completing a Master of IT at the University of Tasmania.<br />
-                Open to technical BA, product systems, software delivery, and AI workflow roles.
+                Open to software engineering, full-stack, and AI internships.
               </p>
             </div>
             <div className="contact-form-wrap" style={{ background: 'var(--color-surface)', padding: '2.5rem', border: '1px solid var(--color-line)' }}>

@@ -223,7 +223,7 @@ async function build() {
     {
       path: '/',
       title: 'Chris Kittichod | Software Engineer',
-      description: 'Software engineer in Hobart shipping full-stack web and AI products — with a business-analysis background that means building the right thing, not just building it.',
+      description: 'Software engineer in Hobart shipping full-stack web and AI products, with a business-analysis background that means building the right thing, not just building it.',
       type: 'website',
       robots: 'index, follow',
       entity: {

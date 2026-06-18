@@ -65,10 +65,10 @@ function HomePage() {
                             <p style={{ fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>Software Engineer · Master of IT, University of Tasmania</p>
                             <div className="hero-bio-copy" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', fontSize: '14.5px', color: 'var(--color-ink)', lineHeight: 1.65, margin: '0.75rem 0 0', maxWidth: '39rem' }}>
                               <p style={{ margin: 0 }}>
-                                I build and ship production software — full-stack web apps and AI-assisted tools, deployed to real users. A background in business analysis across two startups and one global company means I scope the right problem before writing code.
+                                I build and ship production software: full-stack web apps and AI-assisted tools, deployed to real users. A background in business analysis across two startups and one global company means I scope the right problem before writing code.
                               </p>
                               <p style={{ margin: 0 }}>
-                                I design and ship full-stack systems end-to-end — data models, APIs, AI agents, and the deployment that puts them in front of real users. I've taken two products from empty repo to production.
+                                I design and ship full-stack systems end-to-end: data models, APIs, AI agents, and the deployment that puts them in front of real users. I've taken two products from empty repo to production.
                               </p>
                               <p style={{ margin: 0 }}>
                                 Recent work: CanIBuild, a live AI planning tool for Tasmanian property, and SabaiHub, a production SaaS running real businesses. All shipped, all public.
