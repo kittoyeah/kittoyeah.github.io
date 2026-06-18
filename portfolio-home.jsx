@@ -62,16 +62,16 @@ function HomePage() {
                         <div className="hero-bio-wrap" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', margin: '0 0 2px' }}>Chris Kittichod</p>
-                            <p style={{ fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>Technical Business Analyst · Master of IT, University of Tasmania</p>
+                            <p style={{ fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>Software Engineer · Master of IT, University of Tasmania</p>
                             <div className="hero-bio-copy" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', fontSize: '14.5px', color: 'var(--color-ink)', lineHeight: 1.65, margin: '0.75rem 0 0', maxWidth: '39rem' }}>
                               <p style={{ margin: 0 }}>
-                                My background spans business analysis, product ownership, Design Thinking, and early-stage product delivery across two startups and one global company.
+                                I build and ship production software — full-stack web apps and AI-assisted tools, deployed to real users. A background in business analysis across two startups and one global company means I scope the right problem before writing code.
                               </p>
                               <p style={{ margin: 0 }}>
-                                I work as a Technical Business Analyst: understanding business problems, mapping workflows, defining requirements, designing systems, and shaping prototypes that can be tested with real users.
+                                I design and ship full-stack systems end-to-end — data models, APIs, AI agents, and the deployment that puts them in front of real users. I've taken two products from empty repo to production.
                               </p>
                               <p style={{ margin: 0 }}>
-                                I am strengthening my software engineering and AI skills so I can contribute beyond requirements into working products, including agentic AI systems that automate safely inside real-world workflows.
+                                Recent work: CanIBuild, a live AI planning tool for Tasmanian property, and SabaiHub, a production SaaS running real businesses. All shipped, all public.
                               </p>
                             </div>
                           </div>
@@ -86,16 +86,16 @@ function HomePage() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '14px', color: 'var(--color-ink)', lineHeight: 1.65 }}>
                           {[
                             {
-                              title: 'Business Analysis',
-                              copy: 'Requirements engineering (elicitation, analysis, specification, validation), User-centred design (UX), Design Thinking facilitation, stakeholder interviews, workflow analysis, as-is/to-be mapping, service blueprint, user stories, acceptance criteria, MVP scoping, and UAT.',
-                            },
-                            {
                               title: 'Software Development',
                               lines: [
                                 'System design, application architecture, data modelling, workflow diagrams, process diagrams, and technical feasibility.',
                                 'Full-stack development, spec-driven development, harness engineering, testing, deployment, and production iteration.',
                                 'TypeScript, React, Next.js, PostgreSQL, Supabase, Prisma, Git/GitHub, and Vercel.',
                               ],
+                            },
+                            {
+                              title: 'Business Analysis',
+                              copy: 'Requirements engineering (elicitation, analysis, specification, validation), User-centred design (UX), Design Thinking facilitation, stakeholder interviews, workflow analysis, as-is/to-be mapping, service blueprint, user stories, acceptance criteria, MVP scoping, and UAT.',
                             },
                             {
                               title: 'AI Workflow Design',
@@ -201,21 +201,6 @@ function ToolsMethodsSection() {
   const iconPath = (name) => `assets/tool-icons/${name}.svg`;
   const groups = [
     {
-      title: 'Business & Product',
-      icon: <IconLayers size={14} style={{ color: 'var(--color-accent)' }} />,
-      items: [
-        { name: 'Jira', iconUrl: iconPath('jira') },
-        { name: 'Confluence', iconUrl: iconPath('confluence') },
-        { name: 'Microsoft 365', iconUrl: iconPath('microsoft-365') },
-        { name: 'Figma', iconUrl: iconPath('figma') },
-        { name: 'FigJam', iconUrl: iconPath('figjam') },
-        { name: 'Miro', iconUrl: iconPath('miro') },
-        { name: 'Linear', iconUrl: iconPath('linear') },
-        { name: 'Notion', iconUrl: iconPath('notion') },
-        { name: 'Google Workspace', iconUrl: iconPath('google-workspace') },
-      ],
-    },
-    {
       title: 'Software Development',
       icon: <IconCpu size={14} style={{ color: 'var(--color-accent)' }} />,
       items: [
@@ -233,6 +218,21 @@ function ToolsMethodsSection() {
         { name: 'Vercel', iconUrl: iconPath('vercel') },
         { name: 'Playwright', iconUrl: iconPath('playwright') },
         { name: 'Vitest', iconUrl: iconPath('vitest') },
+      ],
+    },
+    {
+      title: 'Business & Product',
+      icon: <IconLayers size={14} style={{ color: 'var(--color-accent)' }} />,
+      items: [
+        { name: 'Jira', iconUrl: iconPath('jira') },
+        { name: 'Confluence', iconUrl: iconPath('confluence') },
+        { name: 'Microsoft 365', iconUrl: iconPath('microsoft-365') },
+        { name: 'Figma', iconUrl: iconPath('figma') },
+        { name: 'FigJam', iconUrl: iconPath('figjam') },
+        { name: 'Miro', iconUrl: iconPath('miro') },
+        { name: 'Linear', iconUrl: iconPath('linear') },
+        { name: 'Notion', iconUrl: iconPath('notion') },
+        { name: 'Google Workspace', iconUrl: iconPath('google-workspace') },
       ],
     },
     {
@@ -257,7 +257,7 @@ function ToolsMethodsSection() {
             <div>
               <span className="mono-label"><span style={{ color: 'var(--color-accent)' }}>// </span>Tools & Methods</span>
               <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.65, margin: '0.75rem 0 0', maxWidth: '42rem' }}>
-                The practical stack behind the BA, software, and AI workflow work.
+                The engineering stack I work with day-to-day.
               </p>
             </div>
           </div>

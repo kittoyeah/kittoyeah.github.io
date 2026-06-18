@@ -279,7 +279,7 @@ function Footer() {
       <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', alignItems: 'center', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)' }}>
         <span>Chris Thiraphadungphong</span>
         <span style={{ opacity: 0.3 }}>|</span>
-        <span>Technical Business Analyst · Hobart, AU</span>
+        <span>Software Engineer · Hobart, AU</span>
         <span style={{ opacity: 0.3 }}>|</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
           <span style={{ width: '6px', height: '6px', background: '#22c55e', borderRadius: '50%', animation: 'pulse 2s infinite', flexShrink: 0 }} />
@@ -319,7 +319,7 @@ function Nav() {
         <NavTo to="/" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none', minWidth: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span className="nav-name" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1rem', color: 'var(--color-ink)', lineHeight: 1.2 }}>Chris Thiraphadungphong</span>
-            <span className="nav-title" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--color-label)' }}>Technical Business Analyst</span>
+            <span className="nav-title" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--color-label)' }}>Software Engineer</span>
           </div>
         </NavTo>
 

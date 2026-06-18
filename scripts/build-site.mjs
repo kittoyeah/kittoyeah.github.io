@@ -222,8 +222,8 @@ async function build() {
   const routes = [
     {
       path: '/',
-      title: 'Chris Kittichod | Technical Business Analyst',
-      description: 'Technical Business Analyst in Hobart turning business problems into working software through requirements engineering, system design, and full-stack delivery.',
+      title: 'Chris Kittichod | Software Engineer',
+      description: 'Software engineer in Hobart shipping full-stack web and AI products — with a business-analysis background that means building the right thing, not just building it.',
       type: 'website',
       robots: 'index, follow',
       entity: {
@@ -235,7 +235,7 @@ async function build() {
     },
     {
       path: '/about',
-      title: 'About Chris Kittichod | Technical Business Analyst',
+      title: 'About Chris Kittichod | Software Engineer',
       description: 'How Chris Kittichod works across discovery, requirements, system design, prototyping, software delivery, testing, and iteration.',
       type: 'profile',
       robots: 'index, follow',

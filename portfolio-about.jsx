@@ -55,7 +55,7 @@ function AboutPage() {
           <div style={{ borderBottom: '1px solid var(--color-line)', paddingBottom: '2rem' }}>
             <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 0.75rem' }}>About</h1>
             <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', maxWidth: '100%', lineHeight: 1.7, margin: 0 }}>
-              I am a Technical Business Analyst who turns business problems into working software.
+              I am a software engineer who turns business problems into working software.
             </p>
             <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', maxWidth: '100%', lineHeight: 1.7, margin: '0.75rem 0 0' }}>
               My strength is working between business discovery and software delivery: understanding messy workflows, defining clear requirements, shaping system designs, and helping ideas become testable products.
