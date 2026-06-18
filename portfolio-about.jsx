@@ -23,28 +23,17 @@ function AboutPage() {
     },
   ];
 
-  const evidenceItems = [
-    {
-      title: 'SabaiHub',
-      desc: 'Production SaaS for Thai massage businesses in Australia, proving workflow decomposition, requirements, system design, and full-stack development.',
-    },
-    {
-      title: 'Allianz',
-      desc: 'Insurance agent tablet platform work across requirements, functional specifications, stakeholder alignment, user stories, and UAT.',
-    },
-    {
-      title: 'Ever Medical',
-      desc: 'Hospital information system work using healthcare workflow analysis, as-is/to-be mapping, journey maps, and MVP scoping.',
-    },
-    {
-      title: 'Seekster',
-      desc: 'Marketplace product work shaping workflows, roadmap direction, MVP scope, and technically feasible feature definitions.',
-    },
-    {
-      title: 'Hackathons',
-      desc: 'AI and product prototypes recognised by GovHack and IBM watsonx.ai, showing public-sector problem framing and AI workflow thinking.',
-    },
+  const writingIds = [
+    'workflow-to-saas-architecture',
+    'technical-architecture-of-sabaihub',
+    'multi-tenancy-auth-and-data-ownership',
+    'shipping-a-feature-through-the-full-sdlc',
+    'ai-assisted-engineering-workflow',
+    'technical-debt-debugging-and-refactoring',
   ];
+  const writingNotes = writingIds
+    .map(id => (window.BUILD_NOTES || []).find(note => note.id === id))
+    .filter(Boolean);
 
   return (
     <section style={{ padding: 'clamp(5rem, 9vw, 9rem) 1.5rem 6rem', minHeight: '100vh' }}>
@@ -118,24 +107,27 @@ function AboutPage() {
 
         <hr style={{ border: 'none', borderTop: '1px solid var(--color-line)', opacity: 0.4, margin: 0 }} />
 
-        {/* Selected Evidence */}
+        {/* Writing */}
         <FadeInView>
           <div className="two-col-section" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <div className="two-col-left">
               <span className="mono-label" style={{ display: 'block', marginBottom: '1.5rem' }}>
-                <span style={{ color: 'var(--color-accent)' }}>// </span>Selected Evidence
+                <span style={{ color: 'var(--color-accent)' }}>// </span>Writing
               </span>
-              <div style={{ display: 'inline-flex', alignItems: 'center', border: '1px solid var(--color-line)', padding: '0.25rem 0.55rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)' }}>
-                In Progress
-              </div>
+              <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 1.875rem)', color: 'var(--color-muted)', lineHeight: 1.35, margin: 0 }}>
+                Long-form notes on the decisions, architecture, and delivery behind what I build.
+              </h2>
             </div>
-            <div className="two-col-right" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 15rem), 1fr))', gap: '0.85rem' }}>
-              {evidenceItems.map(item => (
-                <div key={item.title} style={{ minHeight: '10rem', border: '1px solid var(--color-line)', background: 'var(--color-surface)', padding: '1rem' }}>
-                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 500, fontSize: '1rem', color: 'var(--color-ink)', margin: '0 0 0.55rem' }}>{item.title}</h3>
-                  <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>{item.desc}</p>
-                </div>
-              ))}
+            <div className="two-col-right">
+              <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
+                {writingNotes.map((note, i) => (
+                  <NavTo key={note.id} to={`/works/sabaihub/build-notes/${note.id}`}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '1rem 1.1rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', textDecoration: 'none' }}>
+                    <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.4 }}>{note.title}</span>
+                    <IconArrowUpRight size={13} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
+                  </NavTo>
+                ))}
+              </div>
             </div>
           </div>
         </FadeInView>
