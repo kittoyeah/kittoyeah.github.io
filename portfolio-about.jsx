@@ -2,24 +2,24 @@
 function AboutPage() {
   const workSteps = [
     {
-      title: 'Discover',
-      desc: 'Find the right problem through business context, user personas, workflow research, success metrics, risks, assumptions, and MVP scope.',
-    },
-    {
-      title: 'Define',
-      desc: 'Turn ambiguity into PRDs, epics, user stories, acceptance criteria, flow diagrams, wireframes, prototypes, and non-functional requirements.',
+      title: 'Discover & Define',
+      desc: 'Find the right problem and turn ambiguity into a plan: business context, users, workflows, success metrics, PRDs, user stories, acceptance criteria, and MVP scope.',
     },
     {
       title: 'Design',
-      desc: 'Shape the system through architecture, system boundaries, data models, API design, UX flows, design system decisions, and testing strategy.',
+      desc: 'Shape the system: architecture, system boundaries, data models, API design, component structure, and testing strategy.',
     },
     {
-      title: 'Prepare',
-      desc: 'Set up the delivery environment with project instructions, AI-agent context, rules, tools, guardrails, and review workflows.',
+      title: 'Build',
+      desc: 'Implement full-stack features with spec-driven, AI-assisted development inside a controlled harness: project context, rules, guardrails, and review workflows.',
     },
     {
-      title: 'Build, Test, Deploy',
-      desc: 'Implement features, verify behaviour, run tests, deploy safely, gather feedback, and iterate.',
+      title: 'Test & Verify',
+      desc: 'Run automated tests, verify behaviour, and check against real-user flows.',
+    },
+    {
+      title: 'Ship & Iterate',
+      desc: 'Deploy safely, gather feedback, and iterate in production.',
     },
   ];
 
@@ -103,11 +103,11 @@ function AboutPage() {
             </div>
             <div className="two-col-right" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
               <ExperienceRow company="SabaiHub" role="Founder & Software Engineer" period="Dec 2025 – Present"
-                desc="Designed and shipped a production SaaS platform for Thai massage shops in Australia, owning discovery, workflow analysis, requirements, data model decisions, implementation workflow, deployment, and production iteration." />
+                desc="Sole engineer behind a production multi-tenant SaaS that runs Thai massage businesses in Australia: bookings, staff, customers, and reporting. Designed the Postgres data model with tenant isolation and role-based access, built the full stack on Next.js, Prisma, and Supabase, and shipped it live to real shops." />
               <ExperienceRow company="Allianz (Thailand)" role="IT Business Analyst" period="Feb 2023 – Dec 2023"
-                desc="Translated business requirements into functional specs for a tablet application used by insurance agents. Led Design Thinking workshops and stakeholder alignment across business units." />
+                desc="Translated business needs into the functional specs the development team built from for a tablet application used by insurance agents. Led Design Thinking workshops and stakeholder alignment across business units." />
               <ExperienceRow company="Ever Medical Technologies" role="Product Owner" period="Apr 2022 – Nov 2022"
-                desc="Owned outpatient module discovery-to-delivery for a hospital information system, working with hospital executives and medical stakeholders in a Scrum team." />
+                desc="Owned an outpatient module from discovery to delivery for a hospital information system, working with engineers in a Scrum team to ship it alongside hospital executives and medical stakeholders." />
               <ExperienceRow company="Seekster" role="IT Business Analyst" period="Oct 2020 – Mar 2022"
                 desc="Shaped workflows, feature scope, and MVP roadmap inputs for Thailand's leading home services marketplace, working closely with the CTO and product/engineering teams." />
               <ExperienceRow company="Freelance" role="Design Thinking Facilitator" period="May 2019 – Dec 2023"
