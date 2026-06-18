@@ -1,26 +1,26 @@
 Name: Chris Thiraphadungphong
 Also known as: Chris Kittichod
-Role: Technical Business Analyst
+Role: Software Engineer
 Location: Hobart, Tasmania, Australia
 Website: https://kittoyeah.github.io/
 LinkedIn: https://linkedin.com/in/chris-kittichod
 Email: chris.kittichod@gmail.com
 
 Summary:
-Chris Kittichod is a Technical Business Analyst who turns business problems into working software. His background spans business analysis, product ownership, Design Thinking, system design, and early-stage software delivery.
+Chris Kittichod is a software engineer who turns business problems into working software. He builds and ships full-stack web and AI products end to end, from data model to deployment. A background in business analysis across two startups and one global company means he scopes the right problem before writing code.
 
 Current focus:
-- Requirements engineering and workflow analysis
-- System design and data modelling
-- Full-stack software development
-- AI-assisted and agentic workflow design
+- Full-stack development with Next.js, React, and TypeScript
+- System design, data modelling, and API design
+- AI-assisted and agentic workflow development
+- Shipping and iterating production software
 
 Education:
 - Master of Information Technology and Systems, University of Tasmania, 2025 to present
 - Bachelor of Political Science, Thammasat University, 2015 to 2019
 
 Selected work:
-- SabaiHub: production SaaS platform for Thai massage businesses in Australia covering appointments, rostering, customer records, role-based access, and reporting
+- SabaiHub: production multi-tenant SaaS for Thai massage businesses in Australia; Postgres data model, role-based access, and a full-stack build on Next.js, Prisma, and Supabase, deployed to real shops
 - MyBusiness.gov: GovHack proof-of-concept helping small businesses navigate permits, licences, tax obligations, and support programs; recognised with the Spirit of GovHack award in Tasmania
 - RegionalMate: AI-powered relocation planning platform, selected in IBM watsonx.ai Hackathon 2025 Global Top 50
 
@@ -36,11 +36,11 @@ Skills:
 - Codex
 - IBM watsonx.ai
 - Figma
-- Requirements engineering
 - System design
+- Requirements engineering
 - Design Thinking
 
 Availability:
-- Open to Technical Business Analyst roles
-- Open to product and software delivery internships
-- Open to business-analysis-led software and AI workflow projects
+- Open to software engineering internships
+- Open to full-stack and AI-focused internships
+- Open to product and software delivery roles

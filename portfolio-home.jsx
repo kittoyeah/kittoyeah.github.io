@@ -71,7 +71,7 @@ function HomePage() {
                                 I design and ship full-stack systems end-to-end: data models, APIs, AI agents, and the deployment that puts them in front of real users. I've taken two products from empty repo to production.
                               </p>
                               <p style={{ margin: 0 }}>
-                                Recent work: CanIBuild, a live AI planning tool for Tasmanian property, and SabaiHub, a production SaaS running real businesses. All shipped, all public.
+                                Recent work: SabaiHub, a production SaaS running real businesses, and CanIBuild, an AI planning tool for Tasmanian property I'm building now.
                               </p>
                             </div>
                           </div>
