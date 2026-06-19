@@ -6,7 +6,7 @@ window.PROJECTS = [
     desc: "A live operations platform for Thai massage businesses in Australia, bringing bookings, staff, customer records, and reporting into one place.",
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Prisma"],
     tools: ["Next.js", "React", "TypeScript", "Prisma", "Supabase", "PostgreSQL", "Vercel", "Tailwind CSS"],
-    image: "https://picsum.photos/seed/sabaihub/1200/800",
+    image: "assets/sabaihub-thumbnail.png",
     year: "2025",
     badge: "Live in Production",
     prototypeWalkthrough: {
