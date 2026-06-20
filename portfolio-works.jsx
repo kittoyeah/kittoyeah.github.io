@@ -115,6 +115,11 @@ const SECTIONS = [
 ];
 
 const TECH_STACK_ICONS = {
+  'AWS Bedrock': { url: 'assets/tool-icons/aws-bedrock.svg' },
+  'Claude': { url: 'assets/tool-icons/claude-code.svg' },
+  'AWS Step Functions': { url: 'assets/tool-icons/aws-stepfunctions.svg' },
+  'AWS Lambda': { url: 'assets/tool-icons/aws-lambda.svg' },
+  'Amazon S3': { url: 'assets/tool-icons/aws-s3.svg' },
   'Next.js': { url: 'assets/tool-icons/nextjs.svg' },
   React: { url: 'assets/tool-icons/react.svg' },
   TypeScript: { url: 'assets/tool-icons/typescript.svg' },

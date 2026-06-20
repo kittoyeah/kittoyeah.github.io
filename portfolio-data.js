@@ -146,6 +146,62 @@ window.PROJECTS = [
     ]
   },
   {
+    id: "connection-copilot",
+    title: "Connection Review Copilot",
+    desc: "A multi-agent AI architecture for reviewing complex, document-heavy applications: bounded agents under deterministic orchestration, each preparing a source-grounded review for a human to decide on. Built for a utility electricity-connection workflow.",
+    tags: ["AWS Bedrock", "Multi-Agent", "RAG", "Next.js"],
+    tools: ["AWS Bedrock", "Claude", "AWS Step Functions", "AWS Lambda", "Amazon S3", "Next.js", "TypeScript"],
+    image: "assets/connection-copilot-architecture.svg",
+    year: "2026",
+    badge: "AWS Think Tank 2026",
+    summary: {
+      what: "A multi-agent AI architecture for AI-assisted review of complex applications, built in a 78-hour AWS Think Tank with a team of three.",
+      did: "Architected the orchestration and the six-agent pipeline: set where the deterministic controller ends and the AI begins, defined each agent's input and output contract, and consolidated an early nine-agent design down to six.",
+      result: "A production-shaped system on AWS Bedrock: a deterministic orchestrator over six bounded agents, 195+ resources, deployed via infrastructure-as-code. Recognised at the AWS Think Tank."
+    },
+    overview: "Review-heavy workflows share a shape: assemble data from several systems, apply dense standards, produce a design and a cost estimate, then decide how to respond. Done manually it is slow and opaque. This project is an architecture for turning that review into an AI-assisted pipeline, with a human in control at every step. The example domain is utility electricity-connection review, but the pattern generalises to any document-heavy, standards-bound process.",
+    metrics: [
+      { value: "195+", label: "AWS resources deployed" },
+      { value: "6", label: "Bounded agents (from 9)" },
+      { value: "78 hrs", label: "Build span, team of 3" },
+      { value: "35,881", label: "Bedrock invocations" }
+    ],
+    problemStatement: "A simple chatbot does not solve a review workflow. Reviewers need each case understood for them before they even know what to ask. The information lives across multiple systems, the standards are dense, and a wrong call is expensive, so the AI has to prepare the ground without ever making the decision.",
+    solution: "The spine is a deterministic orchestrator sitting above the AI: it controls the flow and stays auditable, while six bounded agents each own one phase of review (intake, environmental screen, design prep, schematic, cost build-up, standards check). The AI reasons inside each agent, but the orchestrator decides what runs next, never the model. The other key insight from decomposing the workflow: do not make the user ask first. A review snapshot is generated when a case is submitted or materially changes, so the prepared review is ready the moment a reviewer opens the case, with chat for follow-up. Every AI output is advisory, and a human makes the decision.",
+    keyDeliverables: [
+      "Internal review queue and case workspace bringing applicant, site, supply, attachments, and history together",
+      "Multi-agent pipeline with one bounded agent per review phase under an orchestrator",
+      "Precomputed AI review snapshot, ready the moment a case is opened",
+      "Global AI copilot for follow-up questions and drafting",
+      "Knowledge layer for reference-grounded answers with citations (RAG)",
+      "Adapter layer isolating all AWS Bedrock calls, deployed via infrastructure-as-code"
+    ],
+    engineeringDecisions: [
+      "Deterministic orchestration sits above the AI (Step Functions), so every decision is traceable. The AI reasons, but the orchestrator decides what runs next, never the model.",
+      "The workflow is decomposed into six bounded agents, one review phase each, with an explicit input and output contract so every step is testable in isolation.",
+      "Consolidated a nine-agent first iteration down to six: folded the orchestrator into shared infrastructure and merged overlapping agents. Fewer moving parts, same coverage.",
+      "A deliberate split, per agent, between what the AI reasons about and what stays a deterministic rule. Knowing where not to use the model is part of the design.",
+      "All Bedrock calls are isolated behind one adapter seam. The UI never calls the model and route handlers never import the AWS SDK directly.",
+      "A review snapshot is generated before the user asks, rather than an AI call on every page load, which improved the experience and cut cost.",
+      "Hard human-in-the-loop lines on approval and compliance decisions: the places where the AI is never trusted to decide, by design."
+    ],
+    challenges: [
+      "Making AI trustworthy for a regulated, auditable process where a wrong automated decision is unacceptable",
+      "Designing an ask-nothing-first experience instead of an empty chatbox",
+      "Decomposing a messy, multi-system human workflow into bounded agents with clean contracts"
+    ],
+    approaches: [
+      "Chose deterministic orchestration over autonomous agents so every step is traceable, putting reliability above cleverness",
+      "Generated a review snapshot on case submission or change, which also removed wasteful AI calls on each page load",
+      "Mapped the human process first, then decided where AI helps, so the AI design followed the workflow rather than the other way around"
+    ],
+    outcomes: [
+      "A working, production-shaped system (real infrastructure and patterns, not a toy demo) built in 78 hours by a team of three",
+      "A clean separation of concerns: orchestration, agent framework, and portal shell kept independent from domain configuration, so the platform pattern transfers to other review workflows",
+      "Recognised at the AWS Think Tank, with reusable platform patterns spun out for future work"
+    ]
+  },
+  {
     id: "why-i-built-sabaihub",
     type: "article",
     title: "Why I Built SabaiHub",
