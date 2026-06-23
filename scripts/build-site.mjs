@@ -126,6 +126,7 @@ async function buildApplicationBundle() {
   const entry = [
     "import React from 'react';",
     "import { createRoot } from 'react-dom/client';",
+    "import Fuse from 'fuse.js';",
     'const ReactDOM = { createRoot };',
     ...sources,
   ].join('\n\n');

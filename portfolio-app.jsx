@@ -187,6 +187,8 @@ function AppInner() {
       <Nav />
       <main id="main-content" style={{ flex: 1 }}>{page}</main>
       <Footer />
+      <SearchFab />
+      <CommandPalette />
     </div>
   );
 }

@@ -378,13 +378,146 @@ function Nav() {
   );
 }
 
+// ── Command Palette (Cmd/Ctrl + K) ────────────────────────────
+function IconSearch({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+    </svg>
+  );
+}
+
+function buildPaletteItems() {
+  const pages = [
+    { id: 'home', title: 'Home', subtitle: 'Software engineer turning business problems into working software', kind: 'Page', route: '/' },
+    { id: 'about', title: 'About', subtitle: 'Background, how I work, writing, and contact', kind: 'Page', route: '/about' },
+    { id: 'works', title: 'Works', subtitle: 'Selected projects and case studies', kind: 'Page', route: '/works' },
+  ];
+  const projects = (window.PROJECTS || [])
+    .filter(p => !p.hidden && p.type !== 'article')
+    .map(p => ({ id: p.id, title: p.title, subtitle: p.desc, kind: 'Project', route: `/works/${p.id}`, tags: (p.tags || []).join(' ') }));
+  const notes = (window.BUILD_NOTES || [])
+    .map(n => ({ id: n.id, title: n.title, subtitle: n.desc, kind: 'Writing', route: `/works/sabaihub/build-notes/${n.id}`, tags: (n.tags || []).join(' ') }));
+  return [...pages, ...projects, ...notes];
+}
+
+function CommandPalette() {
+  const { navigate } = useRouter();
+  const [open, setOpen] = React.useState(false);
+  const [query, setQuery] = React.useState('');
+  const [active, setActive] = React.useState(0);
+  const inputRef = React.useRef(null);
+
+  const items = React.useMemo(buildPaletteItems, []);
+  const fuse = React.useMemo(
+    () => new Fuse(items, { keys: ['title', 'subtitle', 'tags', 'kind'], threshold: 0.4, ignoreLocation: true }),
+    [items],
+  );
+  const results = React.useMemo(() => {
+    const q = query.trim();
+    return (q ? fuse.search(q).map(r => r.item) : items).slice(0, 8);
+  }, [query, fuse, items]);
+
+  const close = React.useCallback(() => { setOpen(false); setQuery(''); setActive(0); }, []);
+  const go = React.useCallback((item) => { if (item) { navigate(item.route); close(); } }, [navigate, close]);
+
+  // open via Cmd/Ctrl+K, or a custom event from the nav button
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        setOpen(o => !o);
+      }
+    };
+    const onOpen = () => setOpen(true);
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('open-command-palette', onOpen);
+    return () => { window.removeEventListener('keydown', onKey); window.removeEventListener('open-command-palette', onOpen); };
+  }, []);
+
+  // focus input + lock scroll while open; reset selection when query changes
+  React.useEffect(() => {
+    if (!open) return;
+    const t = window.setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { window.clearTimeout(t); document.body.style.overflow = prev; };
+  }, [open]);
+  React.useEffect(() => { setActive(0); }, [query]);
+
+  if (!open) return null;
+
+  const onKeyDown = (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); close(); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); setActive(i => Math.min(i + 1, results.length - 1)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(i => Math.max(i - 1, 0)); }
+    else if (e.key === 'Enter') { e.preventDefault(); go(results[active]); }
+  };
+
+  return (
+    <div role="dialog" aria-modal="true" aria-label="Search" onMouseDown={close}
+      style={{ position: 'fixed', inset: 0, zIndex: 100, background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(3px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '12vh 1.5rem 1.5rem' }}>
+      <div onMouseDown={e => e.stopPropagation()} onKeyDown={onKeyDown}
+        style={{ width: '100%', maxWidth: '40rem', background: 'var(--color-brand)', border: '1px solid var(--color-line)', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.4)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem 1.1rem', borderBottom: '1px solid var(--color-line)', color: 'var(--color-muted)' }}>
+          <IconSearch size={16} />
+          <input ref={inputRef} value={query} onChange={e => setQuery(e.target.value)} placeholder="Search projects and pages…"
+            aria-label="Search projects and pages" spellCheck={false}
+            style={{ flex: 1, background: 'none', border: 'none', outline: 'none', color: 'var(--color-ink)', fontSize: '16px', fontFamily: 'inherit' }} />
+          <kbd style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-label)', border: '1px solid var(--color-line)', borderRadius: '4px', padding: '2px 6px' }}>ESC</kbd>
+        </div>
+        <div style={{ maxHeight: '52vh', overflowY: 'auto', padding: '0.4rem' }}>
+          {results.length === 0 ? (
+            <p style={{ padding: '1.5rem 1.1rem', margin: 0, color: 'var(--color-muted)', fontSize: '14px' }}>No matches for “{query}”.</p>
+          ) : results.map((item, i) => (
+            <button key={item.kind + item.id} type="button" onMouseEnter={() => setActive(i)} onClick={() => go(item)}
+              style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', textAlign: 'left', padding: '0.75rem 0.85rem', border: 'none', borderRadius: '5px', cursor: 'pointer', background: i === active ? 'var(--color-surface)' : 'transparent' }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ margin: 0, fontSize: '14.5px', fontWeight: 600, color: 'var(--color-ink)', fontFamily: 'Space Grotesk, sans-serif' }}>{item.title}</p>
+                <p style={{ margin: '2px 0 0', fontSize: '12.5px', color: 'var(--color-muted)', lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.subtitle}</p>
+              </div>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-label)', border: '1px solid var(--color-line)', borderRadius: '4px', padding: '2px 6px', flexShrink: 0 }}>{item.kind}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SearchFab() {
+  const [hov, setHov] = React.useState(false);
+  return (
+    <button type="button"
+      onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+      aria-label="Search (Command or Control + K)"
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{
+        position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 90,
+        display: 'flex', alignItems: 'center', gap: '0.5rem',
+        padding: '0.7rem 0.95rem',
+        background: 'var(--color-surface)',
+        border: `1px solid ${hov ? 'var(--color-accent)' : 'var(--color-line)'}`,
+        borderRadius: '999px',
+        color: hov ? 'var(--color-ink)' : 'var(--color-muted)',
+        cursor: 'pointer',
+        boxShadow: '0 6px 20px rgba(0,0,0,0.28)',
+        transition: 'color 0.2s, border-color 0.2s, transform 0.2s',
+        transform: hov ? 'translateY(-2px)' : 'none',
+      }}>
+      <IconSearch size={16} />
+      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', letterSpacing: '0.05em' }}>⌘K</span>
+    </button>
+  );
+}
+
 // ── Exports ───────────────────────────────────────────────────
 Object.assign(window, {
   RouterProvider, useRouter, NavTo,
   ThemeProvider, useTheme,
   FadeIn, FadeInView,
-  ExperienceRow, SkillGroup, Footer, Nav,
+  ExperienceRow, SkillGroup, Footer, Nav, CommandPalette, SearchFab,
   IconTrophy, IconArrowUpRight, IconArrowLeft, IconExternalLink,
-  IconBrainCircuit, IconCpu, IconLayers,
+  IconBrainCircuit, IconCpu, IconLayers, IconSearch,
   IconLinkedin, IconGithub, IconMail, IconSun, IconMoon,
 });
