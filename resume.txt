@@ -1,0 +1,115 @@
+KITTICHOD (CHRIS) THIRAPHADUNGPHONG
+Software Engineer
+
+Hobart, Tasmania, Australia (open to remote)
+Email:    chris.kittichod@gmail.com
+Phone:    +61 466 962 259
+Website:  https://kittoyeah.github.io/
+LinkedIn: https://linkedin.com/in/chris-kittichod
+GitHub:   https://github.com/kittoyeah
+Languages: English (fluent), Thai (native), Chinese (intermediate)
+
+================================================================
+SUMMARY
+================================================================
+Software engineer who turns business problems into working software.
+Builds and ships full-stack web and AI products end to end, from data
+model to deployment. A background in business analysis across two
+startups and one global company means the right problem gets scoped
+before any code is written.
+
+================================================================
+SKILLS
+================================================================
+Frontend / Full-stack : Next.js, React, TypeScript
+Data / Backend        : PostgreSQL, Prisma, Supabase, API design,
+                        data modelling, system design
+AI                    : AI-assisted & agentic workflows, AWS Bedrock,
+                        IBM watsonx.ai, Claude, Codex
+Product / Analysis    : Requirements engineering, MVP scoping,
+                        Design Thinking facilitation, product ownership
+Tools                 : Figma, Git/GitHub
+
+================================================================
+EXPERIENCE
+================================================================
+SabaiHub — Founder & Software Engineer
+Dec 2025 – Present | Hobart, Australia
+- Sole engineer behind a production multi-tenant SaaS that runs Thai
+  massage businesses in Australia: bookings, staff, customers, reporting.
+- Designed the Postgres data model with tenant isolation and role-based
+  access control.
+- Built the full stack on Next.js, Prisma, and Supabase and shipped it
+  live to real shops.
+
+Allianz (Thailand) — IT Business Analyst
+Feb 2023 – Dec 2023
+- Translated business needs into the functional specs the development
+  team built from, for a tablet application used by insurance agents.
+- Led Design Thinking workshops and stakeholder alignment across
+  business units.
+
+Ever Medical Technologies — Product Owner
+Apr 2022 – Nov 2022
+- Owned an outpatient (OPD) module from discovery to delivery for a
+  hospital information system.
+- Worked with engineers in a Scrum team to ship it alongside hospital
+  executives and medical stakeholders.
+
+Seekster — IT Business Analyst
+Oct 2020 – Mar 2022
+- Shaped workflows, feature scope, and MVP roadmap inputs for Thailand's
+  leading home-services marketplace.
+- Worked closely with the CTO and product/engineering teams.
+
+Freelance — Design Thinking Facilitator
+May 2019 – Dec 2023
+- Led 20+ Design Thinking workshops for SCG, PTT EP, Central Group, and
+  government agencies.
+- Used journey mapping, empathy mapping, and structured facilitation.
+
+================================================================
+SELECTED WORK
+================================================================
+SabaiHub            Production multi-tenant SaaS for Thai massage
+                    businesses in Australia. Next.js, Prisma, Supabase.
+                    https://kittoyeah.github.io/works/sabaihub/
+
+Connection Review   AI-assisted, human-in-the-loop workflow for utility
+Copilot             connection review.
+                    https://kittoyeah.github.io/works/connection-copilot/
+
+MyBusiness.gov      GovHack proof-of-concept guiding small businesses
+                    through permits, licences, tax, and support programs.
+                    Runner-up — Tasmania's sole nominee, GovHack 2025.
+                    https://kittoyeah.github.io/works/mybusiness-gov/
+
+RegionalMate        AI-powered relocation planning platform.
+                    Global Top 50 — IBM watsonx.ai Hackathon 2025.
+                    https://kittoyeah.github.io/works/regionalmate/
+
+Insurance Agent     Tablet application for insurance agents, delivered
+Platform (Allianz)  from business analysis through functional specs.
+                    https://kittoyeah.github.io/works/allianz-tablet/
+
+================================================================
+EDUCATION
+================================================================
+Master of Information Technology and Systems
+University of Tasmania | 2025 – Present | Hobart, Australia
+
+Bachelor of Political Science (Politics & Government)
+Thammasat University | 2015 – 2019 | Bangkok, Thailand
+
+================================================================
+AWARDS
+================================================================
+- GovHack 2025 — Runner-up, Tasmania's sole nominee (Nov 2025)
+- IBM watsonx.ai Hackathon 2025 — Global Top 50, RegionalMate (Sep 2025)
+
+================================================================
+AVAILABILITY
+================================================================
+Open to software engineering internships, full-stack and AI-focused
+internships, and product/software delivery roles. Based in Hobart;
+open to remote.

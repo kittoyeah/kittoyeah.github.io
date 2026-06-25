@@ -1,0 +1,58 @@
+# Chris Thiraphadungphong (Chris Kittichod)
+
+> Software engineer in Hobart, Tasmania. Ships full-stack web and AI products end to end, from data model to deployment. Business-analysis background across two startups and one global company means the right problem gets scoped before any code is written.
+
+- Role: Software Engineer
+- Location: Hobart, Tasmania, Australia (open to remote)
+- Website: https://kittoyeah.github.io/
+- LinkedIn: https://linkedin.com/in/chris-kittichod
+- GitHub: https://github.com/kittoyeah
+- Email: chris.kittichod@gmail.com
+- Languages: English (fluent), Thai (native), Chinese (intermediate)
+
+## Current focus
+
+- Full-stack development with Next.js, React, and TypeScript
+- System design, data modelling, and API design
+- AI-assisted and agentic workflow development
+- Shipping and iterating production software
+
+## Experience
+
+- SabaiHub — Founder & Software Engineer (Dec 2025 – Present): sole engineer behind a production multi-tenant SaaS running Thai massage businesses in Australia (bookings, staff, customers, reporting). Designed a Postgres data model with tenant isolation and role-based access; built the full stack on Next.js, Prisma, and Supabase; shipped live to real shops.
+- Allianz (Thailand) — IT Business Analyst (Feb 2023 – Dec 2023): translated business needs into functional specs for a tablet app used by insurance agents; led Design Thinking workshops and stakeholder alignment across business units.
+- Ever Medical Technologies — Product Owner (Apr 2022 – Nov 2022): owned an outpatient module from discovery to delivery for a hospital information system, working in a Scrum team alongside hospital executives and medical stakeholders.
+- Seekster — IT Business Analyst (Oct 2020 – Mar 2022): shaped workflows, feature scope, and MVP roadmap inputs for Thailand's leading home-services marketplace, working closely with the CTO and product/engineering teams.
+- Freelance — Design Thinking Facilitator (May 2019 – Dec 2023): led 20+ workshops for SCG, PTT EP, Central Group, and government agencies using journey mapping, empathy mapping, and structured facilitation.
+
+## Selected work
+
+- SabaiHub: production multi-tenant SaaS for Thai massage businesses in Australia; Postgres data model, role-based access, full-stack build on Next.js, Prisma, and Supabase, deployed to real shops. https://kittoyeah.github.io/works/sabaihub/
+- Connection Review Copilot: AI-assisted, human-in-the-loop workflow for utility connection review. https://kittoyeah.github.io/works/connection-copilot/
+- MyBusiness.gov: GovHack proof-of-concept helping small businesses navigate permits, licences, tax, and support programs; Runner-up, Tasmania's sole nominee, GovHack 2025. https://kittoyeah.github.io/works/mybusiness-gov/
+- RegionalMate: AI-powered relocation planning platform; Global Top 50, IBM watsonx.ai Hackathon 2025. https://kittoyeah.github.io/works/regionalmate/
+- Insurance Agent Platform (Allianz): tablet application delivery from business analysis through functional specs. https://kittoyeah.github.io/works/allianz-tablet/
+
+## Education
+
+- Master of Information Technology and Systems, University of Tasmania, 2025 – present (Hobart)
+- Bachelor of Political Science, Thammasat University, 2015 – 2019 (Bangkok)
+
+## Skills
+
+Next.js, React, TypeScript, Supabase, PostgreSQL, Prisma, AWS Bedrock, Claude, Codex, IBM watsonx.ai, Figma, system design, data modelling, API design, requirements engineering, Design Thinking, product ownership.
+
+## Awards
+
+- GovHack 2025 — Runner-up, Tasmania's sole nominee (Nov 2025)
+- IBM watsonx.ai Hackathon 2025 — Global Top 50, RegionalMate (Sep 2025)
+
+## Availability
+
+Open to software engineering internships, full-stack and AI-focused internships, and product/software delivery roles. Based in Hobart; open to remote.
+
+## More
+
+- Full résumé (plain text): https://kittoyeah.github.io/resume.txt
+- About: https://kittoyeah.github.io/about/
+- Selected work: https://kittoyeah.github.io/works/

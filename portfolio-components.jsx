@@ -289,8 +289,8 @@ function Footer() {
         <span>Hobart, Tasmania · Remote</span>
         <span style={{ opacity: 0.3 }}>|</span>
         <div style={{ display: 'flex', gap: '0.875rem', flexWrap: 'wrap', alignItems: 'center' }}>
-          <a href="llm.txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>llm.txt</a>
-          <a href="llm-txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>llm-txt</a>
+          <a href="/llms.txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>llms.txt</a>
+          <a href="/resume.txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>resume.txt</a>
         </div>
       </div>
       <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)', opacity: 0.5 }}>© 2026</span>

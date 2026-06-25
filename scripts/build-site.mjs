@@ -1,7 +1,7 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import vm from 'node:vm';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { build as viteBuild } from 'vite';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -16,6 +16,8 @@ const sourceFiles = [
   'google859fbd4b5c9041b1.html',
   'llm.txt',
   'llm-txt',
+  'llms.txt',
+  'resume.txt',
   'profile.jpg',
 ];
 
@@ -68,6 +70,12 @@ function renderRouteHtml(template, route) {
     /<script id="page-schema" type="application\/ld\+json">[\s\S]*?<\/script>/i,
     `<script id="page-schema" type="application/ld+json">\n${safeJson(route.entity)}\n  </script>`,
   );
+  if (route.ssrHtml) {
+    html = html.replace(
+      /<div id="root">\s*<\/div>/i,
+      `<div id="root">${route.ssrHtml}</div>`,
+    );
+  }
   return html;
 }
 
@@ -153,6 +161,85 @@ async function buildApplicationBundle() {
       },
     },
   });
+}
+
+// Build a server-side renderer from the same app source, so every route is
+// prerendered to static HTML. The client still mounts with createRoot (replace,
+// not hydrate), so there is no hydration-mismatch risk — the prerender exists
+// purely so crawlers and AI agents (which do not run JS) read real content.
+async function buildPrerenderer() {
+  await mkdir(TEMP, { recursive: true });
+  const sources = await Promise.all(
+    appFiles.map(file => readFile(path.join(ROOT, file), 'utf8')),
+  );
+  // Drop the client-only mount call; SSR exports a render function instead.
+  const appBody = sources
+    .join('\n\n')
+    .replace(/ReactDOM\.createRoot\([\s\S]*?\.render\(\s*<Root\s*\/>\s*\);?/, '');
+
+  const prelude = [
+    "import React from 'react';",
+    "import { renderToStaticMarkup } from 'react-dom/server';",
+    "import Fuse from 'fuse.js';",
+    '',
+    'const noop = () => {};',
+    'const matchMediaStub = () => ({ matches: true, media: "", onchange: null, addEventListener: noop, removeEventListener: noop, addListener: noop, removeListener: noop, dispatchEvent: () => false });',
+    'class IntersectionObserverStub { constructor() {} observe() {} unobserve() {} disconnect() {} takeRecords() { return []; } }',
+    'const documentStub = {',
+    '  documentElement: { setAttribute: noop, getAttribute: () => "dark", style: {} },',
+    '  body: { style: {} },',
+    '  getElementById: () => null,',
+    '  querySelector: () => null,',
+    '  querySelectorAll: () => [],',
+    '  addEventListener: noop,',
+    '  removeEventListener: noop,',
+    '  createElement: () => ({ style: {} }),',
+    '};',
+    'const window = (globalThis.window = globalThis.window || {});',
+    'Object.assign(window, {',
+    '  matchMedia: matchMediaStub,',
+    '  history: { replaceState: noop, pushState: noop },',
+    '  location: { pathname: "/", search: "", hash: "" },',
+    '  scrollTo: noop, pageYOffset: 0,',
+    '  addEventListener: noop, removeEventListener: noop, dispatchEvent: () => false,',
+    '  setTimeout: () => 0, clearTimeout: noop,',
+    '});',
+    'const document = (globalThis.document = documentStub);',
+    'globalThis.IntersectionObserver = IntersectionObserverStub;',
+    '',
+  ].join('\n');
+
+  const exporter = [
+    '',
+    'export function renderRoute(routePath) {',
+    '  window.location = { pathname: routePath, search: "", hash: "" };',
+    '  return renderToStaticMarkup(React.createElement(Root));',
+    '}',
+    '',
+  ].join('\n');
+
+  const entryPath = path.join(TEMP, 'ssr-entry.jsx');
+  await writeFile(entryPath, `${prelude}\n${appBody}\n${exporter}`);
+
+  const outDir = path.join(TEMP, 'ssr');
+  await viteBuild({
+    configFile: false,
+    root: ROOT,
+    publicDir: false,
+    logLevel: 'warn',
+    define: { 'process.env.NODE_ENV': JSON.stringify('production') },
+    build: {
+      ssr: entryPath,
+      outDir,
+      emptyOutDir: false,
+      minify: false,
+      sourcemap: false,
+      rollupOptions: { output: { entryFileNames: 'ssr-entry.mjs' } },
+    },
+  });
+
+  const mod = await import(pathToFileURL(path.join(outDir, 'ssr-entry.mjs')).href);
+  return mod.renderRoute;
 }
 
 async function writeRoute(template, route) {
@@ -291,13 +378,21 @@ async function build() {
     }),
   ];
 
+  const renderRoute = await buildPrerenderer();
+  let prerendered = 0;
   for (const route of routes) {
+    try {
+      route.ssrHtml = renderRoute(route.path);
+      prerendered += 1;
+    } catch (error) {
+      console.warn(`Prerender failed for ${route.path}: ${error.message}`);
+    }
     await writeRoute(template, route);
   }
   await writeDiscoveryFiles(routes.filter(route => route.robots.startsWith('index')));
   await rm(TEMP, { recursive: true, force: true });
 
-  console.log(`Built ${routes.length} routes in ${OUTPUT}`);
+  console.log(`Built ${routes.length} routes in ${OUTPUT} (${prerendered} prerendered)`);
   console.log(`Social image: ${SOCIAL_IMAGE}`);
 }
 
