@@ -364,12 +364,48 @@ async function build() {
         entity: projectEntity(project, routePath),
       };
     }),
+    {
+      path: '/writing',
+      title: 'Writing | Chris Kittichod',
+      description: 'Long-form notes on the decisions, architecture, and delivery behind the software I build.',
+      type: 'website',
+      robots: 'index, follow',
+      entity: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Writing by Chris Kittichod',
+        url: `${SITE_URL}/writing/`,
+        hasPart: buildNotes.map(note => ({
+          '@type': 'Article',
+          name: note.title,
+          url: `${SITE_URL}/writing/${note.id}/`,
+        })),
+      },
+    },
+    ...[...new Set(buildNotes.map(n => n.parentId).filter(Boolean))].map(projectId => {
+      const parent = projects.find(p => p.id === projectId);
+      const name = parent ? parent.title : projectId;
+      const routePath = `/writing/${projectId}`;
+      return {
+        path: routePath,
+        title: `${name} — Writing | Chris Kittichod`,
+        description: `Engineering write-ups from ${name}: architecture, decisions, and delivery.`,
+        type: 'website',
+        robots: 'index, follow',
+        entity: {
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: `${name} writing by Chris Kittichod`,
+          url: `${SITE_URL}${routePath}/`,
+        },
+      };
+    }),
     ...buildNotes.map(note => {
-      const routePath = `/works/sabaihub/build-notes/${note.id}`;
+      const routePath = `/writing/${note.id}`;
       const isComplete = Boolean(note.summary && note.overview);
       return {
         path: routePath,
-        title: `${note.title} | SabaiHub Build Notes`,
+        title: `${note.title} | Writing`,
         description: note.desc,
         type: 'article',
         robots: isComplete ? 'index, follow' : 'noindex, follow',

@@ -23,17 +23,7 @@ function AboutPage() {
     },
   ];
 
-  const writingIds = [
-    'workflow-to-saas-architecture',
-    'technical-architecture-of-sabaihub',
-    'multi-tenancy-auth-and-data-ownership',
-    'shipping-a-feature-through-the-full-sdlc',
-    'ai-assisted-engineering-workflow',
-    'technical-debt-debugging-and-refactoring',
-  ];
-  const writingNotes = writingIds
-    .map(id => (window.BUILD_NOTES || []).find(note => note.id === id))
-    .filter(Boolean);
+  const writingCount = (window.BUILD_NOTES || []).length;
 
   return (
     <section style={{ padding: 'clamp(5rem, 9vw, 9rem) 1.5rem 6rem', minHeight: '100vh' }}>
@@ -118,16 +108,14 @@ function AboutPage() {
                 Long-form notes on the decisions, architecture, and delivery behind what I build.
               </h2>
             </div>
-            <div className="two-col-right">
-              <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
-                {writingNotes.map((note, i) => (
-                  <NavTo key={note.id} to={`/works/sabaihub/build-notes/${note.id}`}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '1rem 1.1rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', textDecoration: 'none' }}>
-                    <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.4 }}>{note.title}</span>
-                    <IconArrowUpRight size={13} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
-                  </NavTo>
-                ))}
-              </div>
+            <div className="two-col-right" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', justifyContent: 'center' }}>
+              <p style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0, maxWidth: '40rem' }}>
+                I write up the engineering decisions behind what I build: architecture, multi-tenancy, the AI-assisted workflow, debugging, and the lessons in between.
+              </p>
+              <NavTo to="/writing" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', alignSelf: 'flex-start', padding: '0.8rem 1.1rem', border: '1px solid var(--accent-50)', backgroundColor: 'var(--accent-30)', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.13em', color: 'var(--color-ink)', textDecoration: 'none' }}>
+                Read all {writingCount} pieces in Writing
+                <IconArrowUpRight size={12} />
+              </NavTo>
             </div>
           </div>
         </FadeInView>

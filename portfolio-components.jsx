@@ -308,6 +308,7 @@ function Nav() {
     { label: 'home', to: '/' },
     { label: 'about', to: '/about' },
     { label: 'works', to: '/works' },
+    { label: 'writing', to: '/writing' },
   ];
 
   const isActive = (to) => to === '/' ? path === '/' : path.startsWith(to);
@@ -397,7 +398,7 @@ function buildPaletteItems() {
     .filter(p => !p.hidden && p.type !== 'article')
     .map(p => ({ id: p.id, title: p.title, subtitle: p.desc, kind: 'Project', route: `/works/${p.id}`, tags: (p.tags || []).join(' ') }));
   const notes = (window.BUILD_NOTES || [])
-    .map(n => ({ id: n.id, title: n.title, subtitle: n.desc, kind: 'Writing', route: `/works/sabaihub/build-notes/${n.id}`, tags: (n.tags || []).join(' ') }));
+    .map(n => ({ id: n.id, title: n.title, subtitle: n.desc, kind: 'Writing', route: `/writing/${n.id}`, tags: (n.tags || []).join(' ') }));
   return [...pages, ...projects, ...notes];
 }
 

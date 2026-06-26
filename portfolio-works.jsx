@@ -207,12 +207,20 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
           </div>
         </FadeIn>
 
-        {/* Cover image */}
-        <FadeIn delay={0.1}>
-          <div style={{ border: '1px solid var(--color-line)', overflow: 'hidden', marginBottom: 'clamp(3rem, 8vw, 6rem)', background: 'var(--color-surface)' }}>
-            <ProjectCoverMedia project={project} />
-          </div>
-        </FadeIn>
+        {/* Article context block, or cover image for projects */}
+        {project.type === 'article' ? (
+          <FadeIn delay={0.1}>
+            <div style={{ marginBottom: 'clamp(3rem, 8vw, 6rem)' }}>
+              <ArticleContextBlock note={project} />
+            </div>
+          </FadeIn>
+        ) : (
+          <FadeIn delay={0.1}>
+            <div style={{ border: '1px solid var(--color-line)', overflow: 'hidden', marginBottom: 'clamp(3rem, 8vw, 6rem)', background: 'var(--color-surface)' }}>
+              <ProjectCoverMedia project={project} />
+            </div>
+          </FadeIn>
+        )}
 
         {/* Content + TOC */}
         <div className="detail-layout" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
@@ -766,7 +774,7 @@ function BuildNotesList({ notes }) {
       </p>
       <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
         {notes.map((note, i) => (
-          <NavTo key={note.id} to={`/works/sabaihub/build-notes/${note.id}`}
+          <NavTo key={note.id} to={`/writing/${note.id}`}
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '1rem 1.1rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', textDecoration: 'none' }}>
             <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.4 }}>{note.title}</span>
             <IconArrowUpRight size={13} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
@@ -913,5 +921,215 @@ function PrevNextCard({ project, dir }) {
   );
 }
 
+// ── Article context block + Writing page ─────────────────────
+const ARTICLE_DOMAINS = {
+  sabaihub: 'SaaS · shop operations',
+  'connection-copilot': 'AI · utility workflows',
+};
+const GENERIC_ARTICLE_TAGS = ['Article', 'Build Note'];
+
+function articleSkills(note) {
+  return (note.tags || []).filter(t => !GENERIC_ARTICLE_TAGS.includes(t));
+}
+
+function ArticleContextBlock({ note }) {
+  const parent = (window.PROJECTS || []).find(p => p.id === note.parentId);
+  const projectRoute = parent ? `/works/${parent.id}` : null;
+  const role = note.role || 'Founder & Software Engineer';
+  const domain = note.domain || ARTICLE_DOMAINS[note.parentId] || null;
+  const skills = articleSkills(note);
+
+  const labelStyle = { fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.13em', color: 'var(--color-label)', paddingTop: '2px' };
+  const chipStyle = { padding: '2px 8px', border: '1px solid var(--color-line)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-label)' };
+
+  const rows = [
+    parent && { label: 'Project', node: (
+      <NavTo to={projectRoute} style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '14px' }}>
+        {parent.title} <IconArrowUpRight size={11} />
+      </NavTo>
+    ) },
+    { label: 'Role', node: <span style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{role}</span> },
+    domain && { label: 'Domain', node: <span style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{domain}</span> },
+    skills.length > 0 && { label: 'Skills', node: (
+      <span style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+        {skills.map(s => <span key={s} style={chipStyle}>{s}</span>)}
+      </span>
+    ) },
+  ].filter(Boolean);
+
+  return (
+    <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)', borderRadius: '6px', padding: '1.15rem 1.3rem' }}>
+      <span className="mono-label" style={{ display: 'block', marginBottom: '1rem' }}>
+        <span style={{ color: 'var(--color-accent)' }}>// </span>Context
+      </span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+        {rows.map(r => (
+          <div key={r.label} style={{ display: 'grid', gridTemplateColumns: '5.5rem 1fr', gap: '1rem', alignItems: 'baseline' }}>
+            <span style={labelStyle}>{r.label}</span>
+            <div style={{ minWidth: 0 }}>{r.node}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function estimateReadTime(note) {
+  const parts = [];
+  const collect = (v) => {
+    if (!v) return;
+    if (typeof v === 'string') parts.push(v);
+    else if (Array.isArray(v)) v.forEach(collect);
+    else if (typeof v === 'object') Object.values(v).forEach(collect);
+  };
+  ['desc', 'overview', 'problemStatement', 'problemQuote', 'solution', 'keyDeliverables', 'myContribution', 'engineeringDecisions', 'challenges', 'approaches', 'challengeApproachPairs', 'beforeAfter', 'outcomes', 'summary', 'nextStage'].forEach(k => collect(note[k]));
+  const words = parts.join(' ').split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min`;
+}
+
+function groupWritingByProject() {
+  const notes = window.BUILD_NOTES || [];
+  const projOrder = (window.PROJECTS || []).map(p => p.id);
+  const groups = [];
+  const byId = {};
+  notes.forEach(note => {
+    const pid = note.parentId || 'general';
+    if (!byId[pid]) { byId[pid] = { id: pid, notes: [] }; groups.push(byId[pid]); }
+    byId[pid].notes.push(note);
+  });
+  groups.sort((a, b) => projOrder.indexOf(a.id) - projOrder.indexOf(b.id));
+  return groups;
+}
+
+function WritingPage() {
+  const groups = groupWritingByProject();
+  const total = (window.BUILD_NOTES || []).length;
+  return (
+    <section style={{ padding: 'clamp(5rem, 9vw, 9rem) 1.5rem 6rem', minHeight: '100vh' }}>
+      <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
+        <FadeIn>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '2rem' }}>
+            <div>
+              <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 0.75rem' }}>Writing</h1>
+              <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0, maxWidth: '42rem' }}>
+                Engineering write-ups, grouped by the project they came from. Pick a project to read its pieces.
+              </p>
+            </div>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-label)', whiteSpace: 'nowrap' }}>{total} pieces</span>
+          </div>
+        </FadeIn>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 22rem), 1fr))', gap: '1.25rem' }}>
+          {groups.map((group, i) => (
+            <FadeInView key={group.id} delay={i * 0.06}>
+              <WritingHubCard group={group} />
+            </FadeInView>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WritingHubCard({ group }) {
+  const [hov, setHov] = React.useState(false);
+  const project = (window.PROJECTS || []).find(p => p.id === group.id);
+  const name = project ? project.title : 'General';
+  const tagline = ARTICLE_DOMAINS[group.id] || null;
+  const count = group.notes.length;
+  const themes = [...new Set(group.notes.flatMap(articleSkills))].slice(0, 6);
+  return (
+    <NavTo to={`/writing/${group.id}`}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ display: 'flex', flexDirection: 'column', height: '100%', border: `1px solid ${hov ? 'var(--accent-50)' : 'var(--color-line)'}`, background: 'var(--color-surface)', borderRadius: '8px', padding: '1.6rem 1.75rem', textDecoration: 'none', transition: 'border-color 0.2s' }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '0.35rem' }}>
+        <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.4rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{name}</h2>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-label)', whiteSpace: 'nowrap' }}>{count} {count === 1 ? 'piece' : 'pieces'}</span>
+      </div>
+      {tagline && <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', margin: '0 0 1.15rem' }}>{tagline}</p>}
+      {themes.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.4rem' }}>
+          {themes.map(t => (
+            <span key={t} style={{ padding: '2px 8px', border: '1px solid var(--color-line)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-label)' }}>{t}</span>
+          ))}
+        </div>
+      )}
+      <span style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.13em', color: hov ? 'var(--color-accent)' : 'var(--color-muted)', transition: 'color 0.2s' }}>
+        Read {count} {count === 1 ? 'piece' : 'pieces'} <IconArrowUpRight size={12} />
+      </span>
+    </NavTo>
+  );
+}
+
+function WritingProjectListPage({ projectId, navigate }) {
+  const group = groupWritingByProject().find(g => g.id === projectId);
+  React.useEffect(() => { if (!group) navigate('/writing'); }, [group]);
+  if (!group) return null;
+  return (
+    <section style={{ padding: 'clamp(4.5rem, 8vw, 8rem) 1.5rem 6rem', minHeight: '100vh' }}>
+      <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
+        <FadeIn>
+          <div style={{ marginBottom: '2.5rem' }}>
+            <NavTo to="/writing" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-muted)', textDecoration: 'none' }}>
+              <IconArrowLeft size={12} /> Back to Writing
+            </NavTo>
+          </div>
+        </FadeIn>
+        <FadeInView><WritingProjectSection group={group} /></FadeInView>
+      </div>
+    </section>
+  );
+}
+
+function WritingProjectSection({ group }) {
+  const project = (window.PROJECTS || []).find(p => p.id === group.id);
+  const name = project ? project.title : 'General';
+  const tagline = ARTICLE_DOMAINS[group.id] || null;
+  const count = group.notes.length;
+  return (
+    <div style={{ marginBottom: 'clamp(3rem, 6vw, 4.5rem)' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '1.5rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '1rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
+        <div>
+          <span className="mono-label"><span style={{ color: 'var(--color-accent)' }}>// </span>{name}</span>
+          {tagline && <p style={{ fontSize: '13px', color: 'var(--color-muted)', margin: '0.6rem 0 0' }}>{tagline}</p>}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexShrink: 0 }}>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)' }}>{count} {count === 1 ? 'piece' : 'pieces'}</span>
+          {project && (
+            <NavTo to={`/works/${project.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-accent)', textDecoration: 'none' }}>
+              View project <IconArrowUpRight size={11} />
+            </NavTo>
+          )}
+        </div>
+      </div>
+      {group.notes.map(note => <WritingRow key={note.id} note={note} />)}
+    </div>
+  );
+}
+
+function WritingRow({ note }) {
+  const [hov, setHov] = React.useState(false);
+  const skills = articleSkills(note);
+  const readTime = estimateReadTime(note);
+  const meta = [readTime, ...skills.slice(0, 3)].join('  ·  ');
+  return (
+    <NavTo to={`/writing/${note.id}`}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', padding: '1.4rem 0', borderBottom: '1px solid var(--color-line)', textDecoration: 'none' }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '0.4rem' }}>
+          <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.1rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{note.title}</h3>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', color: 'var(--color-label)', flexShrink: 0 }}>{note.year}</span>
+        </div>
+        <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.6, margin: '0 0 0.6rem', maxWidth: '46rem' }}>{note.desc}</p>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9.5px', textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--color-label)' }}>{meta}</span>
+      </div>
+      <IconArrowUpRight size={14} style={{ color: hov ? 'var(--color-accent)' : 'var(--color-label)', flexShrink: 0, marginTop: '4px', transition: 'color 0.2s' }} />
+    </NavTo>
+  );
+}
+
 window.WorksPage = WorksPage;
 window.ProjectDetailPage = ProjectDetailPage;
+window.WritingPage = WritingPage;
+window.WritingProjectListPage = WritingProjectListPage;
+window.ArticleContextBlock = ArticleContextBlock;
