@@ -154,15 +154,29 @@ window.PROJECTS = [
     image: "assets/sabaihub-thumbnail.png",
     year: "2025",
     badge: "Live in Production",
-    sectionOrder: ["overview", "problemStatement", "goals", "myContribution", "prototypeWalkthrough", "architecture", "tools", "keyDeliverables", "challenges", "tradeoffs", "lessons", "nextStage", "screenshots"],
+    sectionOrder: ["overview", "problemStatement", "goals", "myContribution", "prototypeWalkthrough", "architecture", "tools", "modules", "challenges", "tradeoffs", "lessons", "nextStage", "screenshots"],
     sectionLabels: {
       myContribution: "My Role",
       prototypeWalkthrough: "Live Demo",
       tools: "Technology Stack",
-      keyDeliverables: "Key Features",
       challenges: "Engineering Challenges",
       nextStage: "Future Improvements"
     },
+    modules: [
+      { name: "Dashboard", points: "Daily activity snapshot, the business at a glance for owners" },
+      { name: "Calendar", points: "Day and staff views, vertical or horizontal layout, drag bookings" },
+      { name: "Appointments", points: "Book, check-in, complete, cancel, no-show, walk-ins" },
+      { name: "Roster & Schedule", points: "Staff availability, shifts, rosters, time blocks" },
+      { name: "My Work", points: "A therapist's own appointments and schedule" },
+      { name: "Clients", points: "Customer records, treatment notes, loyalty points" },
+      { name: "Services & Catalogue", points: "Services, packages, vouchers, promotions" },
+      { name: "Payments", points: "POS with Stripe, HICAPS, cash and manual card, plus refunds" },
+      { name: "Payouts", points: "Staff commission and daily pay records" },
+      { name: "Reports", points: "Business reporting and analytics, audit logs" },
+      { name: "Notifications", points: "In-app alerts and SMS reminders" },
+      { name: "Settings", points: "Shop, business profile, online booking, promotions, services" },
+      { name: "Staff & Access", points: "Staff management, 4 roles, 61 permissions" }
+    ],
     overview: [
       "SabaiHub is a production SaaS that runs the day-to-day operations of Thai massage businesses in Australia: bookings, staff rosters, customer records, payments, and reporting in one web app.",
       "I built it end to end, from talking to operators through to a deployed multi-tenant system, to replace the phone, paper, and spreadsheet setup most shops still run on."

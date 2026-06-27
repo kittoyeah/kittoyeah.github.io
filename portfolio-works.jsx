@@ -141,7 +141,7 @@ const TECH_STACK_ICONS = {
 const DEFAULT_SECTION_ORDER = [
   'summary', 'prototypeWalkthrough', 'tools', 'overview', 'metrics',
   'problemStatement', 'goals', 'solution', 'beforeAfter', 'keyDeliverables',
-  'myContribution', 'architecture', 'skillsDemonstrated', 'engineeringDecisions',
+  'myContribution', 'architecture', 'modules', 'skillsDemonstrated', 'engineeringDecisions',
   'challengeApproachPairs', 'challenges', 'approaches', 'tradeoffs', 'lessons',
   'outcomes', 'buildNotes', 'nextStage', 'screenshots',
 ];
@@ -177,6 +177,7 @@ function getSectionDefs(project, buildNotes) {
       </>
     ) },
     architecture: { label: 'System Architecture', has: !!project.architecture, render: () => <ArchitectureBlock architecture={project.architecture} title={project.title} /> },
+    modules: { label: 'Modules', has: !!project.modules, render: () => <ModuleTable modules={project.modules} /> },
     skillsDemonstrated: { label: 'Skills Demonstrated', has: !!project.skillsDemonstrated, render: () => <TagList items={project.skillsDemonstrated} /> },
     engineeringDecisions: { label: 'Engineering Decisions', has: !!project.engineeringDecisions, render: () => <LineList items={project.engineeringDecisions} /> },
     challengeApproachPairs: { label: 'Challenges + Approaches', has: hasPairs, render: () => <ChallengeApproachGrid pairs={project.challengeApproachPairs} /> },
@@ -203,6 +204,19 @@ function ArchitectureBlock({ architecture, title }) {
         <img src={architecture.image} alt={`${title} system architecture`} referrerPolicy="no-referrer" style={{ width: '100%', display: 'block' }} />
       </div>
       {architecture.caption && <div style={{ marginTop: '1.5rem' }}><TextBlock content={architecture.caption} /></div>}
+    </div>
+  );
+}
+
+function ModuleTable({ modules }) {
+  return (
+    <div style={{ border: '1px solid var(--color-line)', borderRadius: '6px', overflow: 'hidden' }}>
+      {modules.map((m, i) => (
+        <div key={m.name} className="module-row" style={{ display: 'grid', gridTemplateColumns: 'minmax(9rem, 0.34fr) 1fr', gap: '1.25rem', padding: '0.9rem 1.15rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', background: i % 2 ? 'var(--color-surface)' : 'transparent', alignItems: 'baseline' }}>
+          <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '14.5px', color: 'var(--color-ink)' }}>{m.name}</span>
+          <span style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.6 }}>{m.points}</span>
+        </div>
+      ))}
     </div>
   );
 }
