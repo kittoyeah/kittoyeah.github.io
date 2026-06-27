@@ -146,6 +146,93 @@ window.PROJECTS = [
     ]
   },
   {
+    id: "sabaihub-new",
+    title: "SabaiHub (new)",
+    desc: "Production multi-tenant SaaS that runs Thai massage businesses in Australia: bookings, staff, customers, payments, and reporting in one app. Built end to end.",
+    tags: ["Next.js", "TypeScript", "Prisma", "Supabase", "PostgreSQL"],
+    tools: ["Next.js", "React", "TypeScript", "Prisma", "Supabase", "PostgreSQL", "Vercel", "Tailwind CSS"],
+    image: "assets/sabaihub-thumbnail.png",
+    year: "2025",
+    badge: "Live in Production",
+    sectionOrder: ["overview", "problemStatement", "goals", "myContribution", "prototypeWalkthrough", "architecture", "tools", "keyDeliverables", "challenges", "tradeoffs", "lessons", "nextStage", "screenshots"],
+    sectionLabels: {
+      myContribution: "My Role",
+      prototypeWalkthrough: "Live Demo",
+      tools: "Technology Stack",
+      keyDeliverables: "Key Features",
+      challenges: "Engineering Challenges",
+      nextStage: "Future Improvements"
+    },
+    overview: [
+      "SabaiHub is a production SaaS that runs the day-to-day operations of Thai massage businesses in Australia: bookings, staff rosters, customer records, payments, and reporting in one web app.",
+      "I built it end to end, from talking to operators through to a deployed multi-tenant system, to replace the phone, paper, and spreadsheet setup most shops still run on."
+    ],
+    problemQuote: "Running the shop should not depend on checking several tools, pieces of paper, and someone’s memory.",
+    quoteSupportingOutside: true,
+    problemStatement: [
+      "Most small shops coordinate the business across phone calls, paper rosters, spreadsheets, a booking tool, and chat messages. Each holds part of the picture, so staff re-enter data, appointment changes get missed, and owners assemble the numbers by hand.",
+      "The hard part is not a booking screen. It is that the shop is many connected parts (appointments, staff availability, services, roles, payments, reporting) and no single tool models how they fit together for this specific business."
+    ],
+    goals: [
+      "Put bookings, staff, customers, and reporting in one place",
+      "Match the real shop workflow, not a generic calendar",
+      "Give each role only what it needs (owner, manager, receptionist, therapist)",
+      "Ship a live, usable product, not a prototype"
+    ],
+    myContribution: [
+      "Sole engineer and product owner. I ran the user research, scoped the MVP, designed the data model, built the full stack, deployed it, then iterated on real operator feedback.",
+      "The mix of business analysis and engineering is the point: I framed a messy shop workflow into requirements and a schema, then implemented and shipped it myself rather than handing off a spec."
+    ],
+    prototypeWalkthrough: {
+      youtubeId: "EmhIAHmPn38",
+      description: "A short walkthrough of SabaiHub: shop operations moving from fragmented tools into one interface.",
+      linkLabel: "Watch walkthrough"
+    },
+    architecture: {
+      image: "assets/sabaihub-architecture.svg",
+      caption: [
+        "SabaiHub is one Next.js app, typed end to end. The browser renders role-scoped UI, server actions and API routes handle writes, Prisma is the typed data-access layer, and Supabase provides PostgreSQL and auth. The whole thing deploys on Vercel.",
+        "Every shop is a tenant. A user belongs to a shop and a role, and access is scoped by that pairing so people only see what their job needs."
+      ]
+    },
+    keyDeliverables: [
+      "One calendar for appointments and changes across all staff",
+      "Staff rosters, shifts, and availability kept together",
+      "Customer and business records in one place",
+      "Role-based access for owner, manager, receptionist, and therapist",
+      "Owner dashboard for revenue and daily activity"
+    ],
+    challenges: [
+      "Modelling a multi-tenant schema where shops, users, staff, roles, services, appointments, and payments all relate without leaking data across tenants.",
+      "Enforcing role-based access consistently across every query and view, not just hiding it in the UI.",
+      "Designing for users with varying digital confidence while keeping daily workflows fast.",
+      "Keeping AI-assisted development reliable through specs and review so generated code stayed tied to the agreed model."
+    ],
+    tradeoffs: [
+      { choice: "Supabase and Postgres over Firebase", why: "The data is relational (shops, staff, appointments, payments). Postgres with Prisma gave proper relational queries and typed access; a document store would have fought the model." },
+      { choice: "Prisma schema as the single source of truth", why: "One schema drives types end to end, so the data model and the code cannot drift. The cost is managing migrations, worth it for the safety." },
+      { choice: "One integrated app over stitching SaaS tools together", why: "Removing fragmentation was the whole point. Buying separate booking, roster, and reporting tools would have recreated the problem the shop already had." },
+      { choice: "Ship the core loop as an MVP first", why: "Booking, staff, records, and reporting had to work together before any nice-to-have. I scoped hard to reach a live product in the time available." }
+    ],
+    lessons: [
+      "A clean data model up front saved more time than any feature did. Getting the shop, role, and appointment relationships right made everything after it easier.",
+      "AI-assisted development is fast but only reliable with specs, guardrails, and review. Ownership of the decisions has to stay with me.",
+      "Designing for non-technical operators means the boring workflows, not the clever features, decide whether the product actually gets used."
+    ],
+    nextStage: [
+      "The next stage is evolving SabaiHub from an operations platform into a smarter assistant for shop owners.",
+      "The direction is practical agentic AI on top of the product: retrieve business information, suggest actions, and automate safely with human approval."
+    ],
+    plannedImprovements: [
+      "AI operations assistant for shop owners",
+      "Booking and revenue insights",
+      "Customer retention suggestions",
+      "Automated weekly business summaries",
+      "Human-approved AI actions, such as drafting customer follow-ups"
+    ],
+    screenshots: { todo: true, note: "user journey — landing, calendar, booking, payments, reports" }
+  },
+  {
     id: "connection-copilot",
     title: "Connection Review Copilot",
     desc: "A multi-agent AI architecture for reviewing complex, document-heavy applications: bounded agents under deterministic orchestration, each preparing a source-grounded review for a human to decide on. Built for a utility electricity-connection workflow.",

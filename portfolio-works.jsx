@@ -138,6 +138,111 @@ const TECH_STACK_ICONS = {
   'Design Thinking methods': { url: 'assets/tool-icons/figjam.svg' },
 };
 
+const DEFAULT_SECTION_ORDER = [
+  'summary', 'prototypeWalkthrough', 'tools', 'overview', 'metrics',
+  'problemStatement', 'goals', 'solution', 'beforeAfter', 'keyDeliverables',
+  'myContribution', 'architecture', 'skillsDemonstrated', 'engineeringDecisions',
+  'challengeApproachPairs', 'challenges', 'approaches', 'tradeoffs', 'lessons',
+  'outcomes', 'buildNotes', 'nextStage', 'screenshots',
+];
+
+function getSectionDefs(project, buildNotes) {
+  const hasPairs = !!project.challengeApproachPairs;
+  return {
+    summary: { label: 'TL;DR', compact: true, has: !!project.summary, render: () => <Summary summary={project.summary} /> },
+    prototypeWalkthrough: { label: 'Prototype Walkthrough', has: !!project.prototypeWalkthrough, render: () => <PrototypeWalkthrough walkthrough={project.prototypeWalkthrough} prototypeUrl={project.prototypeUrl} projectTitle={project.title} /> },
+    tools: { label: project.toolsLabel || 'Tech Stack', has: !!project.tools, render: () => <TechStackList tools={project.tools} /> },
+    overview: { label: 'Overview', has: !!project.overview, render: () => <TextBlock content={project.overview} /> },
+    metrics: { label: 'Metrics', compact: true, has: !!project.metrics, render: () => <MetricStrip metrics={project.metrics} /> },
+    problemStatement: { label: 'Problem', emphasis: true, has: !!project.problemStatement, render: () => (
+      project.problemQuote
+        ? <PullQuote quote={project.problemQuote} supporting={project.problemStatement} supportingOutside={project.quoteSupportingOutside} />
+        : <TextBlock content={project.problemStatement} variant="quote" />
+    ) },
+    goals: { label: 'Goals', has: !!project.goals, render: () => <CardGrid items={project.goals} /> },
+    solution: { label: 'Solution', has: !!project.solution, render: () => (
+      <>
+        <TextBlock content={project.solution} />
+        {project.conceptTranslations && <div style={{ marginTop: '1.25rem' }}><ConceptTranslationTable items={project.conceptTranslations} /></div>}
+        {project.stakeholderNeeds && <div style={{ marginTop: '1.25rem' }}><StakeholderNeedTable items={project.stakeholderNeeds} /></div>}
+        {project.solutionFollowup && <div style={{ marginTop: '1.25rem' }}><TextBlock content={project.solutionFollowup} /></div>}
+      </>
+    ) },
+    beforeAfter: { label: 'Before / After', compact: true, has: !!project.beforeAfter, render: () => <BeforeAfter pairs={project.beforeAfter} /> },
+    keyDeliverables: { label: 'Key Features', has: !!project.keyDeliverables, render: () => <CardGrid items={project.keyDeliverables} /> },
+    myContribution: { label: 'My Contribution', has: !!project.myContribution, render: () => (
+      <>
+        <TextBlock content={project.myContribution} />
+        {project.workPhases && <div style={{ marginTop: '1.5rem' }}><WorkPhaseList phases={project.workPhases} /></div>}
+      </>
+    ) },
+    architecture: { label: 'System Architecture', has: !!project.architecture, render: () => <ArchitectureBlock architecture={project.architecture} title={project.title} /> },
+    skillsDemonstrated: { label: 'Skills Demonstrated', has: !!project.skillsDemonstrated, render: () => <TagList items={project.skillsDemonstrated} /> },
+    engineeringDecisions: { label: 'Engineering Decisions', has: !!project.engineeringDecisions, render: () => <LineList items={project.engineeringDecisions} /> },
+    challengeApproachPairs: { label: 'Challenges + Approaches', has: hasPairs, render: () => <ChallengeApproachGrid pairs={project.challengeApproachPairs} /> },
+    challenges: { label: 'Challenges', has: !!project.challenges && !hasPairs, render: () => <NumberedList items={project.challenges} /> },
+    approaches: { label: 'Approaches', has: !!project.approaches && !hasPairs, render: () => <LineList items={project.approaches} /> },
+    tradeoffs: { label: 'Trade-offs & Design Decisions', has: !!project.tradeoffs, render: () => <TradeoffList items={project.tradeoffs} /> },
+    lessons: { label: 'Lessons Learned', has: !!project.lessons, render: () => <LineList items={project.lessons} /> },
+    outcomes: { label: 'Outcomes', emphasis: true, has: !!project.outcomes, render: () => <OutcomeList items={project.outcomes} layout={project.outcomeLayout} /> },
+    buildNotes: { label: 'Build Notes', has: buildNotes.length > 0, render: () => <BuildNotesList notes={buildNotes} /> },
+    nextStage: { label: "What's Next", has: !!project.nextStage && project.id !== 'sabaihub', render: () => (
+      <>
+        <TextBlock content={project.nextStage} />
+        {project.plannedImprovements && <div style={{ marginTop: '1.5rem' }}><CardGrid items={project.plannedImprovements} /></div>}
+      </>
+    ) },
+    screenshots: { label: 'Screenshots', has: !!project.screenshots, render: () => <ScreenshotsBlock screenshots={project.screenshots} /> },
+  };
+}
+
+function ArchitectureBlock({ architecture, title }) {
+  return (
+    <div>
+      <div style={{ border: '1px solid var(--color-line)', borderRadius: '6px', overflow: 'hidden', background: 'var(--color-surface)' }}>
+        <img src={architecture.image} alt={`${title} system architecture`} referrerPolicy="no-referrer" style={{ width: '100%', display: 'block' }} />
+      </div>
+      {architecture.caption && <div style={{ marginTop: '1.5rem' }}><TextBlock content={architecture.caption} /></div>}
+    </div>
+  );
+}
+
+function TradeoffList({ items }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+      {items.map((it, i) => (
+        <div key={i} style={{ borderLeft: '2px solid var(--accent-30)', paddingLeft: '1.25rem' }}>
+          <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', margin: '0 0 0.35rem' }}>{it.choice}</p>
+          <p style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{it.why}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ScreenshotsBlock({ screenshots }) {
+  if (screenshots && screenshots.todo) {
+    return (
+      <div style={{ border: '1px dashed var(--color-line)', borderRadius: '6px', padding: '2rem 1.5rem', textAlign: 'center', color: 'var(--color-label)', fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', letterSpacing: '0.06em' }}>
+        Product screenshots coming soon{screenshots.note ? `: ${screenshots.note}` : ''}.
+      </div>
+    );
+  }
+  const shots = Array.isArray(screenshots) ? screenshots : [];
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 18rem), 1fr))', gap: '1rem' }}>
+      {shots.map((s, i) => (
+        <figure key={i} style={{ margin: 0 }}>
+          <div style={{ border: '1px solid var(--color-line)', borderRadius: '6px', overflow: 'hidden', background: 'var(--color-surface)' }}>
+            <img src={s.src} alt={s.caption || ''} referrerPolicy="no-referrer" style={{ width: '100%', display: 'block' }} />
+          </div>
+          {s.caption && <figcaption style={{ fontSize: '12.5px', color: 'var(--color-muted)', margin: '0.6rem 0 0' }}>{s.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works", backLabel = "Back to Works", disablePrevNext = false }) {
   const { navigate } = useRouter();
   const project = collection.find(p => p.id === id);
@@ -152,15 +257,13 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
   const prev = disablePrevNext ? null : (collection[idx - 1] || null);
   const next = disablePrevNext ? null : (collection[idx + 1] || null);
   const buildNotes = project.id === 'sabaihub' ? (window.BUILD_NOTES || []).filter(note => note.parentId === 'sabaihub') : [];
-  const visibleSections = SECTIONS.filter(({ field }) => {
-    if (field === 'buildNotes') return buildNotes.length > 0;
-    if (field === 'nextStage' && project.id === 'sabaihub') return false;
-    const value = project[field];
-    if (field === 'challenges' && project.challengeApproachPairs) return false;
-    if (field === 'approaches' && project.challengeApproachPairs) return false;
-    return Array.isArray(value) ? value.length > 0 : Boolean(value);
-  });
   const sectionLabel = (key, fallback) => project.sectionLabels?.[key] || fallback;
+  const sectionDefs = getSectionDefs(project, buildNotes);
+  const sectionOrder = project.sectionOrder || DEFAULT_SECTION_ORDER;
+  const orderedSections = sectionOrder
+    .map(key => ({ key, def: sectionDefs[key] }))
+    .filter(x => x.def && x.def.has);
+  const visibleSections = orderedSections.map(({ key, def }) => ({ key, label: sectionLabel(key, def.label) }));
 
   const scrollTo = (sectionId) => {
     const el = document.getElementById(sectionId);
@@ -242,148 +345,11 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
 
           {/* Main content */}
           <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '5rem' }}>
-            {project.summary && (
-              <CaseSection id="summary" label="TL;DR" compact>
-                <Summary summary={project.summary} />
+            {orderedSections.map(({ key, def }) => (
+              <CaseSection key={key} id={key} label={sectionLabel(key, def.label)} compact={def.compact} emphasis={def.emphasis}>
+                {def.render()}
               </CaseSection>
-            )}
-
-            {project.prototypeWalkthrough && (
-              <CaseSection id="prototypeWalkthrough" label="Prototype Walkthrough">
-                <PrototypeWalkthrough walkthrough={project.prototypeWalkthrough} prototypeUrl={project.prototypeUrl} projectTitle={project.title} />
-              </CaseSection>
-            )}
-
-            {project.tools && (
-              <CaseSection id="tools" label={sectionLabel('tools', project.toolsLabel || "Tech Stack")}>
-                <TechStackList tools={project.tools} />
-              </CaseSection>
-            )}
-
-            {project.overview && (
-              <CaseSection id="overview" label={sectionLabel('overview', 'Overview')}>
-                <TextBlock content={project.overview} />
-              </CaseSection>
-            )}
-
-            {project.metrics && (
-              <CaseSection id="metrics" label="Metrics" compact>
-                <MetricStrip metrics={project.metrics} />
-              </CaseSection>
-            )}
-
-            <SectionDivider />
-
-            {project.problemStatement && (
-              <CaseSection id="problemStatement" label={sectionLabel('problemStatement', 'Problem')} emphasis>
-                {project.problemQuote ? (
-                  <PullQuote quote={project.problemQuote} supporting={project.problemStatement} supportingOutside={project.quoteSupportingOutside} />
-                ) : (
-                  <TextBlock content={project.problemStatement} variant="quote" />
-                )}
-              </CaseSection>
-            )}
-
-            {project.solution && (
-              <CaseSection id="solution" label={sectionLabel('solution', 'Solution')}>
-                <TextBlock content={project.solution} />
-                {project.conceptTranslations && (
-                  <div style={{ marginTop: '1.25rem' }}>
-                    <ConceptTranslationTable items={project.conceptTranslations} />
-                  </div>
-                )}
-                {project.stakeholderNeeds && (
-                  <div style={{ marginTop: '1.25rem' }}>
-                    <StakeholderNeedTable items={project.stakeholderNeeds} />
-                  </div>
-                )}
-                {project.solutionFollowup && (
-                  <div style={{ marginTop: '1.25rem' }}>
-                    <TextBlock content={project.solutionFollowup} />
-                  </div>
-                )}
-              </CaseSection>
-            )}
-
-            {project.beforeAfter && (
-              <CaseSection id="beforeAfter" label="Before / After" compact>
-                <BeforeAfter pairs={project.beforeAfter} />
-              </CaseSection>
-            )}
-
-            {project.keyDeliverables && (
-              <CaseSection id="keyDeliverables" label={sectionLabel('keyDeliverables', 'Key Features')}>
-                <CardGrid items={project.keyDeliverables} />
-              </CaseSection>
-            )}
-
-            {project.myContribution && (
-              <CaseSection id="myContribution" label={sectionLabel('myContribution', 'My Contribution')}>
-                <TextBlock content={project.myContribution} />
-                {project.workPhases && (
-                  <div style={{ marginTop: '1.5rem' }}>
-                    <WorkPhaseList phases={project.workPhases} />
-                  </div>
-                )}
-              </CaseSection>
-            )}
-
-            {project.skillsDemonstrated && (
-              <CaseSection id="skillsDemonstrated" label="Skills Demonstrated">
-                <TagList items={project.skillsDemonstrated} />
-              </CaseSection>
-            )}
-
-            {project.engineeringDecisions && (
-              <CaseSection id="engineeringDecisions" label={sectionLabel('engineeringDecisions', 'Engineering Decisions')}>
-                <LineList items={project.engineeringDecisions} />
-              </CaseSection>
-            )}
-
-            {project.challengeApproachPairs ? (
-              <CaseSection id="challengeApproachPairs" label={sectionLabel('challengeApproachPairs', 'Challenges + Approaches')}>
-                <ChallengeApproachGrid pairs={project.challengeApproachPairs} />
-              </CaseSection>
-            ) : (
-              <>
-                {project.challenges && (
-                  <CaseSection id="challenges" label={sectionLabel('challenges', 'Challenges')}>
-                    <NumberedList items={project.challenges} />
-                  </CaseSection>
-                )}
-
-                {project.approaches && (
-                  <CaseSection id="approaches" label={sectionLabel('approaches', 'Approaches')}>
-                    <LineList items={project.approaches} />
-                  </CaseSection>
-                )}
-              </>
-            )}
-
-            <SectionDivider />
-
-            {project.outcomes && (
-              <CaseSection id="outcomes" label={sectionLabel('outcomes', 'Outcomes')} emphasis>
-                <OutcomeList items={project.outcomes} layout={project.outcomeLayout} />
-              </CaseSection>
-            )}
-
-            {buildNotes.length > 0 && (
-              <CaseSection id="buildNotes" label="Build Notes">
-                <BuildNotesList notes={buildNotes} />
-              </CaseSection>
-            )}
-
-            {project.nextStage && project.id !== 'sabaihub' && (
-              <CaseSection id="nextStage" label={sectionLabel('nextStage', "What's Next")}>
-                <TextBlock content={project.nextStage} />
-                {project.plannedImprovements && (
-                  <div style={{ marginTop: '1.5rem' }}>
-                    <CardGrid items={project.plannedImprovements} />
-                  </div>
-                )}
-              </CaseSection>
-            )}
+            ))}
           </div>
         </div>
 
