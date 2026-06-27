@@ -191,8 +191,8 @@ window.PROJECTS = [
     architecture: {
       image: "assets/sabaihub-architecture.svg",
       caption: [
-        "SabaiHub is one Next.js app, typed end to end. The browser renders role-scoped UI, server actions and API routes handle writes, Prisma is the typed data-access layer, and Supabase provides PostgreSQL and auth. The whole thing deploys on Vercel.",
-        "Every shop is a tenant. A user belongs to a shop and a role, and access is scoped by that pairing so people only see what their job needs."
+        "SabaiHub is one Next.js app, typed end to end. The browser renders role-scoped UI, server actions and API routes handle writes, Prisma is the typed data-access layer, and Supabase provides PostgreSQL and Supabase Auth. The whole thing deploys on Vercel.",
+        "Every shop is a tenant. A user belongs to a shop and a role, and every query is scoped by that pairing in the app layer (Prisma), so people only see their shop and what their role needs. Tenant isolation lives in the code, not in database row-level security."
       ]
     },
     keyDeliverables: [
