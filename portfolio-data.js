@@ -164,15 +164,15 @@ window.PROJECTS = [
       nextStage: "Future Improvements"
     },
     modules: [
-      { name: "Calendar & Appointments", wide: true, points: "Day and staff calendar, vertical or horizontal. Book, check-in, complete, cancel, no-show, walk-ins, and time blocks." },
-      { name: "Payments & Payouts", points: "POS with Stripe, HICAPS, cash and manual card. Refunds, staff commission, and daily pay records." },
-      { name: "Clients", points: "Customer records, treatment notes, and loyalty points." },
-      { name: "Roster & Schedule", points: "Staff availability, shifts, rosters, and time blocks." },
-      { name: "Services & Catalogue", points: "Services, packages, vouchers, and promotions." },
-      { name: "Reports & Dashboard", points: "Daily activity, business analytics, and audit logs." },
-      { name: "Online Booking", points: "Public booking page, business profile, and SMS reminders." },
-      { name: "Staff & Access", wide: true, points: "Staff management with role-based access: 4 roles and 61 permissions across the app." },
-      { name: "Settings", points: "Shop setup, services configuration, and business profile." }
+      { name: "Calendar & Appointments", wide: true, bullets: ["Day and staff calendar, vertical or horizontal", "Book, check-in, complete, cancel, no-show", "Walk-ins and time blocks"] },
+      { name: "Payments & Payouts", bullets: ["POS: Stripe, HICAPS, cash, manual card", "Refunds", "Staff commission and daily pay"] },
+      { name: "Clients", bullets: ["Customer records", "Treatment notes", "Loyalty points"] },
+      { name: "Roster & Schedule", bullets: ["Staff availability and shifts", "Rosters", "Time blocks"] },
+      { name: "Services & Catalogue", bullets: ["Services and packages", "Vouchers", "Promotions"] },
+      { name: "Reports & Dashboard", bullets: ["Daily activity", "Business analytics", "Audit logs"] },
+      { name: "Online Booking", bullets: ["Public booking page", "Business profile", "SMS reminders"] },
+      { name: "Staff & Access", wide: true, bullets: ["Staff management", "Role-based access: 4 roles", "61 permissions across the app"] },
+      { name: "Settings", bullets: ["Shop setup", "Services configuration", "Business profile"] }
     ],
     overview: [
       "SabaiHub is a production SaaS that runs the day-to-day operations of Thai massage businesses in Australia: bookings, staff rosters, customer records, payments, and reporting in one web app.",

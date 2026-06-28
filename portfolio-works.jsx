@@ -222,8 +222,18 @@ function BentoGrid({ items }) {
             borderRadius: '12px', background: 'var(--color-surface)', padding: '1.4rem 1.5rem',
             transition: 'border-color 0.2s',
           }}>
-          <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.05rem', letterSpacing: '-0.01em', color: 'var(--color-ink)', margin: 0 }}>{it.name}</h3>
-          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>{it.points}</p>
+          <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.05rem', letterSpacing: '-0.01em', color: 'var(--color-ink)', margin: '0 0 0.2rem' }}>{it.name}</h3>
+          {it.bullets ? (
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              {it.bullets.map(b => (
+                <li key={b} style={{ position: 'relative', paddingLeft: '1.1rem', fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.5 }}>
+                  <span aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0, color: 'var(--color-accent)' }}>•</span>{b}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>{it.points}</p>
+          )}
         </div>
       ))}
     </div>
