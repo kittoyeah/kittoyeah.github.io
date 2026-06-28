@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="'Space Grotesk', 'Segoe UI', sans-serif">
+  <rect width="1600" height="900" fill="#F5F4F1"/>
+
+  <text x="120" y="104" fill="#6A6A6A" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="6">// PRODUCTION LAYERS</text>
+  <text x="120" y="160" fill="#181818" font-size="48" font-weight="600" letter-spacing="-1">SabaiHub</text>
+  <text x="120" y="200" fill="#555555" font-size="22">One full-stack app, typed end to end. Each layer named with what it actually runs on.</text>
+
+  <!-- layer band template: white card, accent left bar, label · tech · role -->
+  <g font-family="'JetBrains Mono', monospace">
+    <!-- 1 Frontend -->
+    <rect x="120" y="248" width="1360" height="74" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+    <rect x="120" y="248" width="6" height="74" rx="3" fill="#1F65D3"/>
+    <text x="150" y="280" fill="#1F65D3" font-size="15" letter-spacing="2">FRONTEND</text>
+    <text x="150" y="306" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">React · Next.js App Router · Tailwind · i18n</text>
+    <text x="1450" y="292" fill="#6A6A6A" font-size="13" text-anchor="end">role-scoped UI</text>
+
+    <!-- 2 Backend -->
+    <rect x="120" y="334" width="1360" height="74" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+    <rect x="120" y="334" width="6" height="74" rx="3" fill="#1F65D3"/>
+    <text x="150" y="366" fill="#1F65D3" font-size="15" letter-spacing="2">BACKEND</text>
+    <text x="150" y="392" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Server Actions + API routes</text>
+    <text x="1450" y="378" fill="#6A6A6A" font-size="13" text-anchor="end">business logic, validation</text>
+
+    <!-- 3 Auth & Access -->
+    <rect x="120" y="420" width="1360" height="74" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+    <rect x="120" y="420" width="6" height="74" rx="3" fill="#8B6318"/>
+    <text x="150" y="452" fill="#8B6318" font-size="15" letter-spacing="2">AUTH &amp; ACCESS</text>
+    <text x="150" y="478" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Supabase Auth (JWT) · 4 roles · 61 permissions</text>
+    <text x="1450" y="464" fill="#6A6A6A" font-size="13" text-anchor="end">enforced in app layer</text>
+
+    <!-- 4 Data Access -->
+    <rect x="120" y="506" width="1360" height="74" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+    <rect x="120" y="506" width="6" height="74" rx="3" fill="#1F65D3"/>
+    <text x="150" y="538" fill="#1F65D3" font-size="15" letter-spacing="2">DATA ACCESS</text>
+    <text x="150" y="564" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Prisma ORM · typed, every query scoped by shop + role</text>
+    <text x="1450" y="550" fill="#6A6A6A" font-size="13" text-anchor="end">tenant isolation</text>
+
+    <!-- 5 Database -->
+    <rect x="120" y="592" width="1360" height="74" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+    <rect x="120" y="592" width="6" height="74" rx="3" fill="#8B6318"/>
+    <text x="150" y="624" fill="#8B6318" font-size="15" letter-spacing="2">DATABASE</text>
+    <text x="150" y="650" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Supabase PostgreSQL</text>
+    <text x="1450" y="636" fill="#6A6A6A" font-size="13" text-anchor="end">single data model</text>
+
+    <!-- 6 Payments -->
+    <rect x="120" y="678" width="1360" height="74" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+    <rect x="120" y="678" width="6" height="74" rx="3" fill="#1F65D3"/>
+    <text x="150" y="710" fill="#1F65D3" font-size="15" letter-spacing="2">PAYMENTS</text>
+    <text x="150" y="736" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Stripe · HICAPS</text>
+    <text x="1450" y="722" fill="#6A6A6A" font-size="13" text-anchor="end">external integrations</text>
+
+    <!-- 7 Hosting -->
+    <rect x="120" y="764" width="1360" height="74" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+    <rect x="120" y="764" width="6" height="74" rx="3" fill="#8B6318"/>
+    <text x="150" y="796" fill="#8B6318" font-size="15" letter-spacing="2">HOSTING &amp; DELIVERY</text>
+    <text x="150" y="822" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Vercel · CDN · CI/CD from GitHub</text>
+    <text x="1450" y="808" fill="#6A6A6A" font-size="13" text-anchor="end">deploy + edge</text>
+  </g>
+</svg>
