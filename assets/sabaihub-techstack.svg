@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="'Space Grotesk', 'Segoe UI', sans-serif">
+  <rect width="1600" height="900" fill="#F5F4F1"/>
+
+  <text x="120" y="104" fill="#6A6A6A" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="6">// TECH STACK</text>
+  <text x="120" y="164" fill="#181818" font-size="48" font-weight="600" letter-spacing="-1">SabaiHub</text>
+
+  <!-- ===== FRONTEND (tall, left) ===== -->
+  <rect x="120" y="232" width="420" height="596" rx="12" fill="#FFFFFF" stroke="#C0BDB7"/>
+  <text x="152" y="276" fill="#1F65D3" font-family="'JetBrains Mono', monospace" font-size="16" letter-spacing="2">FRONTEND</text>
+  <line x1="152" y1="292" x2="508" y2="292" stroke="#E4E2DD"/>
+  <g fill="#181818" font-size="22">
+    <text x="152" y="340">React</text>
+    <text x="152" y="386">Next.js · App Router</text>
+    <text x="152" y="432">TypeScript</text>
+    <text x="152" y="478">Tailwind CSS</text>
+    <text x="152" y="524">i18n (next-intl)</text>
+  </g>
+  <text x="152" y="580" fill="#6A6A6A" font-size="14" font-family="'JetBrains Mono', monospace">role-scoped, responsive UI</text>
+
+  <!-- ===== BACKEND ===== -->
+  <rect x="568" y="232" width="430" height="282" rx="12" fill="#FFFFFF" stroke="#C0BDB7"/>
+  <text x="600" y="276" fill="#1F65D3" font-family="'JetBrains Mono', monospace" font-size="16" letter-spacing="2">BACKEND</text>
+  <line x1="600" y1="292" x2="966" y2="292" stroke="#E4E2DD"/>
+  <g fill="#181818" font-size="22">
+    <text x="600" y="340">Server Actions</text>
+    <text x="600" y="386">API routes</text>
+    <text x="600" y="432">Node.js · TypeScript</text>
+  </g>
+  <text x="600" y="486" fill="#6A6A6A" font-size="14" font-family="'JetBrains Mono', monospace">business logic + validation</text>
+
+  <!-- ===== DATABASE & DATA ===== -->
+  <rect x="1026" y="232" width="454" height="282" rx="12" fill="#FFFFFF" stroke="#C0BDB7"/>
+  <text x="1058" y="276" fill="#8B6318" font-family="'JetBrains Mono', monospace" font-size="16" letter-spacing="2">DATABASE &amp; DATA</text>
+  <line x1="1058" y1="292" x2="1448" y2="292" stroke="#E4E2DD"/>
+  <g fill="#181818" font-size="22">
+    <text x="1058" y="340">Supabase</text>
+    <text x="1058" y="386">PostgreSQL</text>
+    <text x="1058" y="432">Prisma ORM</text>
+  </g>
+  <text x="1058" y="486" fill="#6A6A6A" font-size="14" font-family="'JetBrains Mono', monospace">typed, shop/role-scoped queries</text>
+
+  <!-- ===== AUTH & ACCESS ===== -->
+  <rect x="568" y="546" width="430" height="282" rx="12" fill="#FFFFFF" stroke="#C0BDB7"/>
+  <text x="600" y="590" fill="#8B6318" font-family="'JetBrains Mono', monospace" font-size="16" letter-spacing="2">AUTH &amp; ACCESS</text>
+  <line x1="600" y1="606" x2="966" y2="606" stroke="#E4E2DD"/>
+  <g fill="#181818" font-size="22">
+    <text x="600" y="654">Supabase Auth · JWT</text>
+    <text x="600" y="700">4 roles</text>
+    <text x="600" y="746">61 permissions</text>
+  </g>
+  <text x="600" y="800" fill="#6A6A6A" font-size="14" font-family="'JetBrains Mono', monospace">enforced in the app layer</text>
+
+  <!-- ===== PAYMENTS ===== -->
+  <rect x="1026" y="546" width="454" height="134" rx="12" fill="#FFFFFF" stroke="#C0BDB7"/>
+  <text x="1058" y="590" fill="#1F65D3" font-family="'JetBrains Mono', monospace" font-size="16" letter-spacing="2">PAYMENTS</text>
+  <line x1="1058" y1="606" x2="1448" y2="606" stroke="#E4E2DD"/>
+  <text x="1058" y="652" fill="#181818" font-size="22">Stripe · HICAPS · cash · manual card</text>
+
+  <!-- ===== HOSTING & CI/CD ===== -->
+  <rect x="1026" y="694" width="454" height="134" rx="12" fill="#FFFFFF" stroke="#C0BDB7"/>
+  <text x="1058" y="738" fill="#1F65D3" font-family="'JetBrains Mono', monospace" font-size="16" letter-spacing="2">HOSTING &amp; CI/CD</text>
+  <line x1="1058" y1="754" x2="1448" y2="754" stroke="#E4E2DD"/>
+  <text x="1058" y="800" fill="#181818" font-size="22">Vercel · GitHub · preview deploys</text>
+</svg>
