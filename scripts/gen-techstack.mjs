@@ -1,9 +1,9 @@
 import { writeFileSync } from 'node:fs';
 
 const cats = [
-  { t: 'Language & Framework', hue: 'blue',   items: ['Next.js 16', 'React 19', 'TypeScript'] },
-  { t: 'UI',                   hue: 'purple', items: ['Tailwind CSS', 'Radix UI', 'lucide-react', 'sonner', 'cmdk'] },
-  { t: 'Data & State',         hue: 'green',  items: ['TanStack Query', 'TanStack Table', 'Prisma', 'Supabase Postgres'] },
+  { t: 'Language & Framework', hue: 'blue',   items: ['Next.js 16', 'React 19', 'TypeScript', 'next-intl (i18n)'] },
+  { t: 'UI',                   hue: 'purple', items: ['Tailwind CSS', 'Radix UI', 'lucide-react', 'cmdk'] },
+  { t: 'Data',                 hue: 'green',  items: ['Prisma', 'Supabase Postgres', 'TanStack Table'] },
   { t: 'Auth',                 hue: 'amber',  items: ['Supabase Auth', 'jose (JWT)'] },
   { t: 'Forms & Validation',   hue: 'teal',   items: ['React Hook Form', 'Zod'] },
   { t: 'Dates & Scheduling',   hue: 'blue',   items: ['date-fns', 'rrule', 'react-day-picker'] },

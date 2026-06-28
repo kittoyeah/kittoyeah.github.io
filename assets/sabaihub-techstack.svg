@@ -7,15 +7,15 @@
   <rect x="100" y="250" width="330.5" height="300" rx="12" fill="#EEF3FB" stroke="#D8D5CF"/>
   <text x="126" y="298" fill="#1F65D3" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">LANGUAGE &amp; FRAMEWORK</text>
   <line x1="126" y1="316" x2="404.5" y2="316" stroke="#D8D5CF"/>
-  <text x="126" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Next.js 16</text><text x="126" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">React 19</text><text x="126" y="438" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">TypeScript</text>
+  <text x="126" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Next.js 16</text><text x="126" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">React 19</text><text x="126" y="438" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">TypeScript</text><text x="126" y="474" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">next-intl (i18n)</text>
   <rect x="456.5" y="250" width="330.5" height="300" rx="12" fill="#F1EEF9" stroke="#D8D5CF"/>
   <text x="482.5" y="298" fill="#5B43A8" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">UI</text>
   <line x1="482.5" y1="316" x2="761" y2="316" stroke="#D8D5CF"/>
-  <text x="482.5" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Tailwind CSS</text><text x="482.5" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Radix UI</text><text x="482.5" y="438" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">lucide-react</text><text x="482.5" y="474" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">sonner</text><text x="482.5" y="510" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">cmdk</text>
+  <text x="482.5" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Tailwind CSS</text><text x="482.5" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Radix UI</text><text x="482.5" y="438" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">lucide-react</text><text x="482.5" y="474" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">cmdk</text>
   <rect x="813" y="250" width="330.5" height="300" rx="12" fill="#EDF4EE" stroke="#D8D5CF"/>
-  <text x="839" y="298" fill="#2E7D46" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">DATA &amp; STATE</text>
+  <text x="839" y="298" fill="#2E7D46" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">DATA</text>
   <line x1="839" y1="316" x2="1117.5" y2="316" stroke="#D8D5CF"/>
-  <text x="839" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">TanStack Query</text><text x="839" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">TanStack Table</text><text x="839" y="438" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Prisma</text><text x="839" y="474" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Supabase Postgres</text>
+  <text x="839" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Prisma</text><text x="839" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Supabase Postgres</text><text x="839" y="438" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">TanStack Table</text>
   <rect x="1169.5" y="250" width="330.5" height="300" rx="12" fill="#F8F1E3" stroke="#D8D5CF"/>
   <text x="1195.5" y="298" fill="#8B6318" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">AUTH</text>
   <line x1="1195.5" y1="316" x2="1474" y2="316" stroke="#D8D5CF"/>
