@@ -159,23 +159,20 @@ window.PROJECTS = [
       myContribution: "My Role",
       prototypeWalkthrough: "Live Demo",
       tools: "Technology Stack",
+      modules: "Features",
       challenges: "Engineering Challenges",
       nextStage: "Future Improvements"
     },
     modules: [
-      { name: "Dashboard", points: "Daily activity snapshot, the business at a glance for owners" },
-      { name: "Calendar", points: "Day and staff views, vertical or horizontal layout, drag bookings" },
-      { name: "Appointments", points: "Book, check-in, complete, cancel, no-show, walk-ins" },
-      { name: "Roster & Schedule", points: "Staff availability, shifts, rosters, time blocks" },
-      { name: "My Work", points: "A therapist's own appointments and schedule" },
-      { name: "Clients", points: "Customer records, treatment notes, loyalty points" },
-      { name: "Services & Catalogue", points: "Services, packages, vouchers, promotions" },
-      { name: "Payments", points: "POS with Stripe, HICAPS, cash and manual card, plus refunds" },
-      { name: "Payouts", points: "Staff commission and daily pay records" },
-      { name: "Reports", points: "Business reporting and analytics, audit logs" },
-      { name: "Notifications", points: "In-app alerts and SMS reminders" },
-      { name: "Settings", points: "Shop, business profile, online booking, promotions, services" },
-      { name: "Staff & Access", points: "Staff management, 4 roles, 61 permissions" }
+      { name: "Calendar & Appointments", wide: true, points: "Day and staff calendar, vertical or horizontal. Book, check-in, complete, cancel, no-show, walk-ins, and time blocks." },
+      { name: "Payments & Payouts", points: "POS with Stripe, HICAPS, cash and manual card. Refunds, staff commission, and daily pay records." },
+      { name: "Clients", points: "Customer records, treatment notes, and loyalty points." },
+      { name: "Roster & Schedule", points: "Staff availability, shifts, rosters, and time blocks." },
+      { name: "Services & Catalogue", points: "Services, packages, vouchers, and promotions." },
+      { name: "Reports & Dashboard", points: "Daily activity, business analytics, and audit logs." },
+      { name: "Online Booking", points: "Public booking page, business profile, and SMS reminders." },
+      { name: "Staff & Access", wide: true, points: "Staff management with role-based access: 4 roles and 61 permissions across the app." },
+      { name: "Settings", points: "Shop setup, services configuration, and business profile." }
     ],
     overview: [
       "SabaiHub is a production SaaS that runs the day-to-day operations of Thai massage businesses in Australia: bookings, staff rosters, customer records, payments, and reporting in one web app.",

@@ -177,7 +177,7 @@ function getSectionDefs(project, buildNotes) {
       </>
     ) },
     architecture: { label: 'System Architecture', has: !!project.architecture, render: () => <ArchitectureBlock architecture={project.architecture} title={project.title} /> },
-    modules: { label: 'Modules', has: !!project.modules, render: () => <ModuleTable modules={project.modules} /> },
+    modules: { label: 'Features', has: !!project.modules, render: () => <BentoGrid items={project.modules} /> },
     skillsDemonstrated: { label: 'Skills Demonstrated', has: !!project.skillsDemonstrated, render: () => <TagList items={project.skillsDemonstrated} /> },
     engineeringDecisions: { label: 'Engineering Decisions', has: !!project.engineeringDecisions, render: () => <LineList items={project.engineeringDecisions} /> },
     challengeApproachPairs: { label: 'Challenges + Approaches', has: hasPairs, render: () => <ChallengeApproachGrid pairs={project.challengeApproachPairs} /> },
@@ -204,6 +204,28 @@ function ArchitectureBlock({ architecture, title }) {
         <img src={architecture.image} alt={`${title} system architecture`} referrerPolicy="no-referrer" style={{ width: '100%', display: 'block' }} />
       </div>
       {architecture.caption && <div style={{ marginTop: '1.5rem' }}><TextBlock content={architecture.caption} /></div>}
+    </div>
+  );
+}
+
+function BentoGrid({ items }) {
+  const [hov, setHov] = React.useState(-1);
+  return (
+    <div className="bento-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 15rem), 1fr))', gap: '1rem' }}>
+      {items.map((it, i) => (
+        <div key={it.name}
+          onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(-1)}
+          style={{
+            gridColumn: it.wide ? 'span 2' : 'span 1',
+            display: 'flex', flexDirection: 'column', gap: '0.5rem', minHeight: '8.5rem',
+            border: `1px solid ${hov === i ? 'var(--accent-50)' : 'var(--color-line)'}`,
+            borderRadius: '12px', background: 'var(--color-surface)', padding: '1.4rem 1.5rem',
+            transition: 'border-color 0.2s',
+          }}>
+          <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.05rem', letterSpacing: '-0.01em', color: 'var(--color-ink)', margin: 0 }}>{it.name}</h3>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>{it.points}</p>
+        </div>
+      ))}
     </div>
   );
 }
