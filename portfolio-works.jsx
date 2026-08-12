@@ -31,7 +31,7 @@ function WorksCard({ project, featured }) {
       <div style={{
         position: 'relative', overflow: 'hidden',
         border: '1px solid var(--color-line)', background: 'var(--color-surface)',
-        aspectRatio: featured ? '16 / 7' : '16 / 9', marginBottom: '1.25rem',
+        aspectRatio: '16 / 9', marginBottom: '1.25rem',
       }}>
         <img src={project.image} alt={project.title} referrerPolicy="no-referrer"
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transform: hov ? 'scale(1.02)' : 'scale(1)', transition: 'transform 0.5s ease' }} />

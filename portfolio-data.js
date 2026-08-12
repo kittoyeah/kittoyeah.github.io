@@ -6,7 +6,7 @@ window.PROJECTS = [
     desc: "An operations platform for a Tasmanian interpreting business, replacing fragmented dispatch and paper-based completion workflows with interpreter matching, compliance tracking, mobile job completion, and pay approval.",
     role: "Technical Business Analyst / Product Owner",
     tags: ["Technical Business Analysis", "Product Ownership", "Workflow Design", "Requirements", "Compliance", "Digital Delivery"],
-    image: "assets/amigo-thumbnail.svg",
+    image: "assets/amigo-thumbnail.png",
     year: "2026",
     badge: "Owner-approved MVP · Tasmania",
     summary: {
