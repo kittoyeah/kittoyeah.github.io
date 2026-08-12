@@ -301,6 +301,11 @@ function HowIWorkSection() {
           <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-label)', lineHeight: 1.8, margin: '1.5rem 0 0', paddingTop: '1.5rem', borderTop: '1px solid var(--color-line)' }}>
             Selected toolkit: Jira · Confluence · Figma · Miro · SQL · TypeScript · React · Next.js · PostgreSQL · Supabase · AWS Bedrock
           </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginTop: '1.25rem' }}>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-label)' }}>Professional memberships</span>
+            <img src="assets/iiba-logo.png" alt="IIBA logo" style={{ height: '26px', width: 'auto' }} />
+            <img src="assets/pmi-tasmania-logo.avif" alt="PMI Tasmania logo" style={{ height: '26px', width: 'auto' }} />
+          </div>
         </FadeInView>
       </div>
     </section>
