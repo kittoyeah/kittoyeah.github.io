@@ -144,6 +144,35 @@ function AboutPage() {
 
         <hr style={{ border: 'none', borderTop: '1px solid var(--color-line)', opacity: 0.4, margin: 0 }} />
 
+        {/* Memberships */}
+        <FadeInView>
+          <div className="two-col-section" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <div className="two-col-left">
+              <span className="mono-label" style={{ display: 'block', marginBottom: '1.5rem' }}>
+                <span style={{ color: 'var(--color-accent)' }}>// </span>Memberships
+              </span>
+            </div>
+            <div className="two-col-right" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.85rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', padding: '1rem 0', borderTop: '1px solid var(--color-line)', borderBottom: '1px solid var(--color-line)' }}>
+                <img src="assets/iiba-logo.png" alt="IIBA logo" style={{ height: '44px', width: 'auto', flexShrink: 0 }} />
+                <div>
+                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 500, fontSize: '1rem', color: 'var(--color-ink)', margin: '0 0 0.35rem' }}>IIBA</h3>
+                  <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>International Institute of Business Analysis</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', padding: '1rem 0', borderBottom: '1px solid var(--color-line)' }}>
+                <img src="assets/pmi-tasmania-logo.avif" alt="PMI Tasmania logo" style={{ height: '44px', width: 'auto', flexShrink: 0 }} />
+                <div>
+                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 500, fontSize: '1rem', color: 'var(--color-ink)', margin: '0 0 0.35rem' }}>PMI Tasmania</h3>
+                  <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>Project Management Institute, Tasmanian Chapter</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </FadeInView>
+
+        <hr style={{ border: 'none', borderTop: '1px solid var(--color-line)', opacity: 0.4, margin: 0 }} />
+
         {/* Contact */}
         <FadeInView>
           <div className="contact-section" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
