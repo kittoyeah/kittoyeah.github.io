@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1270" width="1600" height="1270" font-family="'Space Grotesk', 'Segoe UI', sans-serif">
+  <rect width="1600" height="1270" fill="#F5F4F1"/>
+  <text x="100" y="120" fill="#6A6A6A" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="6">// TECH STACK</text>
+  <text x="100" y="180" fill="#181818" font-size="48" font-weight="600" letter-spacing="-1">SabaiHub</text>
+  <text x="100" y="218" fill="#555555" font-size="20">The real toolset, straight from package.json.</text>
+  
+  <rect x="100" y="250" width="330.5" height="300" rx="12" fill="#EEF3FB" stroke="#D8D5CF"/>
+  <text x="126" y="298" fill="#1F65D3" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">LANGUAGE &amp; FRAMEWORK</text>
+  <line x1="126" y1="316" x2="404.5" y2="316" stroke="#D8D5CF"/>
+  <text x="126" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Next.js 16</text><text x="126" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">React 19</text><text x="126" y="438" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">TypeScript</text><text x="126" y="474" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">next-intl (i18n)</text>
+  <rect x="456.5" y="250" width="330.5" height="300" rx="12" fill="#F1EEF9" stroke="#D8D5CF"/>
+  <text x="482.5" y="298" fill="#5B43A8" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">UI</text>
+  <line x1="482.5" y1="316" x2="761" y2="316" stroke="#D8D5CF"/>
+  <text x="482.5" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Tailwind CSS</text><text x="482.5" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Radix UI</text><text x="482.5" y="438" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">lucide-react</text><text x="482.5" y="474" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">cmdk</text>
+  <rect x="813" y="250" width="330.5" height="300" rx="12" fill="#EDF4EE" stroke="#D8D5CF"/>
+  <text x="839" y="298" fill="#2E7D46" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">DATA</text>
+  <line x1="839" y1="316" x2="1117.5" y2="316" stroke="#D8D5CF"/>
+  <text x="839" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Prisma</text><text x="839" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Supabase Postgres</text><text x="839" y="438" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">TanStack Table</text>
+  <rect x="1169.5" y="250" width="330.5" height="300" rx="12" fill="#F8F1E3" stroke="#D8D5CF"/>
+  <text x="1195.5" y="298" fill="#8B6318" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">AUTH</text>
+  <line x1="1195.5" y1="316" x2="1474" y2="316" stroke="#D8D5CF"/>
+  <text x="1195.5" y="366" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Supabase Auth</text><text x="1195.5" y="402" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">jose (JWT)</text>
+  <rect x="100" y="580" width="330.5" height="300" rx="12" fill="#E9F3F2" stroke="#D8D5CF"/>
+  <text x="126" y="628" fill="#1E7E74" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">FORMS &amp; VALIDATION</text>
+  <line x1="126" y1="646" x2="404.5" y2="646" stroke="#D8D5CF"/>
+  <text x="126" y="696" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">React Hook Form</text><text x="126" y="732" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Zod</text>
+  <rect x="456.5" y="580" width="330.5" height="300" rx="12" fill="#EEF3FB" stroke="#D8D5CF"/>
+  <text x="482.5" y="628" fill="#1F65D3" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">DATES &amp; SCHEDULING</text>
+  <line x1="482.5" y1="646" x2="761" y2="646" stroke="#D8D5CF"/>
+  <text x="482.5" y="696" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">date-fns</text><text x="482.5" y="732" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">rrule</text><text x="482.5" y="768" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">react-day-picker</text>
+  <rect x="813" y="580" width="330.5" height="300" rx="12" fill="#F1EEF9" stroke="#D8D5CF"/>
+  <text x="839" y="628" fill="#5B43A8" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">EMAIL</text>
+  <line x1="839" y1="646" x2="1117.5" y2="646" stroke="#D8D5CF"/>
+  <text x="839" y="696" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Resend</text>
+  <rect x="1169.5" y="580" width="330.5" height="300" rx="12" fill="#F9EEEE" stroke="#D8D5CF"/>
+  <text x="1195.5" y="628" fill="#B0413E" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">MONITORING</text>
+  <line x1="1195.5" y1="646" x2="1474" y2="646" stroke="#D8D5CF"/>
+  <text x="1195.5" y="696" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Sentry</text>
+  <rect x="100" y="910" width="330.5" height="300" rx="12" fill="#EDF4EE" stroke="#D8D5CF"/>
+  <text x="126" y="958" fill="#2E7D46" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">TESTING</text>
+  <line x1="126" y1="976" x2="404.5" y2="976" stroke="#D8D5CF"/>
+  <text x="126" y="1026" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Playwright</text><text x="126" y="1062" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Testing Library</text>
+  <rect x="456.5" y="910" width="330.5" height="300" rx="12" fill="#EEF0F2" stroke="#D8D5CF"/>
+  <text x="482.5" y="958" fill="#4A5568" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">TOOLING</text>
+  <line x1="482.5" y1="976" x2="761" y2="976" stroke="#D8D5CF"/>
+  <text x="482.5" y="1026" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">ESLint</text><text x="482.5" y="1062" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Prisma CLI</text><text x="482.5" y="1098" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">style-dictionary</text><text x="482.5" y="1134" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">tsx</text>
+  <rect x="813" y="910" width="330.5" height="300" rx="12" fill="#F8F1E3" stroke="#D8D5CF"/>
+  <text x="839" y="958" fill="#8B6318" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="1.5">HOSTING &amp; CI</text>
+  <line x1="839" y1="976" x2="1117.5" y2="976" stroke="#D8D5CF"/>
+  <text x="839" y="1026" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">Vercel</text><text x="839" y="1062" fill="#181818" font-size="18" font-family="'Space Grotesk', sans-serif">GitHub</text>
+</svg>

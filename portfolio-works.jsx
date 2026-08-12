@@ -103,6 +103,7 @@ const SECTIONS = [
   { key: 'solution', label: 'Solution', field: 'solution' },
   { key: 'beforeAfter', label: 'Before / After', field: 'beforeAfter' },
   { key: 'keyDeliverables', label: 'Key Features', field: 'keyDeliverables' },
+  { key: 'requirementsSample', label: 'Requirements Sample', field: 'requirementsSample' },
   { key: 'myContribution', label: 'My Contribution', field: 'myContribution' },
   { key: 'skillsDemonstrated', label: 'Skills Demonstrated', field: 'skillsDemonstrated' },
   { key: 'engineeringDecisions', label: 'Engineering Decisions', field: 'engineeringDecisions' },
@@ -138,6 +139,201 @@ const TECH_STACK_ICONS = {
   'Design Thinking methods': { url: 'assets/tool-icons/figjam.svg' },
 };
 
+const DEFAULT_SECTION_ORDER = [
+  'summary', 'prototypeWalkthrough', 'tools', 'overview', 'metrics',
+  'problemStatement', 'goals', 'solution', 'beforeAfter', 'keyDeliverables',
+  'requirementsSample', 'myContribution', 'architecture', 'modules', 'skillsDemonstrated', 'engineeringDecisions',
+  'challengeApproachPairs', 'challenges', 'approaches', 'tradeoffs', 'lessons',
+  'outcomes', 'buildNotes', 'nextStage', 'screenshots',
+];
+
+function getSectionDefs(project, buildNotes) {
+  const hasPairs = !!project.challengeApproachPairs;
+  return {
+    summary: { label: 'TL;DR', compact: true, has: !!project.summary, render: () => <Summary summary={project.summary} /> },
+    prototypeWalkthrough: { label: 'Prototype Walkthrough', has: !!project.prototypeWalkthrough, render: () => <PrototypeWalkthrough walkthrough={project.prototypeWalkthrough} prototypeUrl={project.prototypeUrl} projectTitle={project.title} /> },
+    tools: { label: project.toolsLabel || 'Tech Stack', has: !!project.tools, render: () => <TechStackList tools={project.tools} /> },
+    overview: { label: 'Overview', has: !!project.overview, render: () => <TextBlock content={project.overview} /> },
+    metrics: { label: 'Metrics', compact: true, has: !!project.metrics, render: () => <MetricStrip metrics={project.metrics} /> },
+    problemStatement: { label: 'Problem', emphasis: true, has: !!project.problemStatement, render: () => (
+      project.problemQuote
+        ? <PullQuote quote={project.problemQuote} supporting={project.problemStatement} supportingOutside={project.quoteSupportingOutside} />
+        : <TextBlock content={project.problemStatement} variant="quote" />
+    ) },
+    goals: { label: 'Goals', has: !!project.goals, render: () => <CardGrid items={project.goals} /> },
+    solution: { label: 'Solution', has: !!project.solution, render: () => (
+      <>
+        <TextBlock content={project.solution} />
+        {project.conceptTranslations && <div style={{ marginTop: '1.25rem' }}><ConceptTranslationTable items={project.conceptTranslations} /></div>}
+        {project.stakeholderNeeds && <div style={{ marginTop: '1.25rem' }}><StakeholderNeedTable items={project.stakeholderNeeds} /></div>}
+        {project.solutionFollowup && <div style={{ marginTop: '1.25rem' }}><TextBlock content={project.solutionFollowup} /></div>}
+      </>
+    ) },
+    beforeAfter: { label: 'Before / After', compact: true, has: !!project.beforeAfter, render: () => <BeforeAfter pairs={project.beforeAfter} /> },
+    keyDeliverables: { label: 'Key Features', has: !!project.keyDeliverables, render: () => <CardGrid items={project.keyDeliverables} /> },
+    requirementsSample: { label: 'Requirements Sample', has: !!project.requirementsSample, render: () => <RequirementsSample sample={project.requirementsSample} /> },
+    myContribution: { label: 'My Contribution', has: !!project.myContribution, render: () => (
+      <>
+        <TextBlock content={project.myContribution} />
+        {project.workPhases && <div style={{ marginTop: '1.5rem' }}><WorkPhaseList phases={project.workPhases} /></div>}
+      </>
+    ) },
+    architecture: { label: 'System Architecture', has: !!project.architecture, render: () => <ArchitectureBlock architecture={project.architecture} title={project.title} /> },
+    modules: { label: 'Features', has: !!project.modules, render: () => <BentoGrid items={project.modules} /> },
+    skillsDemonstrated: { label: 'Skills Demonstrated', has: !!project.skillsDemonstrated, render: () => <TagList items={project.skillsDemonstrated} /> },
+    engineeringDecisions: { label: 'Engineering Decisions', has: !!project.engineeringDecisions, render: () => <LineList items={project.engineeringDecisions} /> },
+    challengeApproachPairs: { label: 'Challenges + Approaches', has: hasPairs, render: () => <ChallengeApproachGrid pairs={project.challengeApproachPairs} /> },
+    challenges: { label: 'Challenges', has: !!project.challenges && !hasPairs, render: () => <NumberedList items={project.challenges} /> },
+    approaches: { label: 'Approaches', has: !!project.approaches && !hasPairs, render: () => <LineList items={project.approaches} /> },
+    tradeoffs: { label: 'Trade-offs & Design Decisions', has: !!project.tradeoffs, render: () => <TradeoffList items={project.tradeoffs} /> },
+    lessons: { label: 'Lessons Learned', has: !!project.lessons, render: () => <LineList items={project.lessons} /> },
+    outcomes: { label: 'Outcomes', emphasis: true, has: !!project.outcomes, render: () => <OutcomeList items={project.outcomes} layout={project.outcomeLayout} /> },
+    buildNotes: { label: 'Build Notes', has: buildNotes.length > 0, render: () => <BuildNotesList notes={buildNotes} /> },
+    nextStage: { label: "What's Next", has: !!project.nextStage && project.id !== 'sabaihub', render: () => (
+      <>
+        <TextBlock content={project.nextStage} />
+        {project.plannedImprovements && <div style={{ marginTop: '1.5rem' }}><CardGrid items={project.plannedImprovements} /></div>}
+      </>
+    ) },
+    screenshots: { label: 'Screenshots', has: !!project.screenshots, render: () => <ScreenshotsBlock screenshots={project.screenshots} /> },
+  };
+}
+
+function ArchitectureBlock({ architecture, title }) {
+  return (
+    <div>
+      <div style={{ border: '1px solid var(--color-line)', borderRadius: '6px', overflow: 'hidden', background: 'var(--color-surface)' }}>
+        <img src={architecture.image} alt={`${title} system architecture`} referrerPolicy="no-referrer" style={{ width: '100%', display: 'block' }} />
+      </div>
+      {architecture.caption && <div style={{ marginTop: '1.5rem' }}><TextBlock content={architecture.caption} /></div>}
+    </div>
+  );
+}
+
+function RequirementsSample({ sample }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)', padding: '1.25rem' }}>
+        <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-accent)', margin: '0 0 0.6rem' }}>User Story</p>
+        <p style={{ margin: 0, fontSize: '14.5px', color: 'var(--color-ink)', lineHeight: 1.7 }}>{sample.story}</p>
+      </div>
+
+      <div>
+        <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)', margin: '0 0 0.5rem' }}>Acceptance Criteria</p>
+        {sample.acceptanceCriteria.map((c, i) => (
+          <div key={i} style={{ display: 'flex', gap: '0.75rem', padding: '0.5rem 0', borderTop: '1px solid var(--color-line)', fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.65 }}>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)', flexShrink: 0, paddingTop: '2px' }}>AC-{String(i + 1).padStart(2, '0')}</span>
+            <span style={{ flex: 1, minWidth: 0 }}>{c}</span>
+          </div>
+        ))}
+      </div>
+
+      {sample.traceNote && (
+        <p style={{ margin: 0, padding: '0.75rem 0 0', borderTop: '1px solid var(--color-line)', fontSize: '12.5px', color: 'var(--color-label)', lineHeight: 1.65 }}>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-accent)' }}>Traceability: </span>
+          {sample.traceNote}
+        </p>
+      )}
+
+      {sample.prioritisation && (
+        <div>
+          <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)', margin: '0 0 0.5rem' }}>Prioritisation — MVP Order</p>
+          {sample.prioritisation.map((row, i) => (
+            <div key={row.item} style={{ display: 'flex', gap: '0.75rem', padding: '0.5rem 0', borderTop: '1px solid var(--color-line)', fontSize: '13.5px', lineHeight: 1.6 }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)', flexShrink: 0, paddingTop: '2px' }}>P-{String(i + 1).padStart(2, '0')}</span>
+              <span style={{ flex: 1, minWidth: 0 }}>
+                <span style={{ color: 'var(--color-ink)', fontWeight: 500 }}>{row.item}</span>
+                <span style={{ color: 'var(--color-muted)' }}> — {row.basis}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function BentoGrid({ items }) {
+  const [hov, setHov] = React.useState(-1);
+  return (
+    <div className="bento-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 15rem), 1fr))', gap: '1rem' }}>
+      {items.map((it, i) => (
+        <div key={it.name}
+          onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(-1)}
+          style={{
+            gridColumn: it.wide ? 'span 2' : 'span 1',
+            display: 'flex', flexDirection: 'column', gap: '0.5rem', minHeight: '8.5rem',
+            border: `1px solid ${hov === i ? 'var(--accent-50)' : 'var(--color-line)'}`,
+            borderRadius: '12px', background: 'var(--color-surface)', padding: '1.4rem 1.5rem',
+            transition: 'border-color 0.2s',
+          }}>
+          <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.05rem', letterSpacing: '-0.01em', color: 'var(--color-ink)', margin: '0 0 0.2rem' }}>{it.name}</h3>
+          {it.bullets ? (
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              {it.bullets.map(b => (
+                <li key={b} style={{ position: 'relative', paddingLeft: '1.1rem', fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.5 }}>
+                  <span aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0, color: 'var(--color-accent)' }}>•</span>{b}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>{it.points}</p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ModuleTable({ modules }) {
+  return (
+    <div style={{ border: '1px solid var(--color-line)', borderRadius: '6px', overflow: 'hidden' }}>
+      {modules.map((m, i) => (
+        <div key={m.name} className="module-row" style={{ display: 'grid', gridTemplateColumns: 'minmax(9rem, 0.34fr) 1fr', gap: '1.25rem', padding: '0.9rem 1.15rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', background: i % 2 ? 'var(--color-surface)' : 'transparent', alignItems: 'baseline' }}>
+          <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '14.5px', color: 'var(--color-ink)' }}>{m.name}</span>
+          <span style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.6 }}>{m.points}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TradeoffList({ items }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+      {items.map((it, i) => (
+        <div key={i} style={{ borderLeft: '2px solid var(--accent-30)', paddingLeft: '1.25rem' }}>
+          <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', margin: '0 0 0.35rem' }}>{it.choice}</p>
+          <p style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{it.why}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ScreenshotsBlock({ screenshots }) {
+  if (screenshots && screenshots.todo) {
+    return (
+      <div style={{ border: '1px dashed var(--color-line)', borderRadius: '6px', padding: '2rem 1.5rem', textAlign: 'center', color: 'var(--color-label)', fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', letterSpacing: '0.06em' }}>
+        Product screenshots coming soon{screenshots.note ? `: ${screenshots.note}` : ''}.
+      </div>
+    );
+  }
+  const shots = Array.isArray(screenshots) ? screenshots : [];
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 18rem), 1fr))', gap: '1rem' }}>
+      {shots.map((s, i) => (
+        <figure key={i} style={{ margin: 0 }}>
+          <div style={{ border: '1px solid var(--color-line)', borderRadius: '6px', overflow: 'hidden', background: 'var(--color-surface)' }}>
+            <img src={s.src} alt={s.caption || ''} referrerPolicy="no-referrer" style={{ width: '100%', display: 'block' }} />
+          </div>
+          {s.caption && <figcaption style={{ fontSize: '12.5px', color: 'var(--color-muted)', margin: '0.6rem 0 0' }}>{s.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works", backLabel = "Back to Works", disablePrevNext = false }) {
   const { navigate } = useRouter();
   const project = collection.find(p => p.id === id);
@@ -152,15 +348,13 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
   const prev = disablePrevNext ? null : (collection[idx - 1] || null);
   const next = disablePrevNext ? null : (collection[idx + 1] || null);
   const buildNotes = project.id === 'sabaihub' ? (window.BUILD_NOTES || []).filter(note => note.parentId === 'sabaihub') : [];
-  const visibleSections = SECTIONS.filter(({ field }) => {
-    if (field === 'buildNotes') return buildNotes.length > 0;
-    if (field === 'nextStage' && project.id === 'sabaihub') return false;
-    const value = project[field];
-    if (field === 'challenges' && project.challengeApproachPairs) return false;
-    if (field === 'approaches' && project.challengeApproachPairs) return false;
-    return Array.isArray(value) ? value.length > 0 : Boolean(value);
-  });
   const sectionLabel = (key, fallback) => project.sectionLabels?.[key] || fallback;
+  const sectionDefs = getSectionDefs(project, buildNotes);
+  const sectionOrder = project.sectionOrder || DEFAULT_SECTION_ORDER;
+  const orderedSections = sectionOrder
+    .map(key => ({ key, def: sectionDefs[key] }))
+    .filter(x => x.def && x.def.has);
+  const visibleSections = orderedSections.map(({ key, def }) => ({ key, label: sectionLabel(key, def.label) }));
 
   const scrollTo = (sectionId) => {
     const el = document.getElementById(sectionId);
@@ -207,12 +401,20 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
           </div>
         </FadeIn>
 
-        {/* Cover image */}
-        <FadeIn delay={0.1}>
-          <div style={{ border: '1px solid var(--color-line)', overflow: 'hidden', marginBottom: 'clamp(3rem, 8vw, 6rem)', background: 'var(--color-surface)' }}>
-            <ProjectCoverMedia project={project} />
-          </div>
-        </FadeIn>
+        {/* Article context block, or cover image for projects */}
+        {project.type === 'article' ? (
+          <FadeIn delay={0.1}>
+            <div style={{ marginBottom: 'clamp(3rem, 8vw, 6rem)' }}>
+              <ArticleContextBlock note={project} />
+            </div>
+          </FadeIn>
+        ) : (
+          <FadeIn delay={0.1}>
+            <div style={{ border: '1px solid var(--color-line)', overflow: 'hidden', marginBottom: 'clamp(3rem, 8vw, 6rem)', background: 'var(--color-surface)' }}>
+              <ProjectCoverMedia project={project} />
+            </div>
+          </FadeIn>
+        )}
 
         {/* Content + TOC */}
         <div className="detail-layout" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
@@ -234,148 +436,11 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
 
           {/* Main content */}
           <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '5rem' }}>
-            {project.summary && (
-              <CaseSection id="summary" label="TL;DR" compact>
-                <Summary summary={project.summary} />
+            {orderedSections.map(({ key, def }) => (
+              <CaseSection key={key} id={key} label={sectionLabel(key, def.label)} compact={def.compact} emphasis={def.emphasis}>
+                {def.render()}
               </CaseSection>
-            )}
-
-            {project.prototypeWalkthrough && (
-              <CaseSection id="prototypeWalkthrough" label="Prototype Walkthrough">
-                <PrototypeWalkthrough walkthrough={project.prototypeWalkthrough} prototypeUrl={project.prototypeUrl} projectTitle={project.title} />
-              </CaseSection>
-            )}
-
-            {project.tools && (
-              <CaseSection id="tools" label={sectionLabel('tools', project.toolsLabel || "Tech Stack")}>
-                <TechStackList tools={project.tools} />
-              </CaseSection>
-            )}
-
-            {project.overview && (
-              <CaseSection id="overview" label={sectionLabel('overview', 'Overview')}>
-                <TextBlock content={project.overview} />
-              </CaseSection>
-            )}
-
-            {project.metrics && (
-              <CaseSection id="metrics" label="Metrics" compact>
-                <MetricStrip metrics={project.metrics} />
-              </CaseSection>
-            )}
-
-            <SectionDivider />
-
-            {project.problemStatement && (
-              <CaseSection id="problemStatement" label={sectionLabel('problemStatement', 'Problem')} emphasis>
-                {project.problemQuote ? (
-                  <PullQuote quote={project.problemQuote} supporting={project.problemStatement} supportingOutside={project.quoteSupportingOutside} />
-                ) : (
-                  <TextBlock content={project.problemStatement} variant="quote" />
-                )}
-              </CaseSection>
-            )}
-
-            {project.solution && (
-              <CaseSection id="solution" label={sectionLabel('solution', 'Solution')}>
-                <TextBlock content={project.solution} />
-                {project.conceptTranslations && (
-                  <div style={{ marginTop: '1.25rem' }}>
-                    <ConceptTranslationTable items={project.conceptTranslations} />
-                  </div>
-                )}
-                {project.stakeholderNeeds && (
-                  <div style={{ marginTop: '1.25rem' }}>
-                    <StakeholderNeedTable items={project.stakeholderNeeds} />
-                  </div>
-                )}
-                {project.solutionFollowup && (
-                  <div style={{ marginTop: '1.25rem' }}>
-                    <TextBlock content={project.solutionFollowup} />
-                  </div>
-                )}
-              </CaseSection>
-            )}
-
-            {project.beforeAfter && (
-              <CaseSection id="beforeAfter" label="Before / After" compact>
-                <BeforeAfter pairs={project.beforeAfter} />
-              </CaseSection>
-            )}
-
-            {project.keyDeliverables && (
-              <CaseSection id="keyDeliverables" label={sectionLabel('keyDeliverables', 'Key Features')}>
-                <CardGrid items={project.keyDeliverables} />
-              </CaseSection>
-            )}
-
-            {project.myContribution && (
-              <CaseSection id="myContribution" label={sectionLabel('myContribution', 'My Contribution')}>
-                <TextBlock content={project.myContribution} />
-                {project.workPhases && (
-                  <div style={{ marginTop: '1.5rem' }}>
-                    <WorkPhaseList phases={project.workPhases} />
-                  </div>
-                )}
-              </CaseSection>
-            )}
-
-            {project.skillsDemonstrated && (
-              <CaseSection id="skillsDemonstrated" label="Skills Demonstrated">
-                <TagList items={project.skillsDemonstrated} />
-              </CaseSection>
-            )}
-
-            {project.engineeringDecisions && (
-              <CaseSection id="engineeringDecisions" label={sectionLabel('engineeringDecisions', 'Engineering Decisions')}>
-                <LineList items={project.engineeringDecisions} />
-              </CaseSection>
-            )}
-
-            {project.challengeApproachPairs ? (
-              <CaseSection id="challengeApproachPairs" label={sectionLabel('challengeApproachPairs', 'Challenges + Approaches')}>
-                <ChallengeApproachGrid pairs={project.challengeApproachPairs} />
-              </CaseSection>
-            ) : (
-              <>
-                {project.challenges && (
-                  <CaseSection id="challenges" label={sectionLabel('challenges', 'Challenges')}>
-                    <NumberedList items={project.challenges} />
-                  </CaseSection>
-                )}
-
-                {project.approaches && (
-                  <CaseSection id="approaches" label={sectionLabel('approaches', 'Approaches')}>
-                    <LineList items={project.approaches} />
-                  </CaseSection>
-                )}
-              </>
-            )}
-
-            <SectionDivider />
-
-            {project.outcomes && (
-              <CaseSection id="outcomes" label={sectionLabel('outcomes', 'Outcomes')} emphasis>
-                <OutcomeList items={project.outcomes} layout={project.outcomeLayout} />
-              </CaseSection>
-            )}
-
-            {buildNotes.length > 0 && (
-              <CaseSection id="buildNotes" label="Build Notes">
-                <BuildNotesList notes={buildNotes} />
-              </CaseSection>
-            )}
-
-            {project.nextStage && project.id !== 'sabaihub' && (
-              <CaseSection id="nextStage" label={sectionLabel('nextStage', "What's Next")}>
-                <TextBlock content={project.nextStage} />
-                {project.plannedImprovements && (
-                  <div style={{ marginTop: '1.5rem' }}>
-                    <CardGrid items={project.plannedImprovements} />
-                  </div>
-                )}
-              </CaseSection>
-            )}
+            ))}
           </div>
         </div>
 
@@ -468,6 +533,32 @@ function MobileToc({ sections, getLabel, onSelect }) {
   );
 }
 
+const INLINE_PATTERN = /(==[^=]+==|\*\*[^*]+\*\*|__[^_]+__)/g;
+
+function renderInline(text, keyBase) {
+  const parts = String(text).split(INLINE_PATTERN).filter(Boolean);
+  return parts.map((part, i) => {
+    if (part.startsWith('==') && part.endsWith('==')) {
+      return (
+        <mark key={`${keyBase}-${i}`} style={{ background: 'var(--accent-30)', color: 'var(--color-ink)', padding: '0.05em 0.3em', borderRadius: '0.22em' }}>
+          {part.slice(2, -2)}
+        </mark>
+      );
+    }
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={`${keyBase}-${i}`} style={{ color: 'var(--color-ink)', fontWeight: 600 }}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith('__') && part.endsWith('__')) {
+      return (
+        <u key={`${keyBase}-${i}`} style={{ textDecorationLine: 'underline', textUnderlineOffset: '0.2em', textDecorationColor: 'var(--color-accent)', textDecorationThickness: '2px' }}>
+          {part.slice(2, -2)}
+        </u>
+      );
+    }
+    return part;
+  });
+}
+
 function TextBlock({ content, variant }) {
   const items = Array.isArray(content) ? content : [content];
   const baseStyle = {
@@ -483,7 +574,7 @@ function TextBlock({ content, variant }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {items.map((item, i) => (
-        <p key={i} style={{ ...baseStyle, ...quoteStyle }}>{item}</p>
+        <p key={i} style={{ ...baseStyle, ...quoteStyle }}>{renderInline(item, i)}</p>
       ))}
     </div>
   );
@@ -646,7 +737,7 @@ function PullQuote({ quote, supporting, supportingOutside = false }) {
         {!supportingOutside && (
           <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.85rem', marginTop: '1.5rem', maxWidth: '44rem' }}>
             {supportItems.map((item, i) => (
-              <p key={i} style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{item}</p>
+              <p key={i} style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{renderInline(item, i)}</p>
             ))}
           </div>
         )}
@@ -654,7 +745,7 @@ function PullQuote({ quote, supporting, supportingOutside = false }) {
       {supportingOutside && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', maxWidth: '44rem' }}>
           {supportItems.map((item, i) => (
-            <p key={i} style={{ fontSize: '16px', color: 'var(--color-muted)', lineHeight: 1.75, margin: 0 }}>{item}</p>
+            <p key={i} style={{ fontSize: '16px', color: 'var(--color-muted)', lineHeight: 1.75, margin: 0 }}>{renderInline(item, i)}</p>
           ))}
         </div>
       )}
@@ -766,7 +857,7 @@ function BuildNotesList({ notes }) {
       </p>
       <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
         {notes.map((note, i) => (
-          <NavTo key={note.id} to={`/works/sabaihub/build-notes/${note.id}`}
+          <NavTo key={note.id} to={`/writing/${note.id}`}
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '1rem 1.1rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', textDecoration: 'none' }}>
             <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.4 }}>{note.title}</span>
             <IconArrowUpRight size={13} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
@@ -913,5 +1004,216 @@ function PrevNextCard({ project, dir }) {
   );
 }
 
+// ── Article context block + Writing page ─────────────────────
+const ARTICLE_DOMAINS = {
+  sabaihub: 'SaaS · shop operations',
+  'connection-copilot': 'AI · utility workflows',
+  'ba-practice': 'BA method · discovery & requirements',
+};
+const GENERIC_ARTICLE_TAGS = ['Article', 'Build Note'];
+
+function articleSkills(note) {
+  return (note.tags || []).filter(t => !GENERIC_ARTICLE_TAGS.includes(t));
+}
+
+function ArticleContextBlock({ note }) {
+  const parent = (window.PROJECTS || []).find(p => p.id === note.parentId);
+  const projectRoute = parent ? `/works/${parent.id}` : null;
+  const role = note.role || 'Founder & Software Engineer';
+  const domain = note.domain || ARTICLE_DOMAINS[note.parentId] || null;
+  const skills = articleSkills(note);
+
+  const labelStyle = { fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.13em', color: 'var(--color-label)', paddingTop: '2px' };
+  const chipStyle = { padding: '2px 8px', border: '1px solid var(--color-line)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-label)' };
+
+  const rows = [
+    parent && { label: 'Project', node: (
+      <NavTo to={projectRoute} style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '14px' }}>
+        {parent.title} <IconArrowUpRight size={11} />
+      </NavTo>
+    ) },
+    { label: 'Role', node: <span style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{role}</span> },
+    domain && { label: 'Domain', node: <span style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{domain}</span> },
+    skills.length > 0 && { label: 'Skills', node: (
+      <span style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+        {skills.map(s => <span key={s} style={chipStyle}>{s}</span>)}
+      </span>
+    ) },
+  ].filter(Boolean);
+
+  return (
+    <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)', borderRadius: '6px', padding: '1.15rem 1.3rem' }}>
+      <span className="mono-label" style={{ display: 'block', marginBottom: '1rem' }}>
+        <span style={{ color: 'var(--color-accent)' }}>// </span>Context
+      </span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+        {rows.map(r => (
+          <div key={r.label} style={{ display: 'grid', gridTemplateColumns: '5.5rem 1fr', gap: '1rem', alignItems: 'baseline' }}>
+            <span style={labelStyle}>{r.label}</span>
+            <div style={{ minWidth: 0 }}>{r.node}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function estimateReadTime(note) {
+  const parts = [];
+  const collect = (v) => {
+    if (!v) return;
+    if (typeof v === 'string') parts.push(v);
+    else if (Array.isArray(v)) v.forEach(collect);
+    else if (typeof v === 'object') Object.values(v).forEach(collect);
+  };
+  ['desc', 'overview', 'problemStatement', 'problemQuote', 'solution', 'keyDeliverables', 'myContribution', 'engineeringDecisions', 'challenges', 'approaches', 'challengeApproachPairs', 'beforeAfter', 'outcomes', 'summary', 'nextStage'].forEach(k => collect(note[k]));
+  const words = parts.join(' ').split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min`;
+}
+
+function groupWritingByProject() {
+  const notes = window.BUILD_NOTES || [];
+  const projOrder = (window.PROJECTS || []).map(p => p.id);
+  const groups = [];
+  const byId = {};
+  notes.forEach(note => {
+    const pid = note.parentId || 'general';
+    if (!byId[pid]) { byId[pid] = { id: pid, notes: [] }; groups.push(byId[pid]); }
+    byId[pid].notes.push(note);
+  });
+  groups.sort((a, b) => projOrder.indexOf(a.id) - projOrder.indexOf(b.id));
+  return groups;
+}
+
+function WritingPage() {
+  const groups = groupWritingByProject();
+  const total = (window.BUILD_NOTES || []).length;
+  return (
+    <section style={{ padding: 'clamp(5rem, 9vw, 9rem) 1.5rem 6rem', minHeight: '100vh' }}>
+      <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
+        <FadeIn>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '2rem' }}>
+            <div>
+              <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 0.75rem' }}>Writing</h1>
+              <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0, maxWidth: '42rem' }}>
+                Write-ups on discovery, requirements, and delivery, grouped by the work they came from. Pick a group to read its pieces.
+              </p>
+            </div>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-label)', whiteSpace: 'nowrap' }}>{total} pieces</span>
+          </div>
+        </FadeIn>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 22rem), 1fr))', gap: '1.25rem' }}>
+          {groups.map((group, i) => (
+            <FadeInView key={group.id} delay={i * 0.06}>
+              <WritingHubCard group={group} />
+            </FadeInView>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WritingHubCard({ group }) {
+  const [hov, setHov] = React.useState(false);
+  const project = (window.PROJECTS || []).find(p => p.id === group.id);
+  const name = project ? project.title : 'BA Practice';
+  const tagline = ARTICLE_DOMAINS[group.id] || null;
+  const count = group.notes.length;
+  const themes = [...new Set(group.notes.flatMap(articleSkills))].slice(0, 6);
+  return (
+    <NavTo to={`/writing/${group.id}`}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ display: 'flex', flexDirection: 'column', height: '100%', border: `1px solid ${hov ? 'var(--accent-50)' : 'var(--color-line)'}`, background: 'var(--color-surface)', borderRadius: '8px', padding: '1.6rem 1.75rem', textDecoration: 'none', transition: 'border-color 0.2s' }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '0.35rem' }}>
+        <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.4rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{name}</h2>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-label)', whiteSpace: 'nowrap' }}>{count} {count === 1 ? 'piece' : 'pieces'}</span>
+      </div>
+      {tagline && <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', margin: '0 0 1.15rem' }}>{tagline}</p>}
+      {themes.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.4rem' }}>
+          {themes.map(t => (
+            <span key={t} style={{ padding: '2px 8px', border: '1px solid var(--color-line)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-label)' }}>{t}</span>
+          ))}
+        </div>
+      )}
+      <span style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.13em', color: hov ? 'var(--color-accent)' : 'var(--color-muted)', transition: 'color 0.2s' }}>
+        Read {count} {count === 1 ? 'piece' : 'pieces'} <IconArrowUpRight size={12} />
+      </span>
+    </NavTo>
+  );
+}
+
+function WritingProjectListPage({ projectId, navigate }) {
+  const group = groupWritingByProject().find(g => g.id === projectId);
+  React.useEffect(() => { if (!group) navigate('/writing'); }, [group]);
+  if (!group) return null;
+  return (
+    <section style={{ padding: 'clamp(4.5rem, 8vw, 8rem) 1.5rem 6rem', minHeight: '100vh' }}>
+      <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
+        <FadeIn>
+          <div style={{ marginBottom: '2.5rem' }}>
+            <NavTo to="/writing" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-muted)', textDecoration: 'none' }}>
+              <IconArrowLeft size={12} /> Back to Writing
+            </NavTo>
+          </div>
+        </FadeIn>
+        <FadeInView><WritingProjectSection group={group} /></FadeInView>
+      </div>
+    </section>
+  );
+}
+
+function WritingProjectSection({ group }) {
+  const project = (window.PROJECTS || []).find(p => p.id === group.id);
+  const name = project ? project.title : 'BA Practice';
+  const tagline = ARTICLE_DOMAINS[group.id] || null;
+  const count = group.notes.length;
+  return (
+    <div style={{ marginBottom: 'clamp(3rem, 6vw, 4.5rem)' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '1.5rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '1rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
+        <div>
+          <span className="mono-label"><span style={{ color: 'var(--color-accent)' }}>// </span>{name}</span>
+          {tagline && <p style={{ fontSize: '13px', color: 'var(--color-muted)', margin: '0.6rem 0 0' }}>{tagline}</p>}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexShrink: 0 }}>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)' }}>{count} {count === 1 ? 'piece' : 'pieces'}</span>
+          {project && (
+            <NavTo to={`/works/${project.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-accent)', textDecoration: 'none' }}>
+              View project <IconArrowUpRight size={11} />
+            </NavTo>
+          )}
+        </div>
+      </div>
+      {group.notes.map(note => <WritingRow key={note.id} note={note} />)}
+    </div>
+  );
+}
+
+function WritingRow({ note }) {
+  const [hov, setHov] = React.useState(false);
+  const skills = articleSkills(note);
+  const readTime = estimateReadTime(note);
+  const meta = [readTime, ...skills.slice(0, 3)].join('  ·  ');
+  return (
+    <NavTo to={`/writing/${note.id}`}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', padding: '1.4rem 0', borderBottom: '1px solid var(--color-line)', textDecoration: 'none' }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '0.4rem' }}>
+          <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.1rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{note.title}</h3>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', color: 'var(--color-label)', flexShrink: 0 }}>{note.year}</span>
+        </div>
+        <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.6, margin: '0 0 0.6rem', maxWidth: '46rem' }}>{note.desc}</p>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9.5px', textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--color-label)' }}>{meta}</span>
+      </div>
+      <IconArrowUpRight size={14} style={{ color: hov ? 'var(--color-accent)' : 'var(--color-label)', flexShrink: 0, marginTop: '4px', transition: 'color 0.2s' }} />
+    </NavTo>
+  );
+}
+
 window.WorksPage = WorksPage;
 window.ProjectDetailPage = ProjectDetailPage;
+window.WritingPage = WritingPage;
+window.WritingProjectListPage = WritingProjectListPage;
+window.ArticleContextBlock = ArticleContextBlock;

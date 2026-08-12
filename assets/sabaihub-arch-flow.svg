@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="'Space Grotesk', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1F65D3"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8B6318"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="#F5F4F1"/>
+
+  <text x="120" y="104" fill="#6A6A6A" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="6">// ARCHITECTURE</text>
+  <text x="120" y="160" fill="#181818" font-size="48" font-weight="600" letter-spacing="-1">SabaiHub</text>
+  <text x="120" y="200" fill="#555555" font-size="22">How a request flows: browser to server to data, with auth and payments alongside.</text>
+
+  <!-- Browser -->
+  <rect x="560" y="244" width="480" height="78" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+  <text x="800" y="280" fill="#181818" font-size="20" font-weight="600" text-anchor="middle" font-family="'Space Grotesk', sans-serif">Browser · role-scoped UI</text>
+  <text x="800" y="306" fill="#6A6A6A" font-size="14" text-anchor="middle" font-family="'JetBrains Mono', monospace">owner · manager · receptionist · therapist</text>
+
+  <line x1="800" y1="322" x2="800" y2="372" stroke="#1F65D3" stroke-width="2.5" marker-end="url(#a)"/>
+
+  <!-- Vercel wrapper -->
+  <rect x="300" y="384" width="1000" height="250" rx="10" fill="#ECEAE6" stroke="#C0BDB7" stroke-dasharray="6 6"/>
+  <text x="324" y="414" fill="#6A6A6A" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="3">VERCEL · hosting / edge</text>
+
+  <!-- Next.js box -->
+  <rect x="340" y="430" width="560" height="178" rx="8" fill="#FFFFFF" stroke="#1F65D3" stroke-width="2"/>
+  <text x="364" y="464" fill="#1F65D3" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="2">NEXT.JS</text>
+  <text x="364" y="498" fill="#181818" font-size="18">React · App Router · Tailwind UI</text>
+  <line x1="364" y1="516" x2="876" y2="516" stroke="#C0BDB7"/>
+  <text x="364" y="546" fill="#181818" font-size="18">Server Actions + API routes</text>
+  <text x="364" y="576" fill="#6A6A6A" font-size="14">permission checks + shop/role scoping</text>
+
+  <!-- Auth box -->
+  <rect x="960" y="446" width="300" height="120" rx="8" fill="#FFFFFF" stroke="#8B6318" stroke-width="2"/>
+  <text x="984" y="480" fill="#8B6318" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="2">SUPABASE AUTH</text>
+  <text x="984" y="512" fill="#181818" font-size="17">sessions · JWT</text>
+  <text x="984" y="540" fill="#6A6A6A" font-size="13">verifies who you are</text>
+  <line x1="900" y1="506" x2="956" y2="506" stroke="#8B6318" stroke-width="2" marker-end="url(#g)"/>
+  <text x="928" y="498" fill="#8B6318" font-size="12" text-anchor="middle" font-family="'JetBrains Mono', monospace">verify</text>
+
+  <!-- arrow down to DB -->
+  <line x1="620" y1="608" x2="620" y2="668" stroke="#1F65D3" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="638" y="644" fill="#1F65D3" font-size="14" font-family="'JetBrains Mono', monospace">Prisma · scoped by shop + role</text>
+
+  <!-- Postgres -->
+  <rect x="340" y="680" width="560" height="96" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+  <text x="364" y="714" fill="#8B6318" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="2">SUPABASE POSTGRESQL</text>
+  <text x="364" y="746" fill="#181818" font-size="17">shops · staff · appointments · clients · payments</text>
+
+  <!-- External -->
+  <rect x="960" y="680" width="300" height="96" rx="8" fill="#FFFFFF" stroke="#C0BDB7"/>
+  <text x="984" y="714" fill="#8B6318" font-family="'JetBrains Mono', monospace" font-size="14" letter-spacing="2">EXTERNAL</text>
+  <text x="984" y="746" fill="#181818" font-size="17">Stripe · HICAPS</text>
+  <line x1="900" y1="560" x2="1080" y2="676" stroke="#1F65D3" stroke-width="2" marker-end="url(#a)"/>
+  <text x="1010" y="612" fill="#1F65D3" font-size="12" font-family="'JetBrains Mono', monospace">payments</text>
+
+  <text x="120" y="860" fill="#6A6A6A" font-family="'JetBrains Mono', monospace" font-size="15">Tenant isolation + role checks live in the app layer (Prisma), not database RLS.</text>
+</svg>

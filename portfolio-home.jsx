@@ -1,6 +1,9 @@
 // ── Home Page ─────────────────────────────────────────────────
 function HomePage() {
-  const projects = window.PROJECTS.slice(0, 3);
+  const featuredProjectIds = ['amigo', 'sabaihub', 'connection-copilot'];
+  const projects = featuredProjectIds
+    .map(id => window.PROJECTS.find(project => project.id === id))
+    .filter(Boolean);
   const achievements = window.ACHIEVEMENTS;
 
   return (
@@ -62,16 +65,22 @@ function HomePage() {
                         <div className="hero-bio-wrap" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', margin: '0 0 2px' }}>Chris Kittichod</p>
-                            <p style={{ fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>Software Engineer · Master of IT, University of Tasmania</p>
+                            <p style={{ fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>Technical Business Analyst / Product Owner · Master of IT, University of Tasmania</p>
                             <div className="hero-bio-copy" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', fontSize: '14.5px', color: 'var(--color-ink)', lineHeight: 1.65, margin: '0.75rem 0 0', maxWidth: '39rem' }}>
                               <p style={{ margin: 0 }}>
-                                I build and ship production software: full-stack web apps and AI-assisted tools, deployed to real users. A background in business analysis across two startups and one global company means I scope the right problem before writing code.
+                                I turn ambiguous business needs and messy operational workflows into clear valuable requirements, prototypes, and working MVP software — digital transformation, delivered end to end.
                               </p>
                               <p style={{ margin: 0 }}>
-                                I design and ship full-stack systems end-to-end: data models, APIs, AI agents, and the deployment that puts them in front of real users. I've taken two products from empty repo to production.
+                                Three years in business analysis and product ownership across insurance, health technology, and multi-tenant platform in Thailand.
                               </p>
                               <p style={{ margin: 0 }}>
-                                Recent work: SabaiHub, a production SaaS running real businesses, and CanIBuild, an AI planning tool for Tasmanian property I'm building now.
+                                Currently pursuing Master's in IT to equip more technical skills while gaining hands-on experience by building products & projects by myself.
+                              </p>
+                              <p style={{ margin: 0 }}>
+                                • Built & launched SabaiHub - a SaaS for Thai massage shops in Australia
+                              </p>
+                              <p style={{ margin: 0 }}>
+                                • Building internal system & mobile app for a Tasmanian business and its vendors.
                               </p>
                             </div>
                           </div>
@@ -86,21 +95,54 @@ function HomePage() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '14px', color: 'var(--color-ink)', lineHeight: 1.65 }}>
                           {[
                             {
-                              title: 'Software Development',
+                              title: 'Discovery & Alignment',
                               lines: [
-                                'System design, application architecture, data modelling, workflow diagrams, process diagrams, and technical feasibility.',
-                                'Full-stack development, spec-driven development, harness engineering, testing, deployment, and production iteration.',
-                                'TypeScript, React, Next.js, PostgreSQL, Supabase, Prisma, Git/GitHub, and Vercel.',
+                                '• Design Thinking Tools and Workshop Facilitation',
+                                '• User-centred Design (UX)',
+                                '• Business Process Improvement',
+                                '• Diagrams & Blueprints',
+                                '• Stakeholders Management',
                               ],
                             },
                             {
-                              title: 'Business Analysis',
-                              copy: 'Requirements engineering (elicitation, analysis, specification, validation), User-centred design (UX), Design Thinking facilitation, stakeholder interviews, workflow analysis, as-is/to-be mapping, service blueprint, user stories, acceptance criteria, MVP scoping, and UAT.',
+                              title: 'Shape & Validate (Product Shaping)',
+                              lines: [
+                                '• Requirements Engineering (elicitation, analysis, specification, validation)',
+                                '• User Stories, Acceptance Criteria',
+                                '• Rapid Prototyping - MVP release',
+                              ],
                             },
                             {
-                              title: 'AI Workflow Design',
-                              badge: 'Learning',
-                              copy: 'AI-assisted development, agentic workflow design, context assembly, structured outputs, RAG, human-in-the-loop review, evals, and guardrails for safer automation.',
+                              title: 'Delivery',
+                              lines: [
+                                '• Facilitate User Acceptance Test (UAT)',
+                                '• User Onboarding & Manual Documentation',
+                              ],
+                            },
+                            {
+                              title: 'Agentic Development (AI-assisted delivery)',
+                              lines: [
+                                '• End-to-End Product Delivery (discovery > requirements > prototype > production)',
+                                '• Spec-Driven Development (plan > task spec > implement > test)',
+                                '• Subagent Orchestration & Scoped Delegation',
+                                '• Context Engineering & Prompt Design',
+                                '• Guardrails & Constraint Design',
+                                '• Output Verification & Review Loops',
+                                '• AI Coding Agents (Claude Code, Codex)',
+                              ],
+                            },
+                            {
+                              title: 'AI Engineering (Learning)',
+                              lines: [
+                                '• Interface Design for AI-powered products/services',
+                                '• Multi-agent architecture, deterministic orchestration',
+                                '• RAG, source grounding, citations',
+                                '• Structured outputs, schema design',
+                                '• Human-in-the-loop review design',
+                                '• Evals and guardrails',
+                                '• AWS Bedrock, Azure AI',
+                                '• LangChain, LangGraph',
+                              ],
                             },
                           ].map(item => (
                             <div key={item.title}>
@@ -124,7 +166,8 @@ function HomePage() {
                       label: 'Looking ahead',
                       content: (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                          <p style={{ fontSize: '14px', color: 'var(--color-ink)', margin: 0 }}>Summer Internship <span style={{ color: 'var(--color-muted)' }}>Nov '26 – Feb '27</span></p>
+                          <p style={{ fontSize: '14px', color: 'var(--color-ink)', margin: 0 }}>Open to <span style={{ color: 'var(--color-muted)' }}>internships and graduate roles — Technical BA · Digital BA · Product Owner · AI-enabled product</span></p>
+                          <p style={{ fontSize: '14px', color: 'var(--color-ink)', margin: 0 }}>Summer availability <span style={{ color: 'var(--color-muted)' }}>Nov '26 – Feb '27</span></p>
                           <p style={{ fontSize: '14px', color: 'var(--color-ink)', margin: 0 }}>Graduating <span style={{ color: 'var(--color-muted)' }}>May '27</span></p>
                         </div>
                       ),
@@ -143,12 +186,16 @@ function HomePage() {
                   ))}
                 </div>
 
-                {/* Journey link */}
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <NavTo to="/about" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem 1.1rem', border: '1px solid var(--accent-50)', backgroundColor: 'var(--accent-30)', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-ink)', textDecoration: 'none' }}>
-                    Read my journey
+                {/* Recruiter actions */}
+                <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+                  <NavTo to="/works" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem 1.1rem', border: '1px solid var(--accent-50)', backgroundColor: 'var(--accent-30)', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-ink)', textDecoration: 'none' }}>
+                    View case studies
                     <IconArrowUpRight size={12} />
                   </NavTo>
+                  <a href="/resume.txt" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.75rem 1.1rem', border: '1px solid var(--color-line)', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-muted)', textDecoration: 'none' }}>
+                    View resume
+                    <IconArrowUpRight size={12} />
+                  </a>
                 </div>
               </div>
             </div>
@@ -156,14 +203,17 @@ function HomePage() {
         </div>
       </section>
 
-      <ToolsMethodsSection />
+      <HowIWorkSection />
 
       {/* Works preview */}
       <section style={{ padding: 'clamp(3rem, 7vw, 7rem) 1.5rem' }}>
         <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
           <FadeInView>
             <div style={{ marginBottom: '2.5rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '2rem' }}>
-              <span className="mono-label"><span style={{ color: 'var(--color-accent)' }}>// </span>Works</span>
+              <span className="mono-label"><span style={{ color: 'var(--color-accent)' }}>// </span>Selected Product Work</span>
+              <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.65, margin: '0.75rem 0 0', maxWidth: '42rem' }}>
+                Evidence of discovery, product decisions, workflow design, and technical delivery.
+              </p>
             </div>
           </FadeInView>
 
@@ -197,55 +247,27 @@ function HomePage() {
   );
 }
 
-function ToolsMethodsSection() {
-  const iconPath = (name) => `assets/tool-icons/${name}.svg`;
-  const groups = [
+function HowIWorkSection() {
+  const steps = [
     {
-      title: 'Software Development',
-      icon: <IconCpu size={14} style={{ color: 'var(--color-accent)' }} />,
-      items: [
-        { name: 'TypeScript', iconUrl: iconPath('typescript') },
-        { name: 'JavaScript', iconUrl: iconPath('javascript') },
-        { name: 'Python', iconUrl: iconPath('python') },
-        { name: 'Node.js', iconUrl: iconPath('nodejs') },
-        { name: 'React', iconUrl: iconPath('react') },
-        { name: 'Next.js', iconUrl: iconPath('nextjs') },
-        { name: 'PostgreSQL', iconUrl: iconPath('postgresql') },
-        { name: 'Supabase', iconUrl: iconPath('supabase') },
-        { name: 'Prisma', iconUrl: iconPath('prisma') },
-        { name: 'Git', iconUrl: iconPath('git') },
-        { name: 'GitHub', iconUrl: iconPath('github') },
-        { name: 'Vercel', iconUrl: iconPath('vercel') },
-        { name: 'Playwright', iconUrl: iconPath('playwright') },
-        { name: 'Vitest', iconUrl: iconPath('vitest') },
-      ],
+      title: 'Discover',
+      copy: 'Design Thinking to explore users, business context, and constraints, mapping the workflow as it exists today.',
     },
     {
-      title: 'Business & Product',
-      icon: <IconLayers size={14} style={{ color: 'var(--color-accent)' }} />,
-      items: [
-        { name: 'Jira', iconUrl: iconPath('jira') },
-        { name: 'Confluence', iconUrl: iconPath('confluence') },
-        { name: 'Microsoft 365', iconUrl: iconPath('microsoft-365') },
-        { name: 'Figma', iconUrl: iconPath('figma') },
-        { name: 'FigJam', iconUrl: iconPath('figjam') },
-        { name: 'Miro', iconUrl: iconPath('miro') },
-        { name: 'Linear', iconUrl: iconPath('linear') },
-        { name: 'Notion', iconUrl: iconPath('notion') },
-        { name: 'Google Workspace', iconUrl: iconPath('google-workspace') },
-      ],
+      title: 'Align',
+      copy: 'Create shared problem understanding across stakeholders before committing to a solution.',
     },
     {
-      title: 'AI Workflow Design',
-      icon: <IconBrainCircuit size={14} style={{ color: 'var(--color-accent)' }} />,
-      badge: 'Learning',
-      items: [
-        { name: 'Claude Code', iconUrl: iconPath('claude-code') },
-        { name: 'Codex', iconUrl: iconPath('codex') },
-        { name: 'AWS Bedrock', iconUrl: iconPath('aws-bedrock') },
-        { name: 'IBM watsonx.ai', iconUrl: iconPath('ibm-watsonx') },
-        { name: 'Microsoft Foundry', iconUrl: iconPath('microsoft-365') },
-      ],
+      title: 'Shape',
+      copy: 'Define data models, user stories, acceptance criteria, MVP scope, and priorities, validating the shape with prototypes.',
+    },
+    {
+      title: 'Validate',
+      copy: 'Test assumptions, support UAT, and verify what shipped against the requirements.',
+    },
+    {
+      title: 'Deliver',
+      copy: 'Deliver with Spec-Driven Development and AI-assisted workflows, manage change, gather feedback, and improve.',
     },
   ];
 
@@ -255,39 +277,36 @@ function ToolsMethodsSection() {
         <FadeInView>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '1.5rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '1.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
             <div>
-              <span className="mono-label"><span style={{ color: 'var(--color-accent)' }}>// </span>Tools & Methods</span>
+              <span className="mono-label"><span style={{ color: 'var(--color-accent)' }}>// </span>How I Work</span>
               <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.65, margin: '0.75rem 0 0', maxWidth: '42rem' }}>
-                The engineering stack I work with day-to-day.
+                A practical path from ambiguous workflows to digital transformation — a solution a delivery team can build and users can validate.
               </p>
             </div>
           </div>
         </FadeInView>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 18rem), 1fr))', gap: '1rem' }}>
-          {groups.map((group, index) => (
-            <FadeInView key={group.title} delay={index * 0.06}>
-              <div style={{ height: '100%', border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', minHeight: '3.5rem', padding: '1rem 1.1rem 0.9rem', borderBottom: '1px solid var(--color-line)' }}>
-                  {group.icon}
-                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1rem', fontWeight: 500, color: 'var(--color-ink)', margin: 0 }}>{group.title}</h3>
-                  {group.badge && (
-                    <span style={{ marginLeft: 'auto', fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-label)', border: '1px solid var(--color-line)', padding: '2px 6px' }}>{group.badge}</span>
-                  )}
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(8.75rem, 1fr))', gap: '0.625rem', padding: '0.9rem' }}>
-                  {group.items.map(item => (
-                    <div key={item.name} style={{ minHeight: '3rem', display: 'flex', alignItems: 'center', gap: '0.7rem', padding: '0.55rem 0.7rem', border: '1px solid var(--color-line)', background: 'var(--color-brand)' }}>
-                      <div style={{ width: '2rem', height: '2rem', border: '1px solid var(--color-line)', background: '#fff', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <img src={item.iconUrl} alt="" width="17" height="17" style={{ objectFit: 'contain', display: 'block', padding: item.iconPadding || 0 }} referrerPolicy="no-referrer" />
-                      </div>
-                      <span style={{ minWidth: 0, fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.35 }}>{item.name}</span>
-                    </div>
-                  ))}
-                </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 11rem), 1fr))', gap: '0.75rem' }}>
+          {steps.map((step, index) => (
+            <FadeInView key={step.title} delay={index * 0.05}>
+              <div style={{ height: '100%', padding: '1rem', border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
+                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)' }}>{String(index + 1).padStart(2, '0')}</span>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1rem', fontWeight: 500, color: 'var(--color-ink)', margin: '0.7rem 0 0.45rem' }}>{step.title}</h3>
+                <p style={{ fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>{step.copy}</p>
               </div>
             </FadeInView>
           ))}
         </div>
+
+        <FadeInView>
+          <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-label)', lineHeight: 1.8, margin: '1.5rem 0 0', paddingTop: '1.5rem', borderTop: '1px solid var(--color-line)' }}>
+            Selected toolkit: Jira · Confluence · Figma · Miro · SQL · TypeScript · React · Next.js · PostgreSQL · Supabase · AWS Bedrock
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginTop: '1.25rem' }}>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-label)' }}>Professional memberships</span>
+            <img src="assets/iiba-logo.png" alt="IIBA logo" style={{ height: '26px', width: 'auto' }} />
+            <img src="assets/pmi-tasmania-logo.avif" alt="PMI Tasmania logo" style={{ height: '26px', width: 'auto' }} />
+          </div>
+        </FadeInView>
       </div>
     </section>
   );
@@ -332,6 +351,9 @@ function ProjectCardHome({ project, featured }) {
         <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: featured ? '1.25rem' : '1.1rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.3s', margin: 0 }}>{project.title}</h3>
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', color: 'var(--color-label)' }}>{project.year}</span>
       </div>
+      {project.role && (
+        <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-label)', margin: '0 0 0.6rem' }}>{project.role}</p>
+      )}
       <p style={{ fontSize: featured ? '15px' : '14.5px', color: 'var(--color-muted)', lineHeight: 1.65, margin: '0 0 1rem', maxWidth: 'none', width: '100%' }}>{project.desc}</p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
         {project.tags.map(t => (

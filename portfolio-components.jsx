@@ -279,7 +279,7 @@ function Footer() {
       <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', alignItems: 'center', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)' }}>
         <span>Chris Thiraphadungphong</span>
         <span style={{ opacity: 0.3 }}>|</span>
-        <span>Software Engineer · Hobart, AU</span>
+        <span>Technical BA / Product Owner · Hobart, AU</span>
         <span style={{ opacity: 0.3 }}>|</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
           <span style={{ width: '6px', height: '6px', background: '#22c55e', borderRadius: '50%', animation: 'pulse 2s infinite', flexShrink: 0 }} />
@@ -308,6 +308,7 @@ function Nav() {
     { label: 'home', to: '/' },
     { label: 'about', to: '/about' },
     { label: 'works', to: '/works' },
+    { label: 'writing', to: '/writing' },
   ];
 
   const isActive = (to) => to === '/' ? path === '/' : path.startsWith(to);
@@ -319,7 +320,7 @@ function Nav() {
         <NavTo to="/" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none', minWidth: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span className="nav-name" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1rem', color: 'var(--color-ink)', lineHeight: 1.2 }}>Chris Thiraphadungphong</span>
-            <span className="nav-title" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--color-label)' }}>Software Engineer</span>
+            <span className="nav-title" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--color-label)' }}>Technical BA / Product Owner</span>
           </div>
         </NavTo>
 
@@ -389,7 +390,7 @@ function IconSearch({ size = 14 }) {
 
 function buildPaletteItems() {
   const pages = [
-    { id: 'home', title: 'Home', subtitle: 'Software engineer turning business problems into working software', kind: 'Page', route: '/' },
+    { id: 'home', title: 'Home', subtitle: 'Technical BA and Product Owner turning complex workflows into delivery-ready systems', kind: 'Page', route: '/' },
     { id: 'about', title: 'About', subtitle: 'Background, how I work, writing, and contact', kind: 'Page', route: '/about' },
     { id: 'works', title: 'Works', subtitle: 'Selected projects and case studies', kind: 'Page', route: '/works' },
   ];
@@ -397,7 +398,7 @@ function buildPaletteItems() {
     .filter(p => !p.hidden && p.type !== 'article')
     .map(p => ({ id: p.id, title: p.title, subtitle: p.desc, kind: 'Project', route: `/works/${p.id}`, tags: (p.tags || []).join(' ') }));
   const notes = (window.BUILD_NOTES || [])
-    .map(n => ({ id: n.id, title: n.title, subtitle: n.desc, kind: 'Writing', route: `/works/sabaihub/build-notes/${n.id}`, tags: (n.tags || []).join(' ') }));
+    .map(n => ({ id: n.id, title: n.title, subtitle: n.desc, kind: 'Writing', route: `/writing/${n.id}`, tags: (n.tags || []).join(' ') }));
   return [...pages, ...projects, ...notes];
 }
 

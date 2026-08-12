@@ -1,8 +1,8 @@
 // ── App + Router ──────────────────────────────────────────────
 const SITE_URL = 'https://kittoyeah.github.io';
 const DEFAULT_SEO = {
-  title: 'Chris Kittichod | Software Engineer',
-  description: 'Software engineer in Hobart shipping full-stack web and AI products, with a business-analysis background that means building the right thing, not just building it.',
+  title: 'Chris Kittichod | Technical Business Analyst & Product Owner',
+  description: 'Technical Business Analyst / Product Owner in Hobart delivering digital transformation — three years of BA/PO experience across insurance, health tech, and marketplaces, now building products hands-on. Open to internships and graduate roles.',
   type: 'website',
   robots: 'index, follow',
 };
@@ -23,8 +23,8 @@ function pageSeo(path) {
     return {
       ...DEFAULT_SEO,
       path,
-      title: 'About Chris Kittichod | Software Engineer',
-      description: 'How Chris Kittichod works across discovery, requirements, system design, prototyping, software delivery, testing, and iteration.',
+      title: 'About Chris Kittichod | Technical Business Analyst & Product Owner',
+      description: 'How Chris Kittichod works: discovery, stakeholder alignment, requirements, product scope, validation, and delivery alongside engineering teams.',
       type: 'profile',
     };
   }
@@ -37,16 +37,50 @@ function pageSeo(path) {
     };
   }
 
-  const buildNotePrefix = '/works/sabaihub/build-notes/';
-  if (path.startsWith(buildNotePrefix)) {
-    const id = path.slice(buildNotePrefix.length);
-    const note = (window.BUILD_NOTES || []).find(item => item.id === id);
-    if (note) {
-      const isComplete = Boolean(note.summary && note.overview);
+  if (path === '/writing' || path === '/writing/') {
+    return {
+      ...DEFAULT_SEO,
+      path,
+      title: 'Writing | Chris Kittichod',
+      description: 'Long-form notes on the decisions, architecture, and delivery behind the software I build.',
+      entity: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Writing by Chris Kittichod',
+        url: canonicalUrl(path),
+      },
+    };
+  }
+
+  const writingPrefix = '/writing/';
+  if (path.startsWith(writingPrefix)) {
+    const seg = path.slice(writingPrefix.length).replace(/\/+$/, '');
+    const isProjectList = (window.BUILD_NOTES || []).some(n => n.parentId === seg);
+    if (isProjectList) {
+      const parent = (window.PROJECTS || []).find(p => p.id === seg);
+      const name = parent ? parent.title : seg;
       return {
         ...DEFAULT_SEO,
         path,
-        title: `${note.title} | SabaiHub Build Notes`,
+        title: `${name} — Writing | Chris Kittichod`,
+        description: `Engineering write-ups from ${name}: architecture, decisions, and delivery.`,
+        entity: {
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: `${name} writing by Chris Kittichod`,
+          url: canonicalUrl(path),
+        },
+      };
+    }
+    const id = seg;
+    const note = (window.BUILD_NOTES || []).find(item => item.id === id);
+    if (note) {
+      const isComplete = Boolean(note.summary && note.overview);
+      const parent = (window.PROJECTS || []).find(p => p.id === note.parentId);
+      return {
+        ...DEFAULT_SEO,
+        path,
+        title: `${note.title} | Writing`,
         description: note.desc,
         type: 'article',
         robots: isComplete ? 'index, follow' : 'noindex, follow',
@@ -58,7 +92,7 @@ function pageSeo(path) {
           url: canonicalUrl(path),
           image: absoluteAssetUrl(note.image),
           author: { '@id': `${SITE_URL}/#person` },
-          isPartOf: { '@type': 'CreativeWork', name: 'SabaiHub', url: `${SITE_URL}/works/sabaihub/` },
+          ...(parent ? { isPartOf: { '@type': 'CreativeWork', name: parent.title, url: `${SITE_URL}/works/${parent.id}/` } } : {}),
         },
       };
     }
@@ -166,15 +200,27 @@ function AppInner() {
     page = <AboutPage />;
   } else if (path === '/works' || path === '/works/') {
     page = <WorksPage />;
+  } else if (path === '/writing' || path === '/writing/') {
+    page = <WritingPage />;
+  } else if (path.startsWith('/writing/')) {
+    const seg = path.slice('/writing/'.length).replace(/\/+$/, '');
+    const isProjectList = (window.BUILD_NOTES || []).some(n => n.parentId === seg);
+    if (isProjectList) {
+      page = <WritingProjectListPage projectId={seg} navigate={navigate} />;
+    } else {
+      const note = (window.BUILD_NOTES || []).find(n => n.id === seg);
+      const parent = note ? (window.PROJECTS || []).find(p => p.id === note.parentId) : null;
+      page = <ProjectDetailPage
+        id={seg}
+        collection={window.BUILD_NOTES || []}
+        backTo={note ? `/writing/${note.parentId}` : '/writing'}
+        backLabel={parent ? `Back to ${parent.title} writing` : 'Back to Writing'}
+        disablePrevNext
+      />;
+    }
   } else if (path.startsWith('/works/sabaihub/build-notes/')) {
     const id = path.slice('/works/sabaihub/build-notes/'.length);
-    page = <ProjectDetailPage
-      id={id}
-      collection={window.BUILD_NOTES || []}
-      backTo="/works/sabaihub"
-      backLabel="Back to SabaiHub"
-      disablePrevNext
-    />;
+    page = <RedirectTo to={`/writing/${id}`} navigate={navigate} />;
   } else if (path.startsWith('/works/')) {
     const id = path.slice('/works/'.length);
     page = <ProjectDetailPage id={id} />;
@@ -191,6 +237,11 @@ function AppInner() {
       <CommandPalette />
     </div>
   );
+}
+
+function RedirectTo({ to, navigate }) {
+  React.useEffect(() => { navigate(to); }, [to]);
+  return null;
 }
 
 function NotFoundPage({ onBack }) {

@@ -307,11 +307,16 @@ async function build() {
   const { projects, buildNotes } = await loadPortfolioData();
   const visibleProjects = projects.filter(project => !project.hidden);
 
+  // NOTE: these title/description values duplicate pageSeo() in portfolio-app.jsx.
+  // The build script cannot import that function (it lives in JSX and this script only
+  // evaluates plain portfolio-data.js), and the values below OVERWRITE the template's
+  // data-seo tags at prerender. Change one, change the other, or crawlers and link
+  // previews will show different copy from the hydrated page.
   const routes = [
     {
       path: '/',
-      title: 'Chris Kittichod | Software Engineer',
-      description: 'Software engineer in Hobart shipping full-stack web and AI products, with a business-analysis background that means building the right thing, not just building it.',
+      title: 'Chris Kittichod | Technical Business Analyst & Product Owner',
+      description: 'Technical Business Analyst / Product Owner in Hobart delivering digital transformation — three years of BA/PO experience across insurance, health tech, and marketplaces, now building products hands-on. Open to internships and graduate roles.',
       type: 'website',
       robots: 'index, follow',
       entity: {
@@ -323,8 +328,8 @@ async function build() {
     },
     {
       path: '/about',
-      title: 'About Chris Kittichod | Software Engineer',
-      description: 'How Chris Kittichod works across discovery, requirements, system design, prototyping, software delivery, testing, and iteration.',
+      title: 'About Chris Kittichod | Technical Business Analyst & Product Owner',
+      description: 'How Chris Kittichod works: discovery, stakeholder alignment, requirements, product scope, validation, and delivery alongside engineering teams.',
       type: 'profile',
       robots: 'index, follow',
       entity: {
@@ -364,12 +369,50 @@ async function build() {
         entity: projectEntity(project, routePath),
       };
     }),
+    {
+      path: '/writing',
+      title: 'Writing | Chris Kittichod',
+      description: 'Long-form notes on the decisions, architecture, and delivery behind the software I build.',
+      type: 'website',
+      robots: 'index, follow',
+      entity: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Writing by Chris Kittichod',
+        url: `${SITE_URL}/writing/`,
+        hasPart: buildNotes.map(note => ({
+          '@type': 'Article',
+          name: note.title,
+          url: `${SITE_URL}/writing/${note.id}/`,
+        })),
+      },
+    },
+    ...[...new Set(buildNotes.map(n => n.parentId).filter(Boolean))].map(projectId => {
+      const parent = projects.find(p => p.id === projectId);
+      const name = parent ? parent.title : projectId;
+      const routePath = `/writing/${projectId}`;
+      return {
+        path: routePath,
+        title: `${name} — Writing | Chris Kittichod`,
+        description: projectId === 'ba-practice'
+          ? 'BA method in practice: Design Thinking for discovery, story mapping to shape, and user stories with acceptance criteria to define what gets built.'
+          : `Engineering write-ups from ${name}: architecture, decisions, and delivery.`,
+        type: 'website',
+        robots: 'index, follow',
+        entity: {
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: `${name} writing by Chris Kittichod`,
+          url: `${SITE_URL}${routePath}/`,
+        },
+      };
+    }),
     ...buildNotes.map(note => {
-      const routePath = `/works/sabaihub/build-notes/${note.id}`;
+      const routePath = `/writing/${note.id}`;
       const isComplete = Boolean(note.summary && note.overview);
       return {
         path: routePath,
-        title: `${note.title} | SabaiHub Build Notes`,
+        title: `${note.title} | Writing`,
         description: note.desc,
         type: 'article',
         robots: isComplete ? 'index, follow' : 'noindex, follow',

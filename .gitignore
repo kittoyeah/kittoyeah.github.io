@@ -1,4 +1,5 @@
 .DS_Store
+.ai/
 _site/
 node_modules/
 .build/

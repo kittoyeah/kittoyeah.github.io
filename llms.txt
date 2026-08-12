@@ -1,8 +1,9 @@
 # Chris Thiraphadungphong (Chris Kittichod)
 
-> Software engineer in Hobart, Tasmania. Ships full-stack web and AI products end to end, from data model to deployment. Business-analysis background across two startups and one global company means the right problem gets scoped before any code is written.
+> Master of Information Technology student in Hobart, Tasmania, seeking internships and graduate roles as a Technical Business Analyst / Product Owner. Three years of business analysis and product ownership experience across insurance, health technology, and marketplaces in Thailand (2020 to 2023), now building products hands-on through SabaiHub and Amigo Translator.
 
-- Role: Software Engineer
+- Role: Technical Business Analyst / Product Owner
+- Status: Master of IT student, University of Tasmania (2025 to present, graduating May 2027) — seeking internships and graduate roles
 - Location: Hobart, Tasmania, Australia (open to remote)
 - Website: https://kittoyeah.github.io/
 - LinkedIn: https://linkedin.com/in/chris-kittichod
@@ -12,14 +13,14 @@
 
 ## Current focus
 
-- Full-stack development with Next.js, React, and TypeScript
-- System design, data modelling, and API design
-- AI-assisted and agentic workflow development
-- Shipping and iterating production software
+- Stakeholder discovery, workflow analysis, and shared problem definition
+- Requirements, user stories, acceptance criteria, MVP scope, and UAT
+- Product ownership and collaboration across business, design, and engineering
+- Technical feasibility, software prototyping, and AI-enabled workflow design
 
 ## Experience
 
-- SabaiHub — Founder & Software Engineer (Dec 2025 – Present): sole engineer behind a production multi-tenant SaaS running Thai massage businesses in Australia (bookings, staff, customers, reporting). Designed a Postgres data model with tenant isolation and role-based access; built the full stack on Next.js, Prisma, and Supabase; shipped live to real shops.
+- SabaiHub — Founder & Product Owner (Dec 2025 – Present): translated real shop workflows into product scope, requirements, a tenant-isolated data model, and a live operations platform; also contributed hands-on implementation with Next.js, Prisma, and Supabase.
 - Allianz (Thailand) — IT Business Analyst (Feb 2023 – Dec 2023): translated business needs into functional specs for a tablet app used by insurance agents; led Design Thinking workshops and stakeholder alignment across business units.
 - Ever Medical Technologies — Product Owner (Apr 2022 – Nov 2022): owned an outpatient module from discovery to delivery for a hospital information system, working in a Scrum team alongside hospital executives and medical stakeholders.
 - Seekster — IT Business Analyst (Oct 2020 – Mar 2022): shaped workflows, feature scope, and MVP roadmap inputs for Thailand's leading home-services marketplace, working closely with the CTO and product/engineering teams.
@@ -27,6 +28,7 @@
 
 ## Selected work
 
+- Amigo Translator: owner-approved operations MVP for a Tasmanian interpreting business; replaces email- and paper-based job dispatch with interpreter matching, mobile job completion, compliance tracking, and pay approval. Built as Technical Business Analyst / Agentic Engineer. https://kittoyeah.github.io/works/amigo/
 - SabaiHub: production multi-tenant SaaS for Thai massage businesses in Australia; Postgres data model, role-based access, full-stack build on Next.js, Prisma, and Supabase, deployed to real shops. https://kittoyeah.github.io/works/sabaihub/
 - Connection Review Copilot: AI-assisted, human-in-the-loop workflow for utility connection review. https://kittoyeah.github.io/works/connection-copilot/
 - MyBusiness.gov: GovHack proof-of-concept helping small businesses navigate permits, licences, tax, and support programs; Runner-up, Tasmania's sole nominee, GovHack 2025. https://kittoyeah.github.io/works/mybusiness-gov/
@@ -35,12 +37,12 @@
 
 ## Education
 
-- Master of Information Technology and Systems, University of Tasmania, 2025 – present (Hobart)
+- Master of Information Technology and Systems, University of Tasmania, 2025 – present, graduating May 2027 (Hobart)
 - Bachelor of Political Science, Thammasat University, 2015 – 2019 (Bangkok)
 
 ## Skills
 
-Next.js, React, TypeScript, Supabase, PostgreSQL, Prisma, AWS Bedrock, Claude, Codex, IBM watsonx.ai, Figma, system design, data modelling, API design, requirements engineering, Design Thinking, product ownership.
+Business analysis, product ownership, requirements engineering, stakeholder facilitation, workflow analysis, MVP scoping, UAT, Design Thinking, system design, data modelling, Next.js, React, TypeScript, Supabase, PostgreSQL, Prisma, AWS Bedrock, Claude, Codex, IBM watsonx.ai, and Figma.
 
 ## Awards
 
@@ -49,7 +51,7 @@ Next.js, React, TypeScript, Supabase, PostgreSQL, Prisma, AWS Bedrock, Claude, C
 
 ## Availability
 
-Open to software engineering internships, full-stack and AI-focused internships, and product/software delivery roles. Based in Hobart; open to remote.
+Open to internships and graduate roles — Technical BA, Digital BA, Product Owner, AI-enabled product. Based in Hobart; open to remote.
 
 ## More
 

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="'Space Grotesk', 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#141414"/>
+      <stop offset="1" stop-color="#0d0d0d"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5B8FE8"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <!-- header -->
+  <text x="120" y="108" fill="#808080" font-family="'JetBrains Mono', monospace" font-size="22" letter-spacing="6">// SYSTEM ARCHITECTURE</text>
+  <text x="120" y="166" fill="#EFEFEF" font-size="50" font-weight="600" letter-spacing="-1">SabaiHub</text>
+  <text x="120" y="208" fill="#9A9A9A" font-size="23">Multi-tenant SaaS. One app, role-scoped per shop, typed end to end from UI to database.</text>
+
+  <!-- Layer 1: Clients / roles -->
+  <rect x="120" y="256" width="1360" height="104" rx="6" fill="#191919" stroke="#272727" stroke-width="2"/>
+  <text x="148" y="296" fill="#C8A96E" font-family="'JetBrains Mono', monospace" font-size="17" letter-spacing="3">CLIENTS · ROLE-BASED ACCESS</text>
+  <g font-family="'JetBrains Mono', monospace" font-size="15">
+    <rect x="148"  y="312" width="300" height="34" rx="4" fill="#101010" stroke="#3a3a3a"/><text x="298"  y="334" fill="#EFEFEF" text-anchor="middle">Owner</text>
+    <rect x="468"  y="312" width="300" height="34" rx="4" fill="#101010" stroke="#3a3a3a"/><text x="618"  y="334" fill="#EFEFEF" text-anchor="middle">Manager</text>
+    <rect x="788"  y="312" width="300" height="34" rx="4" fill="#101010" stroke="#3a3a3a"/><text x="938"  y="334" fill="#EFEFEF" text-anchor="middle">Receptionist</text>
+    <rect x="1108" y="312" width="300" height="34" rx="4" fill="#101010" stroke="#3a3a3a"/><text x="1258" y="334" fill="#EFEFEF" text-anchor="middle">Therapist</text>
+  </g>
+
+  <line x1="800" y1="360" x2="800" y2="392" stroke="#5B8FE8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Layer 2: Next.js app -->
+  <rect x="120" y="392" width="1360" height="104" rx="6" fill="#161e2e" stroke="#5B8FE8" stroke-width="2"/>
+  <text x="148" y="432" fill="#5B8FE8" font-family="'JetBrains Mono', monospace" font-size="17" letter-spacing="3">NEXT.JS APP</text>
+  <text x="148" y="466" fill="#EFEFEF" font-size="21">App Router · React UI · Server Actions and API routes · TypeScript · Tailwind CSS</text>
+  <text x="1452" y="440" fill="#5B8FE8" font-family="'JetBrains Mono', monospace" font-size="16" text-anchor="end">Vercel</text>
+
+  <line x1="800" y1="496" x2="800" y2="528" stroke="#5B8FE8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Layer 3: Prisma -->
+  <rect x="120" y="528" width="1360" height="96" rx="6" fill="#191919" stroke="#272727" stroke-width="2"/>
+  <text x="148" y="566" fill="#808080" font-family="'JetBrains Mono', monospace" font-size="17" letter-spacing="3">PRISMA ORM · TENANT ISOLATION</text>
+  <text x="148" y="600" fill="#EFEFEF" font-size="21">Single source of truth for the schema. Every query scoped by shop and role here, in the app layer.</text>
+
+  <line x1="800" y1="624" x2="800" y2="656" stroke="#5B8FE8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Layer 4: Supabase / Postgres -->
+  <rect x="120" y="656" width="1360" height="104" rx="6" fill="#191919" stroke="#272727" stroke-width="2"/>
+  <text x="148" y="696" fill="#C8A96E" font-family="'JetBrains Mono', monospace" font-size="17" letter-spacing="3">SUPABASE</text>
+  <text x="148" y="730" fill="#EFEFEF" font-size="21">PostgreSQL for data · Supabase Auth for sessions (JWT)</text>
+  <text x="1452" y="704" fill="#C8A96E" font-family="'JetBrains Mono', monospace" font-size="16" text-anchor="end">PostgreSQL</text>
+
+  <!-- footer -->
+  <text x="120" y="824" fill="#6A6A6A" font-family="'JetBrains Mono', monospace" font-size="17">Each shop is a tenant · isolation and role checks enforced in the app layer, not the database</text>
+  <text x="1480" y="824" fill="#6A6A6A" font-family="'JetBrains Mono', monospace" font-size="17" text-anchor="end">Deployed on Vercel</text>
+</svg>
