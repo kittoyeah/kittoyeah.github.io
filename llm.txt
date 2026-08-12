@@ -1,30 +1,40 @@
 Name: Chris Thiraphadungphong
 Also known as: Chris Kittichod
-Role: Software Engineer
+Role: Technical Business Analyst / Product Owner
+Status: Master of IT student, University of Tasmania (2025 to present, graduating May 2027) — seeking internships and graduate roles
 Location: Hobart, Tasmania, Australia
 Website: https://kittoyeah.github.io/
 LinkedIn: https://linkedin.com/in/chris-kittichod
 Email: chris.kittichod@gmail.com
 
 Summary:
-Chris Kittichod is a software engineer who turns business problems into working software. He builds and ships full-stack web and AI products end to end, from data model to deployment. A background in business analysis across two startups and one global company means he scopes the right problem before writing code.
+Chris Kittichod is a Master of Information Technology student in Hobart, Tasmania, seeking internships and graduate roles as a Technical Business Analyst / Product Owner. He brings three years of business analysis and product ownership experience across insurance, health technology, and marketplaces in Thailand (Oct 2020 to Dec 2023), and is now building products hands-on through SabaiHub and Amigo Translator.
 
 Current focus:
-- Full-stack development with Next.js, React, and TypeScript
-- System design, data modelling, and API design
-- AI-assisted and agentic workflow development
-- Shipping and iterating production software
+- Stakeholder discovery, workflow analysis, and shared problem definition
+- Requirements, user stories, acceptance criteria, MVP scope, and UAT
+- Product ownership and collaboration across business, design, and engineering
+- Technical feasibility, software prototyping, and AI-enabled workflow design
 
 Education:
-- Master of Information Technology and Systems, University of Tasmania, 2025 to present
+- Master of Information Technology and Systems, University of Tasmania, 2025 to present (graduating May 2027)
 - Bachelor of Political Science, Thammasat University, 2015 to 2019
 
 Selected work:
-- SabaiHub: production multi-tenant SaaS for Thai massage businesses in Australia; Postgres data model, role-based access, and a full-stack build on Next.js, Prisma, and Supabase, deployed to real shops
-- MyBusiness.gov: GovHack proof-of-concept helping small businesses navigate permits, licences, tax obligations, and support programs; recognised with the Spirit of GovHack award in Tasmania
+- Amigo Translator: owner-approved operations MVP for a Tasmanian interpreting business; replaces email- and paper-based job dispatch with interpreter matching, mobile job completion, compliance tracking, and pay approval
+- SabaiHub: live operations platform for Thai massage businesses in Australia; taken from workflow research and product scope through data modelling, implementation, deployment, and operator feedback
+- MyBusiness.gov: GovHack proof-of-concept helping small businesses navigate permits, licences, tax obligations, and support programs; Runner-up, Tasmania's sole nominee, GovHack 2025
 - RegionalMate: AI-powered relocation planning platform, selected in IBM watsonx.ai Hackathon 2025 Global Top 50
 
 Skills:
+- Business analysis
+- Product ownership
+- Requirements engineering
+- Stakeholder facilitation
+- Workflow analysis
+- MVP scoping
+- UAT
+- Design Thinking
 - Next.js
 - React
 - TypeScript
@@ -37,10 +47,8 @@ Skills:
 - IBM watsonx.ai
 - Figma
 - System design
-- Requirements engineering
-- Design Thinking
 
 Availability:
-- Open to software engineering internships
-- Open to full-stack and AI-focused internships
-- Open to product and software delivery roles
+- Open to internships and graduate roles — Technical Business Analyst / Digital Business Analyst
+- Open to internships and graduate roles — Product Owner / AI-enabled product
+- Based in Hobart, Tasmania; open to remote

@@ -103,6 +103,7 @@ const SECTIONS = [
   { key: 'solution', label: 'Solution', field: 'solution' },
   { key: 'beforeAfter', label: 'Before / After', field: 'beforeAfter' },
   { key: 'keyDeliverables', label: 'Key Features', field: 'keyDeliverables' },
+  { key: 'requirementsSample', label: 'Requirements Sample', field: 'requirementsSample' },
   { key: 'myContribution', label: 'My Contribution', field: 'myContribution' },
   { key: 'skillsDemonstrated', label: 'Skills Demonstrated', field: 'skillsDemonstrated' },
   { key: 'engineeringDecisions', label: 'Engineering Decisions', field: 'engineeringDecisions' },
@@ -141,7 +142,7 @@ const TECH_STACK_ICONS = {
 const DEFAULT_SECTION_ORDER = [
   'summary', 'prototypeWalkthrough', 'tools', 'overview', 'metrics',
   'problemStatement', 'goals', 'solution', 'beforeAfter', 'keyDeliverables',
-  'myContribution', 'architecture', 'modules', 'skillsDemonstrated', 'engineeringDecisions',
+  'requirementsSample', 'myContribution', 'architecture', 'modules', 'skillsDemonstrated', 'engineeringDecisions',
   'challengeApproachPairs', 'challenges', 'approaches', 'tradeoffs', 'lessons',
   'outcomes', 'buildNotes', 'nextStage', 'screenshots',
 ];
@@ -170,6 +171,7 @@ function getSectionDefs(project, buildNotes) {
     ) },
     beforeAfter: { label: 'Before / After', compact: true, has: !!project.beforeAfter, render: () => <BeforeAfter pairs={project.beforeAfter} /> },
     keyDeliverables: { label: 'Key Features', has: !!project.keyDeliverables, render: () => <CardGrid items={project.keyDeliverables} /> },
+    requirementsSample: { label: 'Requirements Sample', has: !!project.requirementsSample, render: () => <RequirementsSample sample={project.requirementsSample} /> },
     myContribution: { label: 'My Contribution', has: !!project.myContribution, render: () => (
       <>
         <TextBlock content={project.myContribution} />
@@ -204,6 +206,49 @@ function ArchitectureBlock({ architecture, title }) {
         <img src={architecture.image} alt={`${title} system architecture`} referrerPolicy="no-referrer" style={{ width: '100%', display: 'block' }} />
       </div>
       {architecture.caption && <div style={{ marginTop: '1.5rem' }}><TextBlock content={architecture.caption} /></div>}
+    </div>
+  );
+}
+
+function RequirementsSample({ sample }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)', padding: '1.25rem' }}>
+        <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-accent)', margin: '0 0 0.6rem' }}>User Story</p>
+        <p style={{ margin: 0, fontSize: '14.5px', color: 'var(--color-ink)', lineHeight: 1.7 }}>{sample.story}</p>
+      </div>
+
+      <div>
+        <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)', margin: '0 0 0.5rem' }}>Acceptance Criteria</p>
+        {sample.acceptanceCriteria.map((c, i) => (
+          <div key={i} style={{ display: 'flex', gap: '0.75rem', padding: '0.5rem 0', borderTop: '1px solid var(--color-line)', fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.65 }}>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)', flexShrink: 0, paddingTop: '2px' }}>AC-{String(i + 1).padStart(2, '0')}</span>
+            <span style={{ flex: 1, minWidth: 0 }}>{c}</span>
+          </div>
+        ))}
+      </div>
+
+      {sample.traceNote && (
+        <p style={{ margin: 0, padding: '0.75rem 0 0', borderTop: '1px solid var(--color-line)', fontSize: '12.5px', color: 'var(--color-label)', lineHeight: 1.65 }}>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-accent)' }}>Traceability: </span>
+          {sample.traceNote}
+        </p>
+      )}
+
+      {sample.prioritisation && (
+        <div>
+          <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)', margin: '0 0 0.5rem' }}>Prioritisation — MVP Order</p>
+          {sample.prioritisation.map((row, i) => (
+            <div key={row.item} style={{ display: 'flex', gap: '0.75rem', padding: '0.5rem 0', borderTop: '1px solid var(--color-line)', fontSize: '13.5px', lineHeight: 1.6 }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)', flexShrink: 0, paddingTop: '2px' }}>P-{String(i + 1).padStart(2, '0')}</span>
+              <span style={{ flex: 1, minWidth: 0 }}>
+                <span style={{ color: 'var(--color-ink)', fontWeight: 500 }}>{row.item}</span>
+                <span style={{ color: 'var(--color-muted)' }}> — {row.basis}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -488,6 +533,32 @@ function MobileToc({ sections, getLabel, onSelect }) {
   );
 }
 
+const INLINE_PATTERN = /(==[^=]+==|\*\*[^*]+\*\*|__[^_]+__)/g;
+
+function renderInline(text, keyBase) {
+  const parts = String(text).split(INLINE_PATTERN).filter(Boolean);
+  return parts.map((part, i) => {
+    if (part.startsWith('==') && part.endsWith('==')) {
+      return (
+        <mark key={`${keyBase}-${i}`} style={{ background: 'var(--accent-30)', color: 'var(--color-ink)', padding: '0.05em 0.3em', borderRadius: '0.22em' }}>
+          {part.slice(2, -2)}
+        </mark>
+      );
+    }
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={`${keyBase}-${i}`} style={{ color: 'var(--color-ink)', fontWeight: 600 }}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith('__') && part.endsWith('__')) {
+      return (
+        <u key={`${keyBase}-${i}`} style={{ textDecorationLine: 'underline', textUnderlineOffset: '0.2em', textDecorationColor: 'var(--color-accent)', textDecorationThickness: '2px' }}>
+          {part.slice(2, -2)}
+        </u>
+      );
+    }
+    return part;
+  });
+}
+
 function TextBlock({ content, variant }) {
   const items = Array.isArray(content) ? content : [content];
   const baseStyle = {
@@ -503,7 +574,7 @@ function TextBlock({ content, variant }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {items.map((item, i) => (
-        <p key={i} style={{ ...baseStyle, ...quoteStyle }}>{item}</p>
+        <p key={i} style={{ ...baseStyle, ...quoteStyle }}>{renderInline(item, i)}</p>
       ))}
     </div>
   );
@@ -666,7 +737,7 @@ function PullQuote({ quote, supporting, supportingOutside = false }) {
         {!supportingOutside && (
           <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.85rem', marginTop: '1.5rem', maxWidth: '44rem' }}>
             {supportItems.map((item, i) => (
-              <p key={i} style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{item}</p>
+              <p key={i} style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{renderInline(item, i)}</p>
             ))}
           </div>
         )}
@@ -674,7 +745,7 @@ function PullQuote({ quote, supporting, supportingOutside = false }) {
       {supportingOutside && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', maxWidth: '44rem' }}>
           {supportItems.map((item, i) => (
-            <p key={i} style={{ fontSize: '16px', color: 'var(--color-muted)', lineHeight: 1.75, margin: 0 }}>{item}</p>
+            <p key={i} style={{ fontSize: '16px', color: 'var(--color-muted)', lineHeight: 1.75, margin: 0 }}>{renderInline(item, i)}</p>
           ))}
         </div>
       )}
@@ -937,6 +1008,7 @@ function PrevNextCard({ project, dir }) {
 const ARTICLE_DOMAINS = {
   sabaihub: 'SaaS · shop operations',
   'connection-copilot': 'AI · utility workflows',
+  'ba-practice': 'BA method · discovery & requirements',
 };
 const GENERIC_ARTICLE_TAGS = ['Article', 'Build Note'];
 
@@ -1024,7 +1096,7 @@ function WritingPage() {
             <div>
               <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 0.75rem' }}>Writing</h1>
               <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0, maxWidth: '42rem' }}>
-                Engineering write-ups, grouped by the project they came from. Pick a project to read its pieces.
+                Write-ups on discovery, requirements, and delivery, grouped by the work they came from. Pick a group to read its pieces.
               </p>
             </div>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-label)', whiteSpace: 'nowrap' }}>{total} pieces</span>
@@ -1045,7 +1117,7 @@ function WritingPage() {
 function WritingHubCard({ group }) {
   const [hov, setHov] = React.useState(false);
   const project = (window.PROJECTS || []).find(p => p.id === group.id);
-  const name = project ? project.title : 'General';
+  const name = project ? project.title : 'BA Practice';
   const tagline = ARTICLE_DOMAINS[group.id] || null;
   const count = group.notes.length;
   const themes = [...new Set(group.notes.flatMap(articleSkills))].slice(0, 6);
@@ -1094,7 +1166,7 @@ function WritingProjectListPage({ projectId, navigate }) {
 
 function WritingProjectSection({ group }) {
   const project = (window.PROJECTS || []).find(p => p.id === group.id);
-  const name = project ? project.title : 'General';
+  const name = project ? project.title : 'BA Practice';
   const tagline = ARTICLE_DOMAINS[group.id] || null;
   const count = group.notes.length;
   return (

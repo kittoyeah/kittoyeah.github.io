@@ -2,24 +2,24 @@
 function AboutPage() {
   const workSteps = [
     {
-      title: 'Discover & Define',
-      desc: 'Find the right problem and turn ambiguity into a plan: business context, users, workflows, success metrics, PRDs, user stories, acceptance criteria, and MVP scope.',
+      title: 'Discover',
+      desc: 'Design Thinking to explore users, business context, and constraints, mapping the workflow as it exists today.',
     },
     {
-      title: 'Design',
-      desc: 'Shape the system: architecture, system boundaries, data models, API design, component structure, and testing strategy.',
+      title: 'Align',
+      desc: 'Create shared problem understanding across stakeholders before committing to a solution.',
     },
     {
-      title: 'Build',
-      desc: 'Implement full-stack features with spec-driven, AI-assisted development inside a controlled harness: project context, rules, guardrails, and review workflows.',
+      title: 'Shape',
+      desc: 'Define data models, user stories, acceptance criteria, MVP scope, and priorities, validating the shape with prototypes.',
     },
     {
-      title: 'Test & Verify',
-      desc: 'Run automated tests, verify behaviour, and check against real-user flows.',
+      title: 'Validate',
+      desc: 'Test assumptions, support UAT, and verify what shipped against the requirements.',
     },
     {
-      title: 'Ship & Iterate',
-      desc: 'Deploy safely, gather feedback, and iterate in production.',
+      title: 'Deliver and iterate',
+      desc: 'Deliver with Spec-Driven Development and AI-assisted workflows, manage change, gather feedback, and improve.',
     },
   ];
 
@@ -34,10 +34,13 @@ function AboutPage() {
           <div style={{ borderBottom: '1px solid var(--color-line)', paddingBottom: '2rem' }}>
             <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 0.75rem' }}>About</h1>
             <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', maxWidth: '100%', lineHeight: 1.7, margin: 0 }}>
-              I am a software engineer who turns business problems into working software.
+              I'm a Technical Business Analyst. I start with Design Thinking, exploring what the business actually needs with the people who know the process best: stakeholders, users, and the team that runs it today. I map the current workflow before anything gets built, then use Requirements Engineering to turn what I've learned into structured, testable requirements: data models, user stories, acceptance criteria, and functional specs a development team can build from directly.
             </p>
             <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', maxWidth: '100%', lineHeight: 1.7, margin: '0.75rem 0 0' }}>
-              My strength is shipping software end-to-end: turning a messy real-world workflow into a clean data model, a working system, and a deployed product. The business-analysis instinct means I build the right thing, not just a working thing.
+              I validate the shape with prototypes before anything is built. I've facilitated 20+ Design Thinking workshops with large Thai corporates. That's the method behind my work on digital transformation projects across insurance, health technology, and marketplace platforms.
+            </p>
+            <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', maxWidth: '100%', lineHeight: 1.7, margin: '0.75rem 0 0' }}>
+              Alongside the analysis, I do the delivery myself. I spend time learning, in class and by myself, to deepen my technical foundation. My build method is Spec-Driven Development: the spec comes first, written the BA way; the build follows it; and testing checks what shipped against what was specified. I designed, built, and shipped a production multi-tenant SaaS on my own, end to end. Right now I'm building an internal system and mobile app for a business in Hobart, Tasmania.
             </p>
           </div>
         </FadeIn>
@@ -50,7 +53,7 @@ function AboutPage() {
                 <span style={{ color: 'var(--color-accent)' }}>// </span>How I Work
               </span>
               <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 1.875rem)', color: 'var(--color-muted)', lineHeight: 1.35, margin: 0 }}>
-                An end-to-end process for turning ambiguity into tested software.
+                A practical process for turning ambiguous workflows into requirements, product decisions, and delivery-ready systems.
               </h2>
             </div>
             <div className="two-col-right" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.85rem' }}>
@@ -77,12 +80,14 @@ function AboutPage() {
                 <span style={{ color: 'var(--color-accent)' }}>// </span>Career Path
               </span>
               <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 1.875rem)', color: 'var(--color-muted)', lineHeight: 1.35, margin: 0 }}>
-                Building software people can actually use, sharpened by years in business analysis getting the problem right first.
+                From Design Thinking facilitation and business analysis in Thailand to hands-on product delivery in Hobart—digital transformation at every stage, one progression, not a career switch.
               </h2>
             </div>
             <div className="two-col-right" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-              <ExperienceRow company="SabaiHub" role="Founder & Software Engineer" period="Dec 2025 – Present"
-                desc="Sole engineer behind a production multi-tenant SaaS that runs Thai massage businesses in Australia: bookings, staff, customers, and reporting. Designed the Postgres data model with tenant isolation and role-based access, built the full stack on Next.js, Prisma, and Supabase, and shipped it live to real shops." />
+              <ExperienceRow company="Amigo Translator" role="Technical Business Analyst / Agentic Engineer" period="2026 – Present"
+                desc="Working directly with the owner of a Tasmanian interpreting business, using first-hand knowledge of the job workflow to map dispatch, matching, completion, compliance, and pay, and to define and validate an owner-approved operations MVP." />
+              <ExperienceRow company="SabaiHub" role="Founder / Product Owner" period="Dec 2025 – Present"
+                desc="Workflow research, product roadmap, and requirements for a live multi-tenant SaaS running real Thai massage businesses in Australia: bookings, staff, customers, and reporting. Carried product decisions through to production delivery." />
               <ExperienceRow company="Allianz (Thailand)" role="IT Business Analyst" period="Feb 2023 – Dec 2023"
                 desc="Translated business needs into the functional specs the development team built from for a tablet application used by insurance agents. Led Design Thinking workshops and stakeholder alignment across business units." />
               <ExperienceRow company="Ever Medical Technologies" role="Product Owner" period="Apr 2022 – Nov 2022"
@@ -105,12 +110,12 @@ function AboutPage() {
                 <span style={{ color: 'var(--color-accent)' }}>// </span>Writing
               </span>
               <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 1.875rem)', color: 'var(--color-muted)', lineHeight: 1.35, margin: 0 }}>
-                Long-form notes on the decisions, architecture, and delivery behind what I build.
+                Long-form notes on discovery, product decisions, and the delivery behind what I build.
               </h2>
             </div>
             <div className="two-col-right" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', justifyContent: 'center' }}>
               <p style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0, maxWidth: '40rem' }}>
-                I write up the engineering decisions behind what I build: architecture, multi-tenancy, the AI-assisted workflow, debugging, and the lessons in between.
+                I write about discovery, workflow design, product decisions, system boundaries, delivery trade-offs, and lessons from building real products.
               </p>
               <NavTo to="/writing" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', alignSelf: 'flex-start', padding: '0.8rem 1.1rem', border: '1px solid var(--accent-50)', backgroundColor: 'var(--accent-30)', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.13em', color: 'var(--color-ink)', textDecoration: 'none' }}>
                 Read all {writingCount} pieces in Writing
@@ -131,7 +136,7 @@ function AboutPage() {
               </span>
             </div>
             <div className="two-col-right" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <ExperienceRow company="University of Tasmania" role="Master of Information Technology and Systems" period="2025 – Present" desc="Hobart, Tasmania, Australia." />
+              <ExperienceRow company="University of Tasmania" role="Master of Information Technology and Systems" period="2025 – Present" desc="Hobart, Tasmania, Australia. Building technical fluency—system and data understanding, prototyping, AI workflows—to strengthen BA/PO practice, not replace it." />
               <ExperienceRow company="Thammasat University" role="Bachelor of Political Science — Politics & Government" period="2015 – 2019" desc="Bangkok, Thailand." />
             </div>
           </div>
@@ -147,8 +152,8 @@ function AboutPage() {
                 <span style={{ color: 'var(--color-accent)' }}>// </span>Contact
               </span>
               <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', lineHeight: 1.15, letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 2rem' }}>
-                Ready to build something{' '}
-                <span style={{ fontWeight: 300, color: 'var(--color-muted)' }}>meaningful?</span>
+                Working through a complex digital{' '}
+                <span style={{ fontWeight: 300, color: 'var(--color-muted)' }}>workflow?</span>
               </h2>
               <div style={{ fontFamily: 'JetBrains Mono, monospace', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 {[
@@ -160,8 +165,8 @@ function AboutPage() {
                 ))}
               </div>
               <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'var(--color-label)', lineHeight: 1.7, marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid var(--color-line)' }}>
-                Currently completing a Master of IT at the University of Tasmania.<br />
-                Open to software engineering, full-stack, and AI internships.
+                Currently completing a Master of IT at the University of Tasmania, graduating May 2027.<br />
+                Open to internships and graduate roles—Technical BA, Digital BA, Product Owner, AI-enabled product.
               </p>
             </div>
             <div className="contact-form-wrap" style={{ background: 'var(--color-surface)', padding: '2.5rem', border: '1px solid var(--color-line)' }}>

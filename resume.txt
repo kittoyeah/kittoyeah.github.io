@@ -1,5 +1,5 @@
 KITTICHOD (CHRIS) THIRAPHADUNGPHONG
-Software Engineer
+Technical Business Analyst / Product Owner
 
 Hobart, Tasmania, Australia (open to remote)
 Email:    chris.kittichod@gmail.com
@@ -12,28 +12,29 @@ Languages: English (fluent), Thai (native), Chinese (intermediate)
 ================================================================
 SUMMARY
 ================================================================
-Software engineer who turns business problems into working software.
-Builds and ships full-stack web and AI products end to end, from data
-model to deployment. A background in business analysis across two
-startups and one global company means the right problem gets scoped
-before any code is written.
+Technical Business Analyst / Product Owner with 3+ years translating
+complex workflows into requirements, product scope, and delivery-ready
+digital solutions. Hands-on SaaS and AI delivery adds technical fluency
+across business, product, design, and engineering teams.
 
 ================================================================
 SKILLS
 ================================================================
-Frontend / Full-stack : Next.js, React, TypeScript
-Data / Backend        : PostgreSQL, Prisma, Supabase, API design,
-                        data modelling, system design
-AI                    : AI-assisted & agentic workflows, AWS Bedrock,
+Business Analysis     : Requirements engineering, stakeholder interviews,
+                        workflow analysis, user stories, acceptance criteria,
+                        UAT, Design Thinking facilitation
+Product / Delivery    : Product ownership, MVP scoping, prioritisation,
+                        trade-off analysis, technical collaboration
+Technical Fluency     : System design, data modelling, API concepts, SQL,
+                        Next.js, React, TypeScript, PostgreSQL, Supabase
+AI                    : AI-assisted and agentic workflows, AWS Bedrock,
                         IBM watsonx.ai, Claude, Codex
-Product / Analysis    : Requirements engineering, MVP scoping,
-                        Design Thinking facilitation, product ownership
-Tools                 : Figma, Git/GitHub
+Tools                 : Jira, Confluence, Figma, Miro, Git/GitHub
 
 ================================================================
 EXPERIENCE
 ================================================================
-SabaiHub — Founder & Software Engineer
+SabaiHub — Founder & Product Owner
 Dec 2025 – Present | Hobart, Australia
 - Sole engineer behind a production multi-tenant SaaS that runs Thai
   massage businesses in Australia: bookings, staff, customers, reporting.
@@ -88,10 +89,6 @@ RegionalMate        AI-powered relocation planning platform.
                     Global Top 50 — IBM watsonx.ai Hackathon 2025.
                     https://kittoyeah.github.io/works/regionalmate/
 
-Insurance Agent     Tablet application for insurance agents, delivered
-Platform (Allianz)  from business analysis through functional specs.
-                    https://kittoyeah.github.io/works/allianz-tablet/
-
 ================================================================
 EDUCATION
 ================================================================
@@ -110,6 +107,6 @@ AWARDS
 ================================================================
 AVAILABILITY
 ================================================================
-Open to software engineering internships, full-stack and AI-focused
-internships, and product/software delivery roles. Based in Hobart;
-open to remote.
+Open to Technical Business Analyst, Digital Business Analyst, Product
+Owner, and AI-enabled product internships or entry-level roles.
+Based in Hobart; open to remote.

@@ -1,8 +1,8 @@
 // ── App + Router ──────────────────────────────────────────────
 const SITE_URL = 'https://kittoyeah.github.io';
 const DEFAULT_SEO = {
-  title: 'Chris Kittichod | Software Engineer',
-  description: 'Software engineer in Hobart shipping full-stack web and AI products, with a business-analysis background that means building the right thing, not just building it.',
+  title: 'Chris Kittichod | Technical Business Analyst & Product Owner',
+  description: 'Technical Business Analyst / Product Owner in Hobart delivering digital transformation — three years of BA/PO experience across insurance, health tech, and marketplaces, now building products hands-on. Open to internships and graduate roles.',
   type: 'website',
   robots: 'index, follow',
 };
@@ -23,8 +23,8 @@ function pageSeo(path) {
     return {
       ...DEFAULT_SEO,
       path,
-      title: 'About Chris Kittichod | Software Engineer',
-      description: 'How Chris Kittichod works across discovery, requirements, system design, prototyping, software delivery, testing, and iteration.',
+      title: 'About Chris Kittichod | Technical Business Analyst & Product Owner',
+      description: 'How Chris Kittichod works: discovery, stakeholder alignment, requirements, product scope, validation, and delivery alongside engineering teams.',
       type: 'profile',
     };
   }
