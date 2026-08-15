@@ -196,57 +196,30 @@ function useTheme() { return React.useContext(ThemeCtx); }
 
 // ── Animation helpers ─────────────────────────────────────────
 function FadeIn({ children, className = '', delay = 0 }) {
-  const [vis, setVis] = React.useState(false);
-  React.useEffect(() => {
-    const t = setTimeout(() => setVis(true), delay * 1000 + 40);
-    return () => clearTimeout(t);
-  }, []);
-  return (
-    <div className={className} style={{
-      opacity: vis ? 1 : 0,
-      transform: vis ? 'translateY(0)' : 'translateY(20px)',
-      transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`
-    }}>
-      {children}
-    </div>
-  );
+  const entranceClass = delay === 0 ? 'page-enter' : '';
+  return <div className={`${className} ${entranceClass}`.trim()}>{children}</div>;
 }
 function FadeInView({ children, className = '', delay = 0 }) {
-  const ref = React.useRef(null);
-  const [vis, setVis] = React.useState(false);
-  React.useEffect(() => {
-    if (!ref.current) return;
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { setTimeout(() => setVis(true), delay * 1000); obs.disconnect(); }
-    }, { threshold: 0.05 });
-    obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-  return (
-    <div ref={ref} className={className} style={{
-      opacity: vis ? 1 : 0,
-      transform: vis ? 'translateY(0)' : 'translateY(16px)',
-      transition: `opacity 0.5s ease, transform 0.5s ease`
-    }}>
-      {children}
-    </div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 // ── ExperienceRow ─────────────────────────────────────────────
-function ExperienceRow({ company, role, period, desc }) {
+function ExperienceRow({ company, role, period, desc, details = [], tech }) {
   return (
-    <div style={{ borderLeft: '2px solid var(--color-line)', paddingLeft: '1.25rem', transition: 'border-color 0.3s' }}
-      onMouseEnter={e => e.currentTarget.style.borderLeftColor = 'var(--color-accent)'}
-      onMouseLeave={e => e.currentTarget.style.borderLeftColor = 'var(--color-line)'}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.375rem' }}>
-        <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.1rem', color: 'var(--color-ink)', margin: 0 }}>{company}</h3>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-label)', marginLeft: '1rem', whiteSpace: 'nowrap' }}>{period}</span>
+    <article className="experience-row">
+      <div className="experience-head">
+        <h3>{company}</h3>
+        <span className="experience-period">{period}</span>
       </div>
-      <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-accent)', margin: '0 0 0.5rem' }}>{role}</p>
-      <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>{desc}</p>
-    </div>
+      <p className="experience-role">{role}</p>
+      {desc && <p className="experience-desc">{desc}</p>}
+      {details.length > 0 && (
+        <ul className="experience-details">
+          {details.map(detail => <li key={detail}>{detail}</li>)}
+        </ul>
+      )}
+      {tech && <p className="experience-tech"><strong>Tech stack:</strong> {tech}</p>}
+    </article>
   );
 }
 
@@ -254,13 +227,13 @@ function ExperienceRow({ company, role, period, desc }) {
 function SkillGroup({ title, skills, icon }) {
   return (
     <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem 1.1rem 0.9rem', borderBottom: '1px solid var(--color-line)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', borderBottom: '1px solid var(--color-line)' }}>
         {icon}
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{title}</span>
+        <h3>{title}</h3>
       </div>
-      <ul style={{ listStyle: 'none', padding: '1rem 1.1rem 1.1rem', margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))', gap: '0.75rem 1rem' }}>
+      <ul style={{ listStyle: 'none', padding: '1rem', margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))', gap: '0.75rem 1rem' }}>
         {skills.map(s => (
-          <li key={s.name} style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', minWidth: 0, padding: '0.7rem 0.75rem', border: '1px solid var(--color-line)', background: 'var(--color-brand)', fontSize: '14px', color: 'var(--color-ink)' }}>
+          <li key={s.name} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0, padding: '0.75rem', border: '1px solid var(--color-line)', background: 'var(--color-brand)', fontSize: '14px', color: 'var(--color-ink)' }}>
             <div style={{ width: '2rem', height: '2rem', border: '1px solid var(--color-line)', background: 'var(--color-surface)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <img src={s.iconUrl} alt={s.name} width="16" height="16" style={{ objectFit: 'contain', opacity: 0.8 }} className="icon-dark-invert" referrerPolicy="no-referrer" />
             </div>
@@ -275,25 +248,17 @@ function SkillGroup({ title, skills, icon }) {
 // ── Footer ────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer style={{ padding: '2.5rem', borderTop: '1px solid var(--color-line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-      <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', alignItems: 'center', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)' }}>
-        <span>Chris Thiraphadungphong</span>
-        <span style={{ opacity: 0.3 }}>|</span>
-        <span>Technical BA / Product Owner · Hobart, AU</span>
-        <span style={{ opacity: 0.3 }}>|</span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-          <span style={{ width: '6px', height: '6px', background: '#22c55e', borderRadius: '50%', animation: 'pulse 2s infinite', flexShrink: 0 }} />
-          <span>Open to Opportunities</span>
-        </span>
-        <span style={{ opacity: 0.3 }}>|</span>
-        <span>Hobart, Tasmania · Remote</span>
-        <span style={{ opacity: 0.3 }}>|</span>
-        <div style={{ display: 'flex', gap: '0.875rem', flexWrap: 'wrap', alignItems: 'center' }}>
-          <a href="/llms.txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>llms.txt</a>
-          <a href="/resume.txt" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>resume.txt</a>
-        </div>
+    <footer className="site-footer">
+      <div className="footer-line">
+        <span>Chris Kittichod</span>
+        <span aria-hidden="true">·</span>
+        <span>Technical Business Analyst · Hobart, Australia</span>
       </div>
-      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'var(--color-label)', opacity: 0.5 }}>© 2026</span>
+      <div className="footer-links">
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/resume.txt">Plain-text resume</a>
+        <span>© 2026</span>
+      </div>
     </footer>
   );
 }
@@ -307,72 +272,68 @@ function Nav() {
   const navItems = [
     { label: 'home', to: '/' },
     { label: 'about', to: '/about' },
-    { label: 'works', to: '/works' },
+    { label: 'projects', to: '/works' },
     { label: 'writing', to: '/writing' },
   ];
 
   const isActive = (to) => to === '/' ? path === '/' : path.startsWith(to);
 
   return (
-    <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', backgroundColor: 'var(--brand-85)', borderBottom: '1px solid var(--color-line)' }}>
-      <div style={{ maxWidth: '64rem', margin: '0 auto', padding: '0 1.5rem', height: '4rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        {/* Logo */}
-        <NavTo to="/" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none', minWidth: 0 }}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span className="nav-name" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1rem', color: 'var(--color-ink)', lineHeight: 1.2 }}>Chris Thiraphadungphong</span>
-            <span className="nav-title" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--color-label)' }}>Technical BA / Product Owner</span>
-          </div>
+    <nav className="site-nav" aria-label="Primary navigation">
+      <div className="nav-inner">
+        <NavTo to="/" className="nav-brand" onClick={() => setMenuOpen(false)} ariaLabel="Chris Kittichod, home">
+          Chris Kittichod
         </NavTo>
 
-        {/* Desktop nav */}
-        <div className="desktop-nav" style={{ display: 'none', alignItems: 'center', gap: '2rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
+        <div className="desktop-nav">
           {navItems.map(({ label, to }) => (
-            <NavTo key={to} to={to} ariaCurrent={isActive(to) ? 'page' : undefined} style={{ position: 'relative', color: isActive(to) ? 'var(--color-ink)' : 'var(--color-muted)', textDecoration: 'none', transition: 'color 0.2s', paddingBottom: '2px' }}>
-              {label}
-              {isActive(to) && <span style={{ position: 'absolute', bottom: '-4px', left: 0, right: 0, height: '1px', background: 'var(--color-accent)' }} />}
-            </NavTo>
+            <NavTo key={to} to={to} ariaCurrent={isActive(to) ? 'page' : undefined}>{label}</NavTo>
           ))}
         </div>
 
-        {/* Right icons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-muted)' }}>
-          <div className="social-icons" style={{ display: 'none', alignItems: 'center', gap: '0.25rem' }}>
-            <a className="social-icon-link" href="https://linkedin.com/in/chris-kittichod" target="_blank" rel="noreferrer" aria-label="Open LinkedIn profile" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
-              <IconLinkedin size={14} />
+        <div className="nav-controls">
+          <div className="social-icons" role="group" aria-label="Social profiles">
+            <a
+              className="social-icon-link"
+              href="https://www.linkedin.com/in/chris-thiraphadungphong-264415162/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open LinkedIn profile"
+            >
+              <IconLinkedin size={16} />
             </a>
-            <a className="social-icon-link" href="https://github.com/kittoyeah" target="_blank" rel="noreferrer" aria-label="Open GitHub profile" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
-              <IconGithub size={14} />
-            </a>
-            <a className="social-icon-link" href="mailto:chris.kittichod@gmail.com" aria-label="Email Chris" style={{ color: 'inherit', padding: '0.375rem', display: 'flex', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
-              <IconMail size={14} />
+            <a
+              className="social-icon-link"
+              href="https://github.com/kittoyeah"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open GitHub profile"
+            >
+              <IconGithub size={16} />
             </a>
           </div>
-          <button type="button" onClick={toggle} aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'} style={{ padding: '0.375rem', background: 'none', border: '1px solid transparent', borderRadius: '4px', cursor: 'pointer', color: 'var(--color-muted)', display: 'flex', transition: 'color 0.2s, border-color 0.2s' }}
-            onMouseEnter={e => { e.currentTarget.style.color = 'var(--color-ink)'; e.currentTarget.style.borderColor = 'var(--color-line)'; }}
-            onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-muted)'; e.currentTarget.style.borderColor = 'transparent'; }}>
+          <button type="button" className="nav-icon-button" onClick={toggle} aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}>
             {isDark ? <IconSun size={14} /> : <IconMoon size={14} />}
           </button>
-          <button type="button" className="mobile-menu-btn" onClick={() => setMenuOpen(o => !o)} aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={menuOpen} style={{ padding: '0.375rem', background: 'none', border: '1px solid transparent', borderRadius: '4px', cursor: 'pointer', color: 'var(--color-muted)', display: 'none' }}>
+          <button type="button" className="mobile-menu-btn" onClick={() => setMenuOpen(open => !open)} aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={menuOpen} aria-controls="mobile-navigation">
             {menuOpen ? <IconX size={18} /> : <IconMenu size={18} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div style={{ overflow: 'hidden', maxHeight: menuOpen ? '200px' : '0', opacity: menuOpen ? 1 : 0, transition: 'max-height 0.3s ease, opacity 0.3s ease', borderTop: menuOpen ? '1px solid var(--color-line)' : 'none', backgroundColor: 'var(--color-brand)' }}>
-        <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--color-muted)' }}>
+      <div id="mobile-navigation" className={`mobile-menu${menuOpen ? ' is-open' : ''}`}>
+        <div className="mobile-menu-list">
           {navItems.map(({ label, to }) => (
-            <NavTo key={to} to={to} onClick={() => setMenuOpen(false)} ariaCurrent={isActive(to) ? 'page' : undefined}
-              style={{ color: isActive(to) ? 'var(--color-accent)' : 'var(--color-muted)', textDecoration: 'none' }}>
-              // {label}
-            </NavTo>
+            <NavTo key={to} to={to} onClick={() => setMenuOpen(false)} ariaCurrent={isActive(to) ? 'page' : undefined}>{label}</NavTo>
           ))}
+          <div className="mobile-menu-social" role="group" aria-label="Social profiles">
+            <a href="https://www.linkedin.com/in/chris-thiraphadungphong-264415162/" target="_blank" rel="noreferrer">
+              <IconLinkedin size={16} /> <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/kittoyeah" target="_blank" rel="noreferrer">
+              <IconGithub size={16} /> <span>GitHub</span>
+            </a>
+          </div>
         </div>
       </div>
     </nav>
@@ -392,7 +353,7 @@ function buildPaletteItems() {
   const pages = [
     { id: 'home', title: 'Home', subtitle: 'Technical BA and Product Owner turning complex workflows into delivery-ready systems', kind: 'Page', route: '/' },
     { id: 'about', title: 'About', subtitle: 'Background, how I work, writing, and contact', kind: 'Page', route: '/about' },
-    { id: 'works', title: 'Works', subtitle: 'Selected projects and case studies', kind: 'Page', route: '/works' },
+    { id: 'works', title: 'Projects', subtitle: 'Selected projects and case studies', kind: 'Page', route: '/works' },
   ];
   const projects = (window.PROJECTS || [])
     .filter(p => !p.hidden && p.type !== 'article')
@@ -408,10 +369,22 @@ function CommandPalette() {
   const [query, setQuery] = React.useState('');
   const [active, setActive] = React.useState(0);
   const inputRef = React.useRef(null);
+  const panelRef = React.useRef(null);
+  const previousFocusRef = React.useRef(null);
 
   const items = React.useMemo(buildPaletteItems, []);
   const fuse = React.useMemo(
-    () => new Fuse(items, { keys: ['title', 'subtitle', 'tags', 'kind'], threshold: 0.4, ignoreLocation: true }),
+    () => new Fuse(items, {
+      keys: [
+        { name: 'title', weight: 0.6 },
+        { name: 'subtitle', weight: 0.2 },
+        { name: 'tags', weight: 0.15 },
+        { name: 'kind', weight: 0.05 },
+      ],
+      threshold: 0.26,
+      minMatchCharLength: 2,
+      ignoreLocation: true,
+    }),
     [items],
   );
   const results = React.useMemo(() => {
@@ -419,7 +392,16 @@ function CommandPalette() {
     return (q ? fuse.search(q).map(r => r.item) : items).slice(0, 8);
   }, [query, fuse, items]);
 
-  const close = React.useCallback(() => { setOpen(false); setQuery(''); setActive(0); }, []);
+  const close = React.useCallback(() => {
+    setOpen(false);
+    setQuery('');
+    setActive(0);
+    window.setTimeout(() => {
+      if (previousFocusRef.current && document.contains(previousFocusRef.current)) {
+        previousFocusRef.current.focus();
+      }
+    }, 0);
+  }, []);
   const go = React.useCallback((item) => { if (item) { navigate(item.route); close(); } }, [navigate, close]);
 
   // open via Cmd/Ctrl+K, or a custom event from the nav button
@@ -427,14 +409,21 @@ function CommandPalette() {
     const onKey = (e) => {
       if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
         e.preventDefault();
-        setOpen(o => !o);
+        if (open) close();
+        else {
+          previousFocusRef.current = document.activeElement;
+          setOpen(true);
+        }
       }
     };
-    const onOpen = () => setOpen(true);
+    const onOpen = event => {
+      previousFocusRef.current = event.detail?.trigger || document.activeElement;
+      setOpen(true);
+    };
     window.addEventListener('keydown', onKey);
     window.addEventListener('open-command-palette', onOpen);
     return () => { window.removeEventListener('keydown', onKey); window.removeEventListener('open-command-palette', onOpen); };
-  }, []);
+  }, [close, open]);
 
   // focus input + lock scroll while open; reset selection when query changes
   React.useEffect(() => {
@@ -449,36 +438,54 @@ function CommandPalette() {
   if (!open) return null;
 
   const onKeyDown = (e) => {
-    if (e.key === 'Escape') { e.preventDefault(); close(); }
+    if (e.key === 'Tab') {
+      const focusable = panelRef.current
+        ? Array.from(panelRef.current.querySelectorAll('input, button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'))
+        : [];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    else if (e.key === 'Escape') { e.preventDefault(); close(); }
     else if (e.key === 'ArrowDown') { e.preventDefault(); setActive(i => Math.min(i + 1, results.length - 1)); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(i => Math.max(i - 1, 0)); }
     else if (e.key === 'Enter') { e.preventDefault(); go(results[active]); }
   };
 
   return (
-    <div role="dialog" aria-modal="true" aria-label="Search" onMouseDown={close}
-      style={{ position: 'fixed', inset: 0, zIndex: 100, background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(3px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '12vh 1.5rem 1.5rem' }}>
-      <div onMouseDown={e => e.stopPropagation()} onKeyDown={onKeyDown}
-        style={{ width: '100%', maxWidth: '40rem', background: 'var(--color-brand)', border: '1px solid var(--color-line)', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.4)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem 1.1rem', borderBottom: '1px solid var(--color-line)', color: 'var(--color-muted)' }}>
+    <div className="command-overlay" role="dialog" aria-modal="true" aria-label="Search" onMouseDown={close}>
+      <div ref={panelRef} className="command-panel" onMouseDown={e => e.stopPropagation()} onKeyDown={onKeyDown}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', borderBottom: '1px solid var(--color-line)', color: 'var(--color-muted)' }}>
           <IconSearch size={16} />
           <input ref={inputRef} value={query} onChange={e => setQuery(e.target.value)} placeholder="Search projects and pages…"
             aria-label="Search projects and pages" spellCheck={false}
             style={{ flex: 1, background: 'none', border: 'none', outline: 'none', color: 'var(--color-ink)', fontSize: '16px', fontFamily: 'inherit' }} />
-          <kbd style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-label)', border: '1px solid var(--color-line)', borderRadius: '4px', padding: '2px 6px' }}>ESC</kbd>
+          <kbd style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-label)', border: '1px solid var(--color-line)', borderRadius: 'var(--radius-input)', padding: '0.25rem 0.5rem' }}>ESC</kbd>
         </div>
-        <div style={{ maxHeight: '52vh', overflowY: 'auto', padding: '0.4rem' }}>
+        <div style={{ maxHeight: '52vh', overflowY: 'auto', padding: '0.5rem' }}>
           {results.length === 0 ? (
-            <p style={{ padding: '1.5rem 1.1rem', margin: 0, color: 'var(--color-muted)', fontSize: '14px' }}>No matches for “{query}”.</p>
+            <p style={{ padding: '1.5rem 1rem', margin: 0, color: 'var(--color-muted)', fontSize: '14px' }}>No matches for “{query}”.</p>
           ) : results.map((item, i) => (
-            <button key={item.kind + item.id} type="button" onMouseEnter={() => setActive(i)} onClick={() => go(item)}
-              style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', textAlign: 'left', padding: '0.75rem 0.85rem', border: 'none', borderRadius: '5px', cursor: 'pointer', background: i === active ? 'var(--color-surface)' : 'transparent' }}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ margin: 0, fontSize: '14.5px', fontWeight: 600, color: 'var(--color-ink)', fontFamily: 'Space Grotesk, sans-serif' }}>{item.title}</p>
-                <p style={{ margin: '2px 0 0', fontSize: '12.5px', color: 'var(--color-muted)', lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.subtitle}</p>
-              </div>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-label)', border: '1px solid var(--color-line)', borderRadius: '4px', padding: '2px 6px', flexShrink: 0 }}>{item.kind}</span>
-            </button>
+            <React.Fragment key={item.kind + item.id}>
+              {(i === 0 || results[i - 1].kind !== item.kind) && (
+                <p className="meta-label" style={{ padding: 'var(--space-xs) var(--space-xs) var(--space-3xs)' }}>{item.kind}</p>
+              )}
+              <button type="button" onMouseEnter={() => setActive(i)} onClick={() => go(item)}
+                style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', textAlign: 'left', padding: '0.75rem', border: 'none', borderRadius: 'var(--radius-input)', cursor: 'pointer', background: i === active ? 'var(--color-surface)' : 'transparent' }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ margin: 0, fontSize: '14.5px', fontWeight: 600, color: 'var(--color-ink)', fontFamily: 'var(--font-display)' }}>{item.title}</p>
+                  <p style={{ margin: '0.25rem 0 0', fontSize: '12.5px', color: 'var(--color-muted)', lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.subtitle}</p>
+                </div>
+                <IconArrowUpRight size={12} style={{ color: 'var(--color-label)', flexShrink: 0 }} />
+              </button>
+            </React.Fragment>
           ))}
         </div>
       </div>
@@ -487,29 +494,7 @@ function CommandPalette() {
 }
 
 function SearchFab() {
-  const [hov, setHov] = React.useState(false);
-  return (
-    <button type="button"
-      onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
-      aria-label="Search (Command or Control + K)"
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{
-        position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 90,
-        display: 'flex', alignItems: 'center', gap: '0.5rem',
-        padding: '0.7rem 0.95rem',
-        background: 'var(--color-surface)',
-        border: `1px solid ${hov ? 'var(--color-accent)' : 'var(--color-line)'}`,
-        borderRadius: '999px',
-        color: hov ? 'var(--color-ink)' : 'var(--color-muted)',
-        cursor: 'pointer',
-        boxShadow: '0 6px 20px rgba(0,0,0,0.28)',
-        transition: 'color 0.2s, border-color 0.2s, transform 0.2s',
-        transform: hov ? 'translateY(-2px)' : 'none',
-      }}>
-      <IconSearch size={16} />
-      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', letterSpacing: '0.05em' }}>⌘K</span>
-    </button>
-  );
+  return null;
 }
 
 // ── Exports ───────────────────────────────────────────────────

@@ -1,54 +1,56 @@
-Name: Chris Thiraphadungphong
-Also known as: Chris Kittichod
-Role: Technical Business Analyst / Product Owner
-Status: Master of IT student, University of Tasmania (2025 to present, graduating May 2027) — seeking internships and graduate roles
-Location: Hobart, Tasmania, Australia
-Website: https://kittoyeah.github.io/
-LinkedIn: https://linkedin.com/in/chris-kittichod
-Email: chris.kittichod@gmail.com
+# Chris Kittichod - Portfolio Guide
 
-Summary:
-Chris Kittichod is a Master of Information Technology student in Hobart, Tasmania, seeking internships and graduate roles as a Technical Business Analyst / Product Owner. He brings three years of business analysis and product ownership experience across insurance, health technology, and marketplaces in Thailand (Oct 2020 to Dec 2023), and is now building products hands-on through SabaiHub and Amigo Translator.
+> Machine-readable guide to Chris Kittichod's portfolio. Chris is a
+> Technical Business Analyst and Product Owner based in Hobart, Tasmania,
+> completing a Master of Information Technology and Systems at the
+> University of Tasmania.
 
-Current focus:
-- Stakeholder discovery, workflow analysis, and shared problem definition
-- Requirements, user stories, acceptance criteria, MVP scope, and UAT
-- Product ownership and collaboration across business, design, and engineering
-- Technical feasibility, software prototyping, and AI-enabled workflow design
+## Primary pages
 
-Education:
-- Master of Information Technology and Systems, University of Tasmania, 2025 to present (graduating May 2027)
-- Bachelor of Political Science, Thammasat University, 2015 to 2019
+- [Home](https://kittoyeah.github.io/): Positioning, selected projects,
+  delivery process, and awards.
+- [About](https://kittoyeah.github.io/about/): Professional background,
+  capabilities, full career history, education, and contact details.
+- [Projects](https://kittoyeah.github.io/works/): Professional,
+  independent, and university projects built during the master's program.
+- [Writing](https://kittoyeah.github.io/writing/): Notes on business
+  analysis, product decisions, architecture, delivery, and AI-assisted
+  engineering.
 
-Selected work:
-- Amigo Translator: owner-approved operations MVP for a Tasmanian interpreting business; replaces email- and paper-based job dispatch with interpreter matching, mobile job completion, compliance tracking, and pay approval
-- SabaiHub: live operations platform for Thai massage businesses in Australia; taken from workflow research and product scope through data modelling, implementation, deployment, and operator feedback
-- MyBusiness.gov: GovHack proof-of-concept helping small businesses navigate permits, licences, tax obligations, and support programs; Runner-up, Tasmania's sole nominee, GovHack 2025
-- RegionalMate: AI-powered relocation planning platform, selected in IBM watsonx.ai Hackathon 2025 Global Top 50
+## Project case studies
 
-Skills:
-- Business analysis
-- Product ownership
-- Requirements engineering
-- Stakeholder facilitation
-- Workflow analysis
-- MVP scoping
-- UAT
-- Design Thinking
-- Next.js
-- React
-- TypeScript
-- Supabase
-- PostgreSQL
-- Prisma
-- AWS Bedrock
-- Claude
-- Codex
-- IBM watsonx.ai
-- Figma
-- System design
+- [Amigo Translator](https://kittoyeah.github.io/works/amigo/): Staff web
+  platform and interpreter mobile app covering matching, compliance, job
+  completion, and payment workflows.
+- [SabaiHub](https://kittoyeah.github.io/works/sabaihub/): Production SaaS
+  platform for Thai massage businesses in Australia.
+- [Connection Review Copilot](https://kittoyeah.github.io/works/connection-copilot/):
+  Human-in-the-loop, multi-agent workflow for utility connection reviews.
+- [MyBusiness.gov](https://kittoyeah.github.io/works/mybusiness-gov/):
+  GovHack 2025 project helping small businesses find permits, licences,
+  and support programs.
+- [RegionalMate](https://kittoyeah.github.io/works/regionalmate/): IBM
+  watsonx.ai Hackathon project for regional relocation planning.
 
-Availability:
-- Open to internships and graduate roles — Technical Business Analyst / Digital Business Analyst
-- Open to internships and graduate roles — Product Owner / AI-enabled product
-- Based in Hobart, Tasmania; open to remote
+## Supporting documents
+
+- [Resume PDF](https://kittoyeah.github.io/assets/chris-kittichod-resume.pdf):
+  Formatted current resume.
+- [Plain-text resume](https://kittoyeah.github.io/resume.txt): Accessible,
+  machine-readable resume.
+- [Canonical LLM guide](https://kittoyeah.github.io/llms.txt): Standard
+  discovery path for language models.
+
+## Identity and contact
+
+- Full name: Kittichod (Chris) Thiraphadungphong
+- Preferred name: Chris Kittichod
+- Role: Technical Business Analyst / Product Owner
+- Location: Hobart, Tasmania, Australia
+- Email: chris.kittichod@gmail.com
+- LinkedIn: https://www.linkedin.com/in/chris-thiraphadungphong-264415162/
+- GitHub: https://github.com/kittoyeah
+
+Use the linked case studies and resume as primary sources. Do not infer
+employment dates, technologies, awards, or project outcomes beyond what
+those pages state.

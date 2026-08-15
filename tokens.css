@@ -1,0 +1,123 @@
+/* Hallmark · genre: modern-minimal · tone: restrained technical · anchor: cobalt · macrostructure: Split Studio / Portfolio Grid / Index-First / Narrative Workflow · design-system: design.md */
+:root {
+  --color-paper: oklch(97.5% 0.006 250);
+  --color-paper-2: oklch(94.5% 0.008 250);
+  --color-paper-3: oklch(91% 0.01 250);
+  --color-ink: oklch(19% 0.018 258);
+  --color-ink-2: oklch(30% 0.016 257);
+  --color-rule: oklch(82% 0.009 252);
+  --color-rule-2: oklch(68% 0.012 254);
+  --color-muted: oklch(43% 0.014 256);
+  --color-neutral: oklch(34% 0.014 256);
+  --color-accent: oklch(50% 0.18 256);
+  --color-accent-ink: oklch(98% 0.006 250);
+  --color-focus: oklch(48% 0.2 256);
+  --color-proof: oklch(48% 0.1 78);
+  --color-error: oklch(52% 0.2 25);
+  --color-success: oklch(46% 0.14 150);
+  --color-backdrop: oklch(14% 0.014 258 / 0.58);
+  --color-nav-backdrop: oklch(97.5% 0.006 250 / 0.92);
+
+  --color-brand: var(--color-paper);
+  --color-surface: var(--color-paper-2);
+  --color-line: var(--color-rule);
+  --color-label: var(--color-muted);
+  --color-gold: var(--color-proof);
+  --brand-85: oklch(97.5% 0.006 250 / 0.85);
+  --brand-60: oklch(19% 0.018 258 / 0.6);
+  --brand-90: oklch(97.5% 0.006 250 / 0.9);
+  --accent-30: oklch(50% 0.18 256 / 0.3);
+  --accent-40: oklch(50% 0.18 256 / 0.4);
+  --accent-50: oklch(50% 0.18 256 / 0.5);
+  --accent-60: oklch(50% 0.18 256 / 0.6);
+  --gold-5: oklch(48% 0.1 78 / 0.08);
+  --gold-30: oklch(48% 0.1 78 / 0.3);
+  --gold-40: oklch(48% 0.1 78 / 0.4);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: var(--font-body);
+  --font-meta: "JetBrains Mono", ui-monospace, monospace;
+  --font-mono: var(--font-meta);
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.9531rem;
+  --text-2xl: 2.4414rem;
+  --text-3xl: 3.0518rem;
+  --text-display-s: clamp(2rem, 5vw, 3.75rem);
+  --text-display: clamp(2.4rem, 6vw, 5rem);
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+  --space-4xl: 10rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --rule-hair: 1px;
+  --rule-fine: 2px;
+  --radius-card: 10px;
+  --radius-pill: 999px;
+  --radius-input: 6px;
+  --shadow-card: 0 1px 2px oklch(19% 0.018 258 / 0.05);
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+html[data-theme="dark"] {
+  --color-paper: oklch(15% 0.012 258);
+  --color-paper-2: oklch(19% 0.014 258);
+  --color-paper-3: oklch(23% 0.015 258);
+  --color-ink: oklch(94% 0.007 250);
+  --color-ink-2: oklch(82% 0.009 252);
+  --color-rule: oklch(32% 0.014 258);
+  --color-rule-2: oklch(45% 0.014 258);
+  --color-muted: oklch(72% 0.009 252);
+  --color-neutral: oklch(80% 0.008 252);
+  --color-accent: oklch(70% 0.16 256);
+  --color-accent-ink: oklch(15% 0.012 258);
+  --color-focus: oklch(76% 0.15 256);
+  --color-proof: oklch(74% 0.1 78);
+  --color-error: oklch(72% 0.16 25);
+  --color-success: oklch(72% 0.12 150);
+  --color-backdrop: oklch(8% 0.01 258 / 0.72);
+  --color-nav-backdrop: oklch(15% 0.012 258 / 0.9);
+
+  --color-brand: var(--color-paper);
+  --color-surface: var(--color-paper-2);
+  --color-line: var(--color-rule);
+  --color-label: var(--color-muted);
+  --color-gold: var(--color-proof);
+  --brand-85: oklch(15% 0.012 258 / 0.85);
+  --brand-60: oklch(15% 0.012 258 / 0.6);
+  --brand-90: oklch(15% 0.012 258 / 0.9);
+  --accent-30: oklch(70% 0.16 256 / 0.3);
+  --accent-40: oklch(70% 0.16 256 / 0.4);
+  --accent-50: oklch(70% 0.16 256 / 0.5);
+  --accent-60: oklch(70% 0.16 256 / 0.6);
+  --gold-5: oklch(74% 0.1 78 / 0.08);
+  --gold-30: oklch(74% 0.1 78 / 0.3);
+  --gold-40: oklch(74% 0.1 78 / 0.4);
+  --shadow-card: 0 1px 2px oklch(7% 0.01 258 / 0.28);
+}

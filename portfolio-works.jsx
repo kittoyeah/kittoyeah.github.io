@@ -2,20 +2,20 @@
 function WorksPage() {
   const projects = window.PROJECTS.filter(project => !project.hidden);
   return (
-    <section style={{ padding: 'clamp(5rem, 9vw, 9rem) 1.5rem 6rem', minHeight: '100vh' }}>
-      <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
+    <section className="content-section content-section--roomy" style={{ paddingTop: 'clamp(7rem, 13vw, 9rem)' }}>
+      <div className="page-shell">
         <FadeIn>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '3rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '2rem' }}>
-            <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: 0 }}>Works</h1>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', color: 'var(--color-label)' }}>Click to open work</span>
-          </div>
+          <header className="section-head">
+            <h1>Works</h1>
+            <p>Projects I’ve built while studying for my Master of Information Technology and Systems at the University of Tasmania.</p>
+          </header>
         </FadeIn>
 
-        <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2.5rem' }}>
+        <div className="projects-grid">
           {projects.map((project, i) => (
-            <FadeInView key={project.id} delay={i * 0.08} className={i === 0 ? 'span-2' : ''}>
-              <WorksCard project={project} featured={i === 0} />
-            </FadeInView>
+            <div key={project.id} className={i === 0 ? 'span-2' : ''}>
+              <WorksCard project={project} />
+            </div>
           ))}
         </div>
       </div>
@@ -23,41 +23,19 @@ function WorksPage() {
   );
 }
 
-function WorksCard({ project, featured }) {
-  const [hov, setHov] = React.useState(false);
+function WorksCard({ project }) {
   return (
-    <NavTo to={`/works/${project.id}`} style={{ display: 'block', textDecoration: 'none' }}
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
-      <div style={{
-        position: 'relative', overflow: 'hidden',
-        border: '1px solid var(--color-line)', background: 'var(--color-surface)',
-        aspectRatio: '16 / 9', marginBottom: '1.25rem',
-      }}>
-        <img src={project.image} alt={project.title} referrerPolicy="no-referrer"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transform: hov ? 'scale(1.02)' : 'scale(1)', transition: 'transform 0.5s ease' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--brand-60) 0%, transparent 60%)' }} />
-        {project.badge && (
-          <div style={{ position: 'absolute', top: '0.75rem', left: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.375rem', padding: '0.25rem 0.625rem', background: 'var(--brand-90)', border: '1px solid var(--gold-40)', backdropFilter: 'blur(4px)', whiteSpace: 'nowrap' }}>
-            <IconTrophy size={9} style={{ color: 'var(--color-gold)' }} />
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-gold)' }}>{project.badge}</span>
-          </div>
-        )}
-        <div style={{ position: 'absolute', bottom: '0.75rem', right: '0.75rem', opacity: hov ? 1 : 0, transition: 'opacity 0.3s' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', padding: '0.25rem 0.625rem', background: 'var(--brand-90)', border: '1px solid var(--color-line)', backdropFilter: 'blur(4px)' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-muted)' }}>{project.type === 'article' ? 'Open Article' : 'Open Case Study'}</span>
-            <IconArrowUpRight size={9} style={{ color: 'var(--color-muted)' }} />
-          </div>
-        </div>
+    <NavTo to={`/works/${project.id}`} className="project-card-link">
+      <div className="project-card-media">
+        <img src={project.image} alt="" referrerPolicy="no-referrer" loading="lazy" />
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.5rem' }}>
-        <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: featured ? '1.25rem' : '1.1rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.3s', margin: 0 }}>{project.title}</h3>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', color: 'var(--color-label)' }}>{project.year}</span>
+      <div className="project-card-meta">
+        <h2>{project.title}</h2>
+        <span className="meta-label">{project.year}</span>
       </div>
-      <p style={{ fontSize: featured ? '15px' : '14.5px', color: 'var(--color-muted)', lineHeight: 1.65, margin: '0 0 1rem', maxWidth: 'none', width: '100%' }}>{project.desc}</p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-        {project.tags.map(t => (
-          <span key={t} style={{ padding: '2px 8px', border: '1px solid var(--color-line)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', color: 'var(--color-label)' }}>{t}</span>
-        ))}
+      <p>{project.desc}</p>
+      <div className="tag-list" aria-label={`${project.title} tags`}>
+        {project.tags.map(tag => <span key={tag}>{tag}</span>)}
       </div>
     </NavTo>
   );
@@ -214,15 +192,15 @@ function RequirementsSample({ sample }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)', padding: '1.25rem' }}>
-        <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-accent)', margin: '0 0 0.6rem' }}>User Story</p>
+        <p style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-accent)', margin: '0 0 0.5rem' }}>User Story</p>
         <p style={{ margin: 0, fontSize: '14.5px', color: 'var(--color-ink)', lineHeight: 1.7 }}>{sample.story}</p>
       </div>
 
       <div>
-        <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)', margin: '0 0 0.5rem' }}>Acceptance Criteria</p>
+        <p style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)', margin: '0 0 0.5rem' }}>Acceptance Criteria</p>
         {sample.acceptanceCriteria.map((c, i) => (
           <div key={i} style={{ display: 'flex', gap: '0.75rem', padding: '0.5rem 0', borderTop: '1px solid var(--color-line)', fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.65 }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)', flexShrink: 0, paddingTop: '2px' }}>AC-{String(i + 1).padStart(2, '0')}</span>
+            <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-accent)', flexShrink: 0, paddingTop: '0.25rem' }}>AC-{String(i + 1).padStart(2, '0')}</span>
             <span style={{ flex: 1, minWidth: 0 }}>{c}</span>
           </div>
         ))}
@@ -230,17 +208,17 @@ function RequirementsSample({ sample }) {
 
       {sample.traceNote && (
         <p style={{ margin: 0, padding: '0.75rem 0 0', borderTop: '1px solid var(--color-line)', fontSize: '12.5px', color: 'var(--color-label)', lineHeight: 1.65 }}>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-accent)' }}>Traceability: </span>
+          <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-accent)' }}>Traceability: </span>
           {sample.traceNote}
         </p>
       )}
 
       {sample.prioritisation && (
         <div>
-          <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)', margin: '0 0 0.5rem' }}>Prioritisation — MVP Order</p>
+          <p style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)', margin: '0 0 0.5rem' }}>Prioritisation — MVP Order</p>
           {sample.prioritisation.map((row, i) => (
             <div key={row.item} style={{ display: 'flex', gap: '0.75rem', padding: '0.5rem 0', borderTop: '1px solid var(--color-line)', fontSize: '13.5px', lineHeight: 1.6 }}>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)', flexShrink: 0, paddingTop: '2px' }}>P-{String(i + 1).padStart(2, '0')}</span>
+              <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-accent)', flexShrink: 0, paddingTop: '0.25rem' }}>P-{String(i + 1).padStart(2, '0')}</span>
               <span style={{ flex: 1, minWidth: 0 }}>
                 <span style={{ color: 'var(--color-ink)', fontWeight: 500 }}>{row.item}</span>
                 <span style={{ color: 'var(--color-muted)' }}> — {row.basis}</span>
@@ -258,20 +236,19 @@ function BentoGrid({ items }) {
   return (
     <div className="bento-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 15rem), 1fr))', gap: '1rem' }}>
       {items.map((it, i) => (
-        <div key={it.name}
+        <div key={it.name} className={`bento-grid-card${it.wide ? ' bento-grid-card--wide' : ''}`}
           onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(-1)}
           style={{
-            gridColumn: it.wide ? 'span 2' : 'span 1',
             display: 'flex', flexDirection: 'column', gap: '0.5rem', minHeight: '8.5rem',
             border: `1px solid ${hov === i ? 'var(--accent-50)' : 'var(--color-line)'}`,
-            borderRadius: '12px', background: 'var(--color-surface)', padding: '1.4rem 1.5rem',
+            borderRadius: '12px', background: 'var(--color-surface)', padding: '1.5rem',
             transition: 'border-color 0.2s',
           }}>
-          <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.05rem', letterSpacing: '-0.01em', color: 'var(--color-ink)', margin: '0 0 0.2rem' }}>{it.name}</h3>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '1.05rem', letterSpacing: '-0.01em', color: 'var(--color-ink)', margin: '0 0 0.25rem' }}>{it.name}</h3>
           {it.bullets ? (
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {it.bullets.map(b => (
-                <li key={b} style={{ position: 'relative', paddingLeft: '1.1rem', fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.5 }}>
+                <li key={b} style={{ position: 'relative', paddingLeft: '1rem', fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.5 }}>
                   <span aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0, color: 'var(--color-accent)' }}>•</span>{b}
                 </li>
               ))}
@@ -289,8 +266,8 @@ function ModuleTable({ modules }) {
   return (
     <div style={{ border: '1px solid var(--color-line)', borderRadius: '6px', overflow: 'hidden' }}>
       {modules.map((m, i) => (
-        <div key={m.name} className="module-row" style={{ display: 'grid', gridTemplateColumns: 'minmax(9rem, 0.34fr) 1fr', gap: '1.25rem', padding: '0.9rem 1.15rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', background: i % 2 ? 'var(--color-surface)' : 'transparent', alignItems: 'baseline' }}>
-          <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '14.5px', color: 'var(--color-ink)' }}>{m.name}</span>
+        <div key={m.name} className="module-row" style={{ display: 'grid', gridTemplateColumns: 'minmax(9rem, 0.34fr) 1fr', gap: '1.25rem', padding: '1rem 1.25rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', background: i % 2 ? 'var(--color-surface)' : 'transparent', alignItems: 'baseline' }}>
+          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '14.5px', color: 'var(--color-ink)' }}>{m.name}</span>
           <span style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.6 }}>{m.points}</span>
         </div>
       ))}
@@ -302,8 +279,8 @@ function TradeoffList({ items }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       {items.map((it, i) => (
-        <div key={i} style={{ borderLeft: '2px solid var(--accent-30)', paddingLeft: '1.25rem' }}>
-          <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', margin: '0 0 0.35rem' }}>{it.choice}</p>
+        <div key={i} style={{ borderTop: '1px solid var(--color-line)', paddingTop: '1.25rem' }}>
+          <p style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', margin: '0 0 0.5rem' }}>{it.choice}</p>
           <p style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{it.why}</p>
         </div>
       ))}
@@ -314,7 +291,7 @@ function TradeoffList({ items }) {
 function ScreenshotsBlock({ screenshots }) {
   if (screenshots && screenshots.todo) {
     return (
-      <div style={{ border: '1px dashed var(--color-line)', borderRadius: '6px', padding: '2rem 1.5rem', textAlign: 'center', color: 'var(--color-label)', fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', letterSpacing: '0.06em' }}>
+      <div style={{ border: '1px dashed var(--color-line)', borderRadius: '6px', padding: '2rem 1.5rem', textAlign: 'center', color: 'var(--color-label)', fontFamily: 'var(--font-outlier)', fontSize: '12px', letterSpacing: '0.06em' }}>
         Product screenshots coming soon{screenshots.note ? `: ${screenshots.note}` : ''}.
       </div>
     );
@@ -327,7 +304,7 @@ function ScreenshotsBlock({ screenshots }) {
           <div style={{ border: '1px solid var(--color-line)', borderRadius: '6px', overflow: 'hidden', background: 'var(--color-surface)' }}>
             <img src={s.src} alt={s.caption || ''} referrerPolicy="no-referrer" style={{ width: '100%', display: 'block' }} />
           </div>
-          {s.caption && <figcaption style={{ fontSize: '12.5px', color: 'var(--color-muted)', margin: '0.6rem 0 0' }}>{s.caption}</figcaption>}
+          {s.caption && <figcaption style={{ fontSize: '12.5px', color: 'var(--color-muted)', margin: '0.5rem 0 0' }}>{s.caption}</figcaption>}
         </figure>
       ))}
     </div>
@@ -360,7 +337,8 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
     const el = document.getElementById(sectionId);
     if (el) {
       const top = el.getBoundingClientRect().top + window.pageYOffset - 112;
-      window.scrollTo({ top, behavior: 'smooth' });
+      const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
     }
   };
 
@@ -371,7 +349,7 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
         {/* Back */}
         <FadeIn>
           <div style={{ marginBottom: '3rem' }}>
-            <NavTo to={backTo} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-muted)', textDecoration: 'none', transition: 'color 0.2s' }}
+            <NavTo to={backTo} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-muted)', textDecoration: 'none', transition: 'color 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--color-ink)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}>
               <IconArrowLeft size={12} /> {backLabel}
@@ -383,15 +361,15 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
         <FadeIn delay={0.05}>
           <div style={{ marginBottom: '3.5rem' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-label)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{project.year}</span>
+              <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-label)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{project.year}</span>
               {project.badge && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', padding: '0.25rem 0.625rem', border: '1px solid var(--gold-40)', backgroundColor: 'var(--gold-5)', whiteSpace: 'nowrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.25rem 0.75rem', border: '1px solid var(--gold-40)', backgroundColor: 'var(--gold-5)', whiteSpace: 'nowrap' }}>
                   <IconTrophy size={9} style={{ color: 'var(--color-gold)' }} />
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-gold)' }}>{project.badge}</span>
+                  <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-gold)' }}>{project.badge}</span>
                 </div>
               )}
             </div>
-            <h1 className="project-hero-title" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, lineHeight: 1.05, letterSpacing: '-0.03em', overflowWrap: 'normal', wordBreak: 'normal', color: 'var(--color-ink)', margin: '0 0 1.5rem' }}>{project.title}</h1>
+            <h1 className="project-hero-title" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.03em', overflowWrap: 'normal', wordBreak: 'normal', color: 'var(--color-ink)', margin: '0 0 1.5rem' }}>{project.title}</h1>
             <p className="project-hero-desc" style={{ fontSize: 'clamp(15px, 2vw, 18px)', color: 'var(--color-muted)', lineHeight: 1.65, maxWidth: '100%', margin: 0 }}>{project.desc}</p>
             {project.prototypeUrl && (
               <div style={{ marginTop: '1.5rem' }}>
@@ -421,7 +399,7 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
           {/* TOC sidebar */}
           <aside className="toc-sidebar" style={{ display: 'none' }}>
             <div style={{ position: 'sticky', top: '7rem' }}>
-              <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)', margin: '0 0 1rem' }}>Contents</p>
+              <p style={{ fontFamily: 'var(--font-outlier)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)', margin: '0 0 1rem' }}>Contents</p>
               {visibleSections.map(({ key, label }) => (
                 <TocLink key={key} label={sectionLabel(key, label)} onClick={() => scrollTo(key)} />
               ))}
@@ -446,7 +424,7 @@ function ProjectDetailPage({ id, collection = window.PROJECTS, backTo = "/works"
 
         {/* Prev / Next */}
         {!disablePrevNext && (
-          <div style={{ marginTop: '5rem', paddingTop: '2.5rem', borderTop: '1px solid var(--color-line)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+          <div style={{ marginTop: '5rem', paddingTop: '2.5rem', borderTop: '1px solid var(--color-line)', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '1.5rem' }}>
             {prev ? <PrevNextCard project={prev} dir="prev" /> : <div />}
             {next ? <PrevNextCard project={next} dir="next" /> : <div />}
           </div>
@@ -461,7 +439,7 @@ function TocLink({ label, onClick }) {
   const [hov, setHov] = React.useState(false);
   return (
     <button type="button" onClick={onClick}
-      style={{ display: 'block', width: '100%', textAlign: 'left', fontFamily: 'JetBrains Mono, monospace', fontSize: '12.5px', lineHeight: 1.45, color: hov ? 'var(--color-ink)' : 'var(--color-muted)', background: 'none', border: 'none', borderLeft: `2px solid ${hov ? 'var(--color-accent)' : 'transparent'}`, paddingLeft: '0.75rem', paddingTop: '0.3rem', paddingBottom: '0.3rem', cursor: 'pointer', transition: 'color 0.2s, border-color 0.2s', marginBottom: '0.28rem' }}
+      style={{ display: 'block', width: '100%', textAlign: 'left', fontFamily: 'var(--font-outlier)', fontSize: '12.5px', lineHeight: 1.45, color: hov ? 'var(--color-ink)' : 'var(--color-muted)', background: 'none', border: 'none', borderLeft: `2px solid ${hov ? 'var(--color-accent)' : 'transparent'}`, paddingLeft: '0.75rem', paddingTop: '0.25rem', paddingBottom: '0.25rem', cursor: 'pointer', transition: 'color 0.2s, border-color 0.2s', marginBottom: '0.25rem' }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       {label}
     </button>
@@ -488,18 +466,18 @@ function MobileToc({ sections, getLabel, onSelect }) {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '1rem',
-          padding: '0.9rem 1rem',
+          padding: '1rem',
           border: '1px solid var(--color-line)',
           background: 'var(--color-surface)',
           color: 'var(--color-ink)',
           cursor: 'pointer',
         }}
       >
-        <span style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <IconMenu size={15} />
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Contents</span>
+          <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Contents</span>
         </span>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '14px', color: 'var(--color-accent)' }}>{open ? '−' : '+'}</span>
+        <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '14px', color: 'var(--color-accent)' }}>{open ? '−' : '+'}</span>
       </button>
 
       {open && (
@@ -512,7 +490,7 @@ function MobileToc({ sections, getLabel, onSelect }) {
               style={{
                 width: '100%',
                 display: 'grid',
-                gridTemplateColumns: '2rem 1fr',
+                gridTemplateColumns: '2rem minmax(0, 1fr)',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
                 border: 'none',
@@ -523,8 +501,8 @@ function MobileToc({ sections, getLabel, onSelect }) {
                 cursor: 'pointer',
               }}
             >
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)' }}>{String(index + 1).padStart(2, '0')}</span>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12.5px', lineHeight: 1.5 }}>{getLabel(key, label)}</span>
+              <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-accent)' }}>{String(index + 1).padStart(2, '0')}</span>
+              <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '12.5px', lineHeight: 1.5 }}>{getLabel(key, label)}</span>
             </button>
           ))}
         </div>
@@ -568,7 +546,7 @@ function TextBlock({ content, variant }) {
     margin: 0,
   };
   const quoteStyle = variant === 'quote'
-    ? { borderLeft: '4px solid var(--accent-40)', paddingLeft: '1.5rem' }
+    ? { borderTop: '2px solid var(--accent-40)', paddingTop: '1.5rem' }
     : {};
 
   return (
@@ -592,13 +570,13 @@ function ExternalProjectLink({ href, label }) {
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: '0.55rem',
-        padding: '0.72rem 1rem',
+        gap: '0.5rem',
+        padding: '0.75rem 1rem',
         border: `1px solid ${hov ? 'var(--accent-50)' : 'var(--color-line)'}`,
-        background: hov ? 'var(--accent-10)' : 'var(--color-surface)',
+        background: 'var(--color-surface)',
         color: hov ? 'var(--color-accent)' : 'var(--color-ink)',
         textDecoration: 'none',
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--font-outlier)',
         fontSize: '10.5px',
         textTransform: 'uppercase',
         letterSpacing: '0.13em',
@@ -646,21 +624,21 @@ function Summary({ summary }) {
     { label: 'The result',  text: summary.result, accent: 'var(--color-gold)'  },
   ].filter(r => r.text);
   return (
-    <div style={{ border: '1px solid var(--accent-40)', background: 'linear-gradient(135deg, var(--color-surface), var(--gold-5))' }}>
+    <div style={{ border: '1px solid var(--accent-40)', background: 'var(--color-surface)' }}>
       {rows.map((row, i) => (
         <div key={row.label} className="summary-row" style={{
           display: 'grid', gridTemplateColumns: '8rem 1fr', gap: '1.25rem',
-          padding: '1.1rem 1.25rem',
+          padding: '1rem 1.25rem',
           borderBottom: i < rows.length - 1 ? '1px solid var(--color-line)' : 'none',
           alignItems: 'baseline',
         }}>
           <span style={{
-            fontFamily: 'JetBrains Mono, monospace', fontSize: '10px',
+            fontFamily: 'var(--font-outlier)', fontSize: '10px',
             textTransform: 'uppercase', letterSpacing: '0.14em',
             color: row.accent, paddingTop: '4px',
           }}>{row.label}</span>
           <p style={{
-            fontFamily: 'Space Grotesk, sans-serif', fontWeight: 500,
+            fontFamily: 'var(--font-display)', fontWeight: 500,
             fontSize: 'clamp(15px, 1.4vw, 17px)', lineHeight: 1.55,
             color: 'var(--color-ink)', margin: 0,
           }}>{row.text}</p>
@@ -673,7 +651,7 @@ function Summary({ summary }) {
 function BeforeAfter({ pairs }) {
   const cols = [
     { label: 'Before', items: pairs.before, accent: 'var(--color-gold)',   tint: 'var(--gold-5)',     symbol: '−' },
-    { label: 'After',  items: pairs.after,  accent: 'var(--color-accent)', tint: 'transparent',       symbol: '+' },
+    { label: 'After',  items: pairs.after,  accent: 'var(--color-accent)', tint: 'var(--color-surface)', symbol: '+' },
   ];
   return (
     <div style={{
@@ -684,16 +662,14 @@ function BeforeAfter({ pairs }) {
         <div key={col.label} style={{
           padding: '1.5rem 1.25rem',
           borderRight: i === 0 ? '1px solid var(--color-line)' : 'none',
-          borderLeft: i === 1 ? '3px solid var(--color-accent)' : 'none',
-          background: col.tint === 'transparent' ? 'transparent'
-            : `linear-gradient(135deg, var(--color-surface), ${col.tint})`,
+          background: col.tint,
         }}>
           <span style={{
-            fontFamily: 'JetBrains Mono, monospace', fontSize: '10px',
+            fontFamily: 'var(--font-outlier)', fontSize: '10px',
             textTransform: 'uppercase', letterSpacing: '0.14em', color: col.accent,
           }}>{col.label}</span>
           <ul style={{ listStyle: 'none', padding: 0, margin: '1rem 0 0',
-            display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+            display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {col.items.map((item, j) => (
               <li key={j} style={{
                 fontSize: '14.5px', color: i === 0 ? 'var(--color-muted)' : 'var(--color-ink)',
@@ -701,7 +677,7 @@ function BeforeAfter({ pairs }) {
               }}>
                 <span aria-hidden="true" style={{
                   position: 'absolute', left: 0, top: '1px', color: col.accent,
-                  fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', fontWeight: 600,
+                  fontFamily: 'var(--font-outlier)', fontSize: '13px', fontWeight: 600,
                 }}>{col.symbol}</span>
                 {item}
               </li>
@@ -715,12 +691,12 @@ function BeforeAfter({ pairs }) {
 
 function MetricStrip({ metrics }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', border: '1px solid var(--gold-30)', background: 'linear-gradient(135deg, var(--color-surface), var(--gold-5))' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', border: '1px solid var(--gold-30)', background: 'var(--color-surface)' }}>
       {metrics.map((metric, i) => (
-        <div key={metric.value + metric.label} style={{ position: 'relative', padding: '1.55rem', borderRight: i < metrics.length - 1 ? '1px solid var(--color-line)' : 'none', minHeight: '9rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden' }}>
-          <span aria-hidden="true" style={{ position: 'absolute', top: '-2.2rem', right: '0.75rem', fontFamily: 'Space Grotesk, sans-serif', fontSize: '6.5rem', fontWeight: 600, lineHeight: 1, color: i === 0 ? 'var(--color-gold)' : 'var(--color-accent)', opacity: 0.08 }}>{i + 1}</span>
-          <span style={{ position: 'relative', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(2.25rem, 5.4vw, 3.45rem)', lineHeight: 0.95, letterSpacing: '-0.03em', color: i === 0 ? 'var(--color-gold)' : 'var(--color-accent)' }}>{metric.value}</span>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.12em', lineHeight: 1.5, marginTop: '1rem' }}>{metric.label}</span>
+        <div key={metric.value + metric.label} style={{ position: 'relative', padding: '1.5rem', borderRight: i < metrics.length - 1 ? '1px solid var(--color-line)' : 'none', minHeight: '9rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden' }}>
+          <span aria-hidden="true" style={{ position: 'absolute', top: '-2.2rem', right: '0.75rem', fontFamily: 'var(--font-display)', fontSize: '6.5rem', fontWeight: 600, lineHeight: 1, color: i === 0 ? 'var(--color-gold)' : 'var(--color-accent)', opacity: 0.08 }}>{i + 1}</span>
+          <span style={{ position: 'relative', fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(2.25rem, 5.4vw, 3.45rem)', lineHeight: 0.95, letterSpacing: '-0.03em', color: i === 0 ? 'var(--color-gold)' : 'var(--color-accent)' }}>{metric.value}</span>
+          <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.12em', lineHeight: 1.5, marginTop: '1rem' }}>{metric.label}</span>
         </div>
       ))}
     </div>
@@ -731,11 +707,11 @@ function PullQuote({ quote, supporting, supportingOutside = false }) {
   const supportItems = Array.isArray(supporting) ? supporting : [supporting];
   return (
     <div>
-      <div style={{ position: 'relative', border: '1px solid var(--accent-40)', borderLeft: '6px solid var(--color-accent)', background: 'linear-gradient(135deg, var(--color-surface), var(--gold-5))', padding: 'clamp(1.5rem, 4vw, 2.4rem)', overflow: 'hidden' }}>
-        <span aria-hidden="true" style={{ position: 'absolute', top: '-1rem', right: '1rem', fontFamily: 'Space Grotesk, sans-serif', fontSize: '7.5rem', lineHeight: 1, color: 'var(--color-accent)', opacity: 0.18 }}>“</span>
-        <p style={{ position: 'relative', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 500, fontSize: 'clamp(1.2rem, 2.6vw, 1.6rem)', lineHeight: 1.42, color: 'var(--color-ink)', margin: 0, maxWidth: '44rem' }}>{quote}</p>
+      <div style={{ position: 'relative', border: '1px solid var(--accent-40)', background: 'var(--color-surface)', padding: 'clamp(1.5rem, 4vw, 2.5rem)', overflow: 'hidden' }}>
+        <span aria-hidden="true" style={{ position: 'absolute', top: '-1rem', right: '1rem', fontFamily: 'var(--font-display)', fontSize: '7.5rem', lineHeight: 1, color: 'var(--color-accent)', opacity: 0.18 }}>“</span>
+        <p style={{ position: 'relative', fontFamily: 'var(--font-display)', fontWeight: 500, fontSize: 'clamp(1.2rem, 2.6vw, 1.6rem)', lineHeight: 1.42, color: 'var(--color-ink)', margin: 0, maxWidth: '44rem' }}>{quote}</p>
         {!supportingOutside && (
-          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.85rem', marginTop: '1.5rem', maxWidth: '44rem' }}>
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.5rem', maxWidth: '44rem' }}>
             {supportItems.map((item, i) => (
               <p key={i} style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{renderInline(item, i)}</p>
             ))}
@@ -757,8 +733,8 @@ function CardGrid({ items }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '1rem' }}>
       {items.map((item, i) => (
-        <div key={i} style={{ position: 'relative', display: 'flex', gap: '0.9rem', padding: '1.35rem 1.25rem 1.25rem', border: `1px solid ${i % 2 === 0 ? 'var(--accent-30)' : 'var(--gold-30)'}`, background: 'var(--color-surface)', overflow: 'hidden', minHeight: '8rem' }}>
-          <span aria-hidden="true" style={{ position: 'absolute', top: '-0.65rem', left: '0.7rem', color: i % 2 === 0 ? 'var(--color-accent)' : 'var(--color-gold)', fontFamily: 'Space Grotesk, sans-serif', fontSize: '3rem', fontWeight: 600, lineHeight: 1, opacity: 0.48 }}>0{i + 1}</span>
+        <div key={i} style={{ position: 'relative', display: 'flex', gap: '1rem', padding: '1.25rem', border: `1px solid ${i % 2 === 0 ? 'var(--accent-30)' : 'var(--gold-30)'}`, background: 'var(--color-surface)', overflow: 'hidden', minHeight: '8rem' }}>
+          <span aria-hidden="true" style={{ position: 'absolute', top: '-0.65rem', left: '0.7rem', color: i % 2 === 0 ? 'var(--color-accent)' : 'var(--color-gold)', fontFamily: 'var(--font-display)', fontSize: '3rem', fontWeight: 600, lineHeight: 1, opacity: 0.48 }}>0{i + 1}</span>
           <p style={{ position: 'relative', fontSize: '15px', color: 'var(--color-ink)', lineHeight: 1.6, margin: '2rem 0 0' }}>{item}</p>
         </div>
       ))}
@@ -773,22 +749,22 @@ function StakeholderNeedTable({ items }) {
         display: 'grid',
         gridTemplateColumns: 'minmax(8rem, 0.28fr) 1fr',
         gap: '1.25rem',
-        padding: '0 0 0.65rem',
+        padding: '0 0 0.75rem',
         borderBottom: '1px solid var(--color-line)',
       }}>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>Stakeholder</span>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>What they need</span>
+        <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>Stakeholder</span>
+        <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>What they need</span>
       </div>
       {items.map((item, i) => (
         <div key={item.role} style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(8rem, 0.28fr) 1fr',
           gap: '1.25rem',
-          padding: '0.95rem 0',
+          padding: '1rem 0',
           borderTop: i === 0 ? 'none' : '1px solid var(--color-line)',
           alignItems: 'baseline',
         }}>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-accent)' }}>{item.role}</span>
+          <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-accent)' }}>{item.role}</span>
           <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>{item.need}</p>
         </div>
       ))}
@@ -808,9 +784,9 @@ function WorkPhaseList({ phases }) {
           borderTop: i === 0 ? 'none' : '1px solid var(--color-line)',
           alignItems: 'baseline',
         }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.65rem' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)' }}>0{i + 1}</span>
-            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', lineHeight: 1.35 }}>{item.phase}</span>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
+            <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-accent)' }}>0{i + 1}</span>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', lineHeight: 1.35 }}>{item.phase}</span>
           </div>
           <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{item.detail}</p>
         </div>
@@ -826,11 +802,11 @@ function ConceptTranslationTable({ items }) {
         display: 'grid',
         gridTemplateColumns: 'minmax(12rem, 0.38fr) 1fr',
         gap: '1.25rem',
-        padding: '0 0 0.65rem',
+        padding: '0 0 0.75rem',
         borderBottom: '1px solid var(--color-line)',
       }}>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>Workflow concept</span>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>Architecture shape</span>
+        <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>Workflow concept</span>
+        <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--color-label)' }}>Architecture shape</span>
       </div>
       {items.map((item, i) => (
         <div key={item.concept} style={{
@@ -841,7 +817,7 @@ function ConceptTranslationTable({ items }) {
           borderTop: i === 0 ? 'none' : '1px solid var(--color-line)',
           alignItems: 'baseline',
         }}>
-          <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', lineHeight: 1.45, margin: 0 }}>{item.concept}</p>
+          <p style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '15px', color: 'var(--color-ink)', lineHeight: 1.45, margin: 0 }}>{item.concept}</p>
           <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.65, margin: 0 }}>{item.architecture}</p>
         </div>
       ))}
@@ -858,8 +834,8 @@ function BuildNotesList({ notes }) {
       <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
         {notes.map((note, i) => (
           <NavTo key={note.id} to={`/writing/${note.id}`}
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '1rem 1.1rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', textDecoration: 'none' }}>
-            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.4 }}>{note.title}</span>
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '1rem', borderTop: i === 0 ? 'none' : '1px solid var(--color-line)', textDecoration: 'none' }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.4 }}>{note.title}</span>
             <IconArrowUpRight size={13} style={{ color: 'var(--color-accent)', flexShrink: 0 }} />
           </NavTo>
         ))}
@@ -872,7 +848,7 @@ function TagList({ items }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
       {items.map(item => (
-        <span key={item} style={{ padding: '0.375rem 0.75rem', border: '1px solid var(--color-line)', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{item}</span>
+        <span key={item} style={{ padding: '0.5rem 0.75rem', border: '1px solid var(--color-line)', fontFamily: 'var(--font-outlier)', fontSize: '11px', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{item}</span>
       ))}
     </div>
   );
@@ -884,15 +860,15 @@ function TechStackList({ tools }) {
       {tools.map(tool => {
         const icon = TECH_STACK_ICONS[tool];
         return (
-          <div key={tool} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 0.875rem', border: '1px solid var(--accent-30)', background: 'var(--color-surface)' }}>
-            <div style={{ width: '28px', height: '28px', border: '1px solid var(--color-line)', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <div key={tool} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', border: '1px solid var(--accent-30)', background: 'var(--color-surface)' }}>
+            <div style={{ width: '28px', height: '28px', border: '1px solid var(--color-line)', background: 'var(--color-paper)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               {icon ? (
                 <img src={icon.url} alt="" width="17" height="17" style={{ objectFit: 'contain', display: 'block' }} referrerPolicy="no-referrer" />
               ) : (
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-label)' }}>{tool.slice(0, 2).toUpperCase()}</span>
+                <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-label)' }}>{tool.slice(0, 2).toUpperCase()}</span>
               )}
             </div>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', lineHeight: 1.3 }}>{tool}</span>
+            <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '11px', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', lineHeight: 1.3 }}>{tool}</span>
           </div>
         );
       })}
@@ -905,7 +881,7 @@ function NumberedList({ items }) {
     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {items.map((item, i) => (
         <li key={i} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-          <span style={{ width: '20px', height: '20px', borderRadius: '50%', border: '1px solid var(--color-line)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-muted)', flexShrink: 0, marginTop: '2px' }}>{i + 1}</span>
+          <span style={{ width: '20px', height: '20px', borderRadius: '50%', border: '1px solid var(--color-line)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-muted)', flexShrink: 0, marginTop: '0.25rem' }}>{i + 1}</span>
           <p style={{ fontSize: '15px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{item}</p>
         </li>
       ))}
@@ -918,14 +894,13 @@ function ChallengeApproachGrid({ pairs }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {pairs.map((pair, i) => (
         <div key={i} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', border: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
-          <div style={{ padding: '1.25rem', borderRight: '1px solid var(--color-line)', background: 'linear-gradient(135deg, var(--color-surface), var(--gold-5))' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Challenge 0{i + 1}</span>
-            <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: '0.85rem 0 0' }}>{pair.challenge}</p>
+          <div style={{ padding: '1.25rem', borderRight: '1px solid var(--color-line)', background: 'var(--color-surface)' }}>
+            <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Challenge 0{i + 1}</span>
+            <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: '0.75rem 0 0' }}>{pair.challenge}</p>
           </div>
-          <div style={{ position: 'relative', padding: '1.25rem', borderLeft: '3px solid var(--color-accent)' }}>
-            <span aria-hidden="true" style={{ position: 'absolute', left: '-0.7rem', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', border: '1px solid var(--accent-40)', background: 'var(--color-brand)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-accent)', fontSize: '11px' }}>→</span>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Approach</span>
-            <p style={{ fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.7, margin: '0.85rem 0 0' }}>{pair.approach}</p>
+          <div style={{ position: 'relative', padding: '1.25rem' }}>
+            <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.14em' }}>Approach</span>
+            <p style={{ fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.7, margin: '0.75rem 0 0' }}>{pair.approach}</p>
           </div>
         </div>
       ))}
@@ -937,7 +912,7 @@ function LineList({ items }) {
   return (
     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {items.map((item, i) => (
-        <li key={i} style={{ borderLeft: '2px solid var(--accent-30)', paddingLeft: '1.25rem', paddingTop: '0.25rem', paddingBottom: '0.25rem' }}>
+        <li key={i} style={{ borderTop: '1px solid var(--color-line)', paddingTop: '1rem', paddingBottom: '0.25rem' }}>
           <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0 }}>{item}</p>
         </li>
       ))}
@@ -950,8 +925,8 @@ function OutcomeList({ items, layout = 'grid' }) {
     return (
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
         {items.map((item, i) => (
-          <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', padding: '1rem 1.1rem', border: '1px solid var(--accent-30)', background: 'var(--color-surface)' }}>
-            <span style={{ color: i === 0 ? 'var(--color-gold)' : 'var(--color-accent)', marginTop: '2px', flexShrink: 0, fontSize: '15px' }}>✦</span>
+          <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', padding: '1rem', border: '1px solid var(--accent-30)', background: 'var(--color-surface)' }}>
+            <span aria-hidden="true" style={{ color: i === 0 ? 'var(--color-gold)' : 'var(--color-accent)', marginTop: '0.25rem', flexShrink: 0, fontSize: '15px' }}>•</span>
             <p style={{ fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.65, margin: 0 }}>{item}</p>
           </li>
         ))}
@@ -960,10 +935,10 @@ function OutcomeList({ items, layout = 'grid' }) {
   }
 
   return (
-    <ul style={{ listStyle: 'none', padding: '1.4rem', margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem', border: '1px solid var(--gold-30)', background: 'linear-gradient(135deg, var(--color-surface), var(--gold-5))' }}>
+    <ul style={{ listStyle: 'none', padding: '1.5rem', margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem', border: '1px solid var(--gold-30)', background: 'var(--color-surface)' }}>
       {items.map((item, i) => (
-        <li key={i} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', padding: '0.85rem', border: `1px solid ${i === 0 ? 'var(--gold-40)' : 'var(--accent-30)'}`, background: 'var(--brand-60)' }}>
-          <span style={{ color: i === 0 ? 'var(--color-gold)' : 'var(--color-accent)', marginTop: '2px', flexShrink: 0, fontSize: '18px' }}>✦</span>
+        <li key={i} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', padding: '0.75rem', border: `1px solid ${i === 0 ? 'var(--gold-40)' : 'var(--accent-30)'}`, background: 'var(--brand-60)' }}>
+          <span aria-hidden="true" style={{ color: i === 0 ? 'var(--color-gold)' : 'var(--color-accent)', marginTop: '0.25rem', flexShrink: 0, fontSize: '18px' }}>•</span>
           <p style={{ fontSize: '15.5px', color: 'var(--color-ink)', lineHeight: 1.65, margin: 0 }}>{item}</p>
         </li>
       ))}
@@ -979,14 +954,10 @@ function SectionDivider() {
 
 function CaseSection({ id, label, children, compact = false, emphasis = false }) {
   return (
-    <FadeInView>
-      <div id={id} style={{ scrollMarginTop: '7rem', padding: emphasis ? '0.25rem 0' : 0 }}>
-        <span className="mono-label" style={{ display: 'block', marginBottom: '1.5rem' }}>
-          <span style={{ color: 'var(--color-accent)' }}>// </span>{label}
-        </span>
-        <div style={{ marginTop: compact ? '-0.25rem' : 0 }}>{children}</div>
-      </div>
-    </FadeInView>
+    <section id={id} style={{ scrollMarginTop: '7rem', padding: emphasis ? '0.25rem 0' : 0 }} aria-labelledby={`${id}-heading`}>
+      <h2 id={`${id}-heading`} style={{ marginBottom: 'var(--space-lg)' }}>{label}</h2>
+      <div style={{ marginTop: compact ? '-0.25rem' : 0 }}>{children}</div>
+    </section>
   );
 }
 
@@ -996,10 +967,10 @@ function PrevNextCard({ project, dir }) {
     <NavTo to={`/works/${project.id}`}
       style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '1.5rem', border: `1px solid ${hov ? 'var(--accent-50)' : 'var(--color-line)'}`, textDecoration: 'none', transition: 'border-color 0.2s', textAlign: dir === 'next' ? 'right' : 'left' }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
-      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-label)', display: 'flex', alignItems: 'center', gap: '0.375rem', justifyContent: dir === 'next' ? 'flex-end' : 'flex-start' }}>
+      <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-label)', display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: dir === 'next' ? 'flex-end' : 'flex-start' }}>
         {dir === 'prev' ? <><IconArrowLeft size={10} /> Previous</> : <>Next <IconArrowUpRight size={10} /></>}
       </span>
-      <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '15px', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{project.title}</p>
+      <p style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '15px', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{project.title}</p>
     </NavTo>
   );
 }
@@ -1023,30 +994,28 @@ function ArticleContextBlock({ note }) {
   const domain = note.domain || ARTICLE_DOMAINS[note.parentId] || null;
   const skills = articleSkills(note);
 
-  const labelStyle = { fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.13em', color: 'var(--color-label)', paddingTop: '2px' };
-  const chipStyle = { padding: '2px 8px', border: '1px solid var(--color-line)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-label)' };
+  const labelStyle = { fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.13em', color: 'var(--color-label)', paddingTop: '0.25rem' };
+  const chipStyle = { padding: '0.25rem 0.5rem', border: '1px solid var(--color-line)', fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-label)' };
 
   const rows = [
     parent && { label: 'Project', node: (
-      <NavTo to={projectRoute} style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '14px' }}>
+      <NavTo to={projectRoute} style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '14px' }}>
         {parent.title} <IconArrowUpRight size={11} />
       </NavTo>
     ) },
     { label: 'Role', node: <span style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{role}</span> },
     domain && { label: 'Domain', node: <span style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{domain}</span> },
     skills.length > 0 && { label: 'Skills', node: (
-      <span style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+      <span style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
         {skills.map(s => <span key={s} style={chipStyle}>{s}</span>)}
       </span>
     ) },
   ].filter(Boolean);
 
   return (
-    <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)', borderRadius: '6px', padding: '1.15rem 1.3rem' }}>
-      <span className="mono-label" style={{ display: 'block', marginBottom: '1rem' }}>
-        <span style={{ color: 'var(--color-accent)' }}>// </span>Context
-      </span>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+    <div style={{ border: '1px solid var(--color-line)', background: 'var(--color-surface)', borderRadius: '6px', padding: '1.25rem' }}>
+      <h2 style={{ marginBottom: 'var(--space-md)' }}>Context</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
         {rows.map(r => (
           <div key={r.label} style={{ display: 'grid', gridTemplateColumns: '5.5rem 1fr', gap: '1rem', alignItems: 'baseline' }}>
             <span style={labelStyle}>{r.label}</span>
@@ -1094,12 +1063,12 @@ function WritingPage() {
         <FadeIn>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '2rem' }}>
             <div>
-              <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 0.75rem' }}>Writing</h1>
+              <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 0.75rem' }}>Writing</h1>
               <p style={{ fontSize: '15.5px', color: 'var(--color-muted)', lineHeight: 1.7, margin: 0, maxWidth: '42rem' }}>
                 Write-ups on discovery, requirements, and delivery, grouped by the work they came from. Pick a group to read its pieces.
               </p>
             </div>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'var(--color-label)', whiteSpace: 'nowrap' }}>{total} pieces</span>
+            <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '11px', color: 'var(--color-label)', whiteSpace: 'nowrap' }}>{total} pieces</span>
           </div>
         </FadeIn>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 22rem), 1fr))', gap: '1.25rem' }}>
@@ -1124,20 +1093,20 @@ function WritingHubCard({ group }) {
   return (
     <NavTo to={`/writing/${group.id}`}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{ display: 'flex', flexDirection: 'column', height: '100%', border: `1px solid ${hov ? 'var(--accent-50)' : 'var(--color-line)'}`, background: 'var(--color-surface)', borderRadius: '8px', padding: '1.6rem 1.75rem', textDecoration: 'none', transition: 'border-color 0.2s' }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '0.35rem' }}>
-        <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.4rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{name}</h2>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-label)', whiteSpace: 'nowrap' }}>{count} {count === 1 ? 'piece' : 'pieces'}</span>
+      style={{ display: 'flex', flexDirection: 'column', height: '100%', border: `1px solid ${hov ? 'var(--accent-50)' : 'var(--color-line)'}`, background: 'var(--color-surface)', borderRadius: '8px', padding: '1.5rem 1.75rem', textDecoration: 'none', transition: 'border-color 0.2s' }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '0.5rem' }}>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '1.4rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{name}</h2>
+        <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-label)', whiteSpace: 'nowrap' }}>{count} {count === 1 ? 'piece' : 'pieces'}</span>
       </div>
-      {tagline && <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', margin: '0 0 1.15rem' }}>{tagline}</p>}
+      {tagline && <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', margin: '0 0 1.25rem' }}>{tagline}</p>}
       {themes.length > 0 && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.4rem' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
           {themes.map(t => (
-            <span key={t} style={{ padding: '2px 8px', border: '1px solid var(--color-line)', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-label)' }}>{t}</span>
+            <span key={t} style={{ padding: '0.25rem 0.5rem', border: '1px solid var(--color-line)', fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-label)' }}>{t}</span>
           ))}
         </div>
       )}
-      <span style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.13em', color: hov ? 'var(--color-accent)' : 'var(--color-muted)', transition: 'color 0.2s' }}>
+      <span style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-outlier)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.13em', color: hov ? 'var(--color-accent)' : 'var(--color-muted)', transition: 'color 0.2s' }}>
         Read {count} {count === 1 ? 'piece' : 'pieces'} <IconArrowUpRight size={12} />
       </span>
     </NavTo>
@@ -1153,7 +1122,7 @@ function WritingProjectListPage({ projectId, navigate }) {
       <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
         <FadeIn>
           <div style={{ marginBottom: '2.5rem' }}>
-            <NavTo to="/writing" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-muted)', textDecoration: 'none' }}>
+            <NavTo to="/writing" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-muted)', textDecoration: 'none' }}>
               <IconArrowLeft size={12} /> Back to Writing
             </NavTo>
           </div>
@@ -1173,13 +1142,13 @@ function WritingProjectSection({ group }) {
     <div style={{ marginBottom: 'clamp(3rem, 6vw, 4.5rem)' }}>
       <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '1.5rem', borderBottom: '1px solid var(--color-line)', paddingBottom: '1rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
         <div>
-          <span className="mono-label"><span style={{ color: 'var(--color-accent)' }}>// </span>{name}</span>
-          {tagline && <p style={{ fontSize: '13px', color: 'var(--color-muted)', margin: '0.6rem 0 0' }}>{tagline}</p>}
+          <h1>{name}</h1>
+          {tagline && <p style={{ fontSize: '13px', color: 'var(--color-muted)', margin: '0.5rem 0 0' }}>{tagline}</p>}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexShrink: 0 }}>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)' }}>{count} {count === 1 ? 'piece' : 'pieces'}</span>
+          <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-label)' }}>{count} {count === 1 ? 'piece' : 'pieces'}</span>
           {project && (
-            <NavTo to={`/works/${project.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-accent)', textDecoration: 'none' }}>
+            <NavTo to={`/works/${project.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-outlier)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-accent)', textDecoration: 'none' }}>
               View project <IconArrowUpRight size={11} />
             </NavTo>
           )}
@@ -1198,14 +1167,14 @@ function WritingRow({ note }) {
   return (
     <NavTo to={`/writing/${note.id}`}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', padding: '1.4rem 0', borderBottom: '1px solid var(--color-line)', textDecoration: 'none' }}>
+      style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', padding: '1.5rem 0', borderBottom: '1px solid var(--color-line)', textDecoration: 'none' }}>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '0.4rem' }}>
-          <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '1.1rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{note.title}</h3>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', color: 'var(--color-label)', flexShrink: 0 }}>{note.year}</span>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', marginBottom: '0.5rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '1.1rem', letterSpacing: '-0.01em', color: hov ? 'var(--color-accent)' : 'var(--color-ink)', transition: 'color 0.2s', margin: 0 }}>{note.title}</h2>
+          <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '10.5px', color: 'var(--color-label)', flexShrink: 0 }}>{note.year}</span>
         </div>
-        <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.6, margin: '0 0 0.6rem', maxWidth: '46rem' }}>{note.desc}</p>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9.5px', textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--color-label)' }}>{meta}</span>
+        <p style={{ fontSize: '14px', color: 'var(--color-muted)', lineHeight: 1.6, margin: '0 0 0.5rem', maxWidth: '46rem' }}>{note.desc}</p>
+        <span style={{ fontFamily: 'var(--font-outlier)', fontSize: '9.5px', textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--color-label)' }}>{meta}</span>
       </div>
       <IconArrowUpRight size={14} style={{ color: hov ? 'var(--color-accent)' : 'var(--color-label)', flexShrink: 0, marginTop: '4px', transition: 'color 0.2s' }} />
     </NavTo>

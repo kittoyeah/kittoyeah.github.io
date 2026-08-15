@@ -2,7 +2,7 @@
 const SITE_URL = 'https://kittoyeah.github.io';
 const DEFAULT_SEO = {
   title: 'Chris Kittichod | Technical Business Analyst & Product Owner',
-  description: 'Technical Business Analyst / Product Owner in Hobart delivering digital transformation — three years of BA/PO experience across insurance, health tech, and marketplaces, now building products hands-on. Open to internships and graduate roles.',
+  description: 'Business Analyst & Developer in Hobart with 3+ years across service operations, insurance, health technology, and marketplaces. Open to Technical BA and Product Owner roles.',
   type: 'website',
   robots: 'index, follow',
 };

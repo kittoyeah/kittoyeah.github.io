@@ -8,7 +8,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUTPUT = path.join(ROOT, '_site');
 const TEMP = path.join(ROOT, '.build');
 const SITE_URL = 'https://kittoyeah.github.io';
-const LAST_MODIFIED = '2026-06-07';
+const LAST_MODIFIED = '2026-08-15';
 const SOCIAL_IMAGE = `${SITE_URL}/assets/og-portfolio.jpg`;
 
 const sourceFiles = [
@@ -18,6 +18,7 @@ const sourceFiles = [
   'llm-txt',
   'llms.txt',
   'resume.txt',
+  'tokens.css',
   'profile.jpg',
 ];
 
@@ -316,7 +317,7 @@ async function build() {
     {
       path: '/',
       title: 'Chris Kittichod | Technical Business Analyst & Product Owner',
-      description: 'Technical Business Analyst / Product Owner in Hobart delivering digital transformation — three years of BA/PO experience across insurance, health tech, and marketplaces, now building products hands-on. Open to internships and graduate roles.',
+      description: 'Business Analyst & Developer in Hobart with 3+ years across service operations, insurance, health technology, and marketplaces. Open to Technical BA and Product Owner roles.',
       type: 'website',
       robots: 'index, follow',
       entity: {

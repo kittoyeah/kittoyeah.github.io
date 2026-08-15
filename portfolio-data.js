@@ -1,17 +1,40 @@
 // ── Portfolio data ──────────────────────────────────────────────
+window.PROCESS_STEPS = [
+  {
+    title: "Discover",
+    copy: "Explore users, business context, constraints, and the workflow as it exists today."
+  },
+  {
+    title: "Align",
+    copy: "Create shared problem understanding across stakeholders before committing to a solution."
+  },
+  {
+    title: "Shape",
+    copy: "Define data models, user stories, acceptance criteria, MVP scope, and priorities."
+  },
+  {
+    title: "Validate",
+    copy: "Test assumptions, support UAT, and verify what shipped against the requirements."
+  },
+  {
+    title: "Deliver",
+    copy: "Build with spec-driven, AI-assisted workflows, then gather feedback and improve."
+  }
+];
+
 window.PROJECTS = [
   {
     id: "amigo",
     title: "Amigo Translator",
     desc: "An operations platform for a Tasmanian interpreting business, replacing fragmented dispatch and paper-based completion workflows with interpreter matching, compliance tracking, mobile job completion, and pay approval.",
-    role: "Technical Business Analyst / Product Owner",
+    role: "Business Analyst & Developer",
     tags: ["Technical Business Analysis", "Product Ownership", "Workflow Design", "Requirements", "Compliance", "Digital Delivery"],
     image: "assets/amigo-thumbnail.png",
     year: "2026",
     badge: "Owner-approved MVP · Tasmania",
     summary: {
       what: "An operations platform for a Tasmanian interpreting business, built around the job lifecycle: dispatch, interpreter matching, completion, compliance, and pay.",
-      did: "Worked as an interpreter with first-hand knowledge of the workflow and as Product Lead / Technical BA, working directly with the business owner to map the operations, bound the MVP, and shape the product decisions.",
+      did: "Worked with the owner and interpreter users to map operations, validate requirements, bound the MVP, and carry product decisions into a staff web platform and interpreter mobile app.",
       result: "An owner-approved MVP that is now being built and validated against the business's real day-to-day workflow."
     },
     beforeAfter: {
@@ -32,7 +55,7 @@ window.PROJECTS = [
     },
     overview: [
       "Amigo Translator is an operations platform built for a Tasmanian interpreting business, replacing dispatch and completion work that ran across email, desktop tools, and paper.",
-      "I worked on Amigo as an interpreter with first-hand knowledge of the job workflow, and as Product Lead and Technical BA working directly with the business owner to define and shape it."
+      "As Business Analyst and Developer, I worked directly with the owner and interpreter users to define the workflow, validate requirements, and shape the product."
     ],
     problemQuote: "Dispatching a job and getting it paid should not depend on checking an inbox, a spreadsheet, and a stack of paper.",
     quoteSupportingOutside: true,
@@ -60,13 +83,13 @@ window.PROJECTS = [
       "Access boundaries scoped to each role"
     ],
     myContribution: [
-      "I worked on Amigo as both an interpreter with first-hand knowledge of the job workflow and as Product Lead / Technical BA, working directly with the business owner to define and shape the MVP.",
-      "That dual position meant discovery started from lived experience of dispatch, response, completion, compliance, and pay, then moved into structured requirements, workflow mapping, and MVP boundaries agreed with the owner."
+      "As Business Analyst and Developer, I worked directly with the owner and interpreter users to define and shape the MVP.",
+      "Discovery combined stakeholder conversations with structured requirements, workflow mapping, and MVP boundaries agreed with the owner."
     ],
     workPhases: [
       {
         phase: "Discover",
-        detail: "Mapped the job workflow end to end: dispatch, interpreter response, job completion, compliance checks, and pay approval, drawing on first-hand interpreting experience and conversations with the owner."
+        detail: "Mapped the job workflow end to end: dispatch, interpreter response, job completion, compliance checks, and pay approval, using conversations with the owner and interpreter users."
       },
       {
         phase: "Define",
@@ -130,7 +153,7 @@ window.PROJECTS = [
     id: "sabaihub",
     title: "SabaiHub",
     desc: "A live operations platform for Thai massage businesses in Australia, bringing bookings, staff, customer records, and reporting into one place.",
-    role: "Founder / Product Owner",
+    role: "Founder & Product Developer",
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Prisma"],
     tools: ["Next.js", "React", "TypeScript", "Prisma", "Supabase", "PostgreSQL", "Vercel", "Tailwind CSS"],
     image: "assets/sabaihub-thumbnail.png",
